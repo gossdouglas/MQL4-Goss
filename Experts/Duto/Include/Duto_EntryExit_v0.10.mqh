@@ -405,7 +405,6 @@ ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
    return SignalEntry;
 }
 
-//ENUM_SIGNAL_ENTRY ReturnSignalExitToEvaluateExit()
 ENUM_SIGNAL_EXIT ReturnSignalExitToEvaluateExit()
 
 {
