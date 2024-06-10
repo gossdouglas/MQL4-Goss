@@ -77,3 +77,170 @@
 0	09:35:43.150	macd_color_indicator_plot1_v0.9 EURUSD,H1: 6
 0	09:35:43.150	macd_color_indicator_plot1_v0.9 EURUSD,H1: plot 1 indicator init()
 0	09:35:43.150	macd_color_indicator_plot1_v0.9 EURUSD,H1: initialized
+0	16:53:22.436	Compiling 'MACD Sample'
+0	16:53:22.436	Compiling 'Moving Average'
+0	16:53:22.437	Compiling 'Duto_v01'
+0	16:53:22.438	Compiling 'Duto_v0'
+0	16:53:22.438	Compiling 'Duto_v01'
+0	16:53:26.317	Compiling 'Accelerator'
+0	16:53:26.317	Compiling 'Accumulation'
+0	16:53:26.318	Compiling 'Alligator'
+0	16:53:26.318	Compiling 'ATR'
+0	16:53:26.318	Compiling 'Awesome'
+0	16:53:26.318	Compiling 'Bands'
+0	16:53:26.318	Compiling 'Bears'
+0	16:53:26.319	Compiling 'Bulls'
+0	16:53:26.319	Compiling 'CCI'
+0	16:53:26.320	Compiling 'Custom Moving Averages'
+0	16:53:26.320	Compiling 'Heiken Ashi'
+0	16:53:26.320	Compiling 'Ichimoku'
+0	16:53:26.320	Compiling 'iExposure'
+0	16:53:26.321	Compiling 'MACD'
+0	16:53:26.321	Compiling 'Momentum'
+0	16:53:26.321	Compiling 'OsMA'
+0	16:53:26.321	Compiling 'Parabolic'
+0	16:53:26.322	Compiling 'RSI'
+0	16:53:26.322	Compiling 'Stochastic'
+0	16:53:26.322	Compiling 'ZigZag'
+0	16:53:26.326	Compiling 'SimplePanel'
+0	16:53:26.331	Compiling 'Color Levels'
+0	16:53:26.332	Compiling 'Delta Trend_v1 6006__1'
+0	16:53:26.333	Compiling 'duto_chart_indicators_v0.5'
+0	16:53:26.333	Compiling 'macd_color_indicator_plot1_v0.9'
+0	16:53:26.333	Compiling 'SchaffTrendCycle'
+0	16:53:26.334	Compiling 'Delta'
+0	16:53:26.334	Compiling 'Delta_v0.1'
+0	16:53:26.334	Compiling 'duto_chart_indicators_v0.1'
+0	16:53:26.335	Compiling 'duto_chart_indicators_v0.2'
+0	16:53:26.335	Compiling 'duto_chart_indicators_v0.3'
+0	16:53:26.335	Compiling 'duto_chart_indicators_v0.4'
+0	16:53:26.336	Compiling 'duto_mas'
+0	16:53:26.336	Compiling 'macd_color_indicator_pl1'
+0	16:53:26.336	Compiling 'macd_color_indicator_plot1_inw'
+0	16:53:26.336	Compiling 'macd_color_indicator_plot1_v0.1'
+0	16:53:26.337	Compiling 'macd_color_indicator_plot1_v0.2'
+0	16:53:26.337	Compiling 'macd_color_indicator_plot1_v0.3'
+0	16:53:26.337	Compiling 'macd_color_indicator_plot1_v0.4'
+0	16:53:26.337	Compiling 'macd_color_indicator_plot1_v0.5'
+0	16:53:26.337	Compiling 'macd_color_indicator_plot1_v0.6'
+0	16:53:26.338	Compiling 'macd_color_indicator_plot1_v0.7'
+0	16:53:26.338	Compiling 'macd_color_indicator_plot1_v0.8'
+0	16:53:26.340	Compiling 'macd-color-indicator-pl2'
+0	16:53:26.340	Compiling 'macd-color-indicator-pl3'
+0	16:53:26.340	Compiling 'macd-color-indicator-pl4'
+0	16:53:26.341	Compiling 'macd-color-indicator_inw'
+0	16:53:26.341	Compiling 'macd-color-indicator-pl2'
+0	16:53:26.342	Compiling 'macd-color-indicator-pl3'
+0	16:53:26.342	Compiling 'macd-color-indicator-pl4'
+0	16:53:26.342	Compiling 'macd-color-indicator'
+0	16:54:12.444	Compiling 'PeriodConverter'
+0	16:54:12.444	Compiling 'DLLSampleTester'
+0	16:54:12.445	Compiling 'PipeClient'
+0	16:54:12.446	Compiling 'PipeClientPure'
+0	16:54:16.426	Compiling 'stdlib'
+0	16:54:20.812	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M5: loaded successfully
+0	16:54:20.846	Custom indicator _Custom\Duto\macd_color_indicator_plot1_v0.9 EURUSD,M5: loaded successfully
+0	16:54:20.936	duto_chart_indicators_v0.5 EURUSD,M5: initialized
+0	16:54:21.014	macd_color_indicator_plot1_v0.9 EURUSD,M5: 6
+0	16:54:21.014	macd_color_indicator_plot1_v0.9 EURUSD,M5: plot 1 indicator init()
+0	16:54:21.014	macd_color_indicator_plot1_v0.9 EURUSD,M5: initialized
+0	17:04:25.831	Custom indicator _Custom\Duto\SchaffTrendCycle EURUSD,M5: loaded successfully
+0	17:04:28.419	SchaffTrendCycle EURUSD,M5: initialized
+0	17:28:02.154	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M1: loaded successfully
+0	17:28:02.171	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M1: loaded successfully
+0	17:28:02.192	Custom indicator _Custom\Duto\macd_color_indicator_plot1_v0.9 EURUSD,M1: loaded successfully
+0	17:28:02.220	Custom indicator _Custom\Duto\SchaffTrendCycle EURUSD,M1: loaded successfully
+0	17:28:02.239	Custom indicator _Custom\Duto\macd_color_indicator_plot1_v0.9 EURUSD,M1: loaded successfully
+0	17:28:02.269	duto_chart_indicators_v0.5 EURUSD,M1: initialized
+0	17:28:02.297	duto_chart_indicators_v0.5 EURUSD,M1: initialized
+0	17:28:02.340	macd_color_indicator_plot1_v0.9 EURUSD,M1: 6
+0	17:28:02.340	macd_color_indicator_plot1_v0.9 EURUSD,M1: plot 1 indicator init()
+0	17:28:02.340	macd_color_indicator_plot1_v0.9 EURUSD,M1: initialized
+0	17:28:02.382	SchaffTrendCycle EURUSD,M1: initialized
+0	17:28:02.438	macd_color_indicator_plot1_v0.9 EURUSD,M1: 6
+0	17:28:02.438	macd_color_indicator_plot1_v0.9 EURUSD,M1: plot 1 indicator init()
+0	17:28:02.438	macd_color_indicator_plot1_v0.9 EURUSD,M1: initialized
+0	17:28:33.311	macd_color_indicator_plot1_v0.9 EURUSD,M1: uninit reason 1
+0	17:28:33.318	Custom indicator macd_color_indicator_plot1_v0.9 EURUSD,M1: removed
+0	17:28:37.035	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M1: loaded successfully
+0	17:28:37.052	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M1: loaded successfully
+0	17:28:37.074	Custom indicator _Custom\Duto\macd_color_indicator_plot1_v0.9 EURUSD,M1: loaded successfully
+0	17:28:37.104	Custom indicator _Custom\Duto\SchaffTrendCycle EURUSD,M1: loaded successfully
+0	17:28:37.123	Custom indicator _Custom\Duto\macd_color_indicator_plot1_v0.9 EURUSD,M1: loaded successfully
+0	17:28:37.150	duto_chart_indicators_v0.5 EURUSD,M1: initialized
+0	17:28:37.174	duto_chart_indicators_v0.5 EURUSD,M1: initialized
+0	17:28:37.213	macd_color_indicator_plot1_v0.9 EURUSD,M1: 6
+0	17:28:37.213	macd_color_indicator_plot1_v0.9 EURUSD,M1: plot 1 indicator init()
+0	17:28:37.213	macd_color_indicator_plot1_v0.9 EURUSD,M1: initialized
+0	17:28:37.268	SchaffTrendCycle EURUSD,M1: initialized
+0	17:28:37.328	macd_color_indicator_plot1_v0.9 EURUSD,M1: 6
+0	17:28:37.328	macd_color_indicator_plot1_v0.9 EURUSD,M1: plot 1 indicator init()
+0	17:28:37.328	macd_color_indicator_plot1_v0.9 EURUSD,M1: initialized
+0	17:28:41.663	macd_color_indicator_plot1_v0.9 EURUSD,M1: uninit reason 1
+0	17:28:41.671	Custom indicator macd_color_indicator_plot1_v0.9 EURUSD,M1: removed
+0	17:28:55.282	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M1: loaded successfully
+0	17:28:55.299	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M1: loaded successfully
+0	17:28:55.318	Custom indicator _Custom\Duto\macd_color_indicator_plot1_v0.9 EURUSD,M1: loaded successfully
+0	17:28:55.343	Custom indicator _Custom\Duto\SchaffTrendCycle EURUSD,M1: loaded successfully
+0	17:28:55.373	duto_chart_indicators_v0.5 EURUSD,M1: initialized
+0	17:28:55.399	duto_chart_indicators_v0.5 EURUSD,M1: initialized
+0	17:28:55.442	macd_color_indicator_plot1_v0.9 EURUSD,M1: 6
+0	17:28:55.442	macd_color_indicator_plot1_v0.9 EURUSD,M1: plot 1 indicator init()
+0	17:28:55.442	macd_color_indicator_plot1_v0.9 EURUSD,M1: initialized
+0	17:28:55.472	SchaffTrendCycle EURUSD,M1: initialized
+0	17:29:00.877	duto_chart_indicators_v0.5 EURUSD,M1: uninit reason 4
+0	17:29:00.877	duto_chart_indicators_v0.5 EURUSD,M1: uninit reason 4
+0	17:29:00.878	macd_color_indicator_plot1_v0.9 EURUSD,M1: uninit reason 4
+0	17:29:00.879	SchaffTrendCycle EURUSD,M1: uninit reason 4
+0	17:29:00.886	Custom indicator duto_chart_indicators_v0.5 EURUSD,M1: removed
+0	17:29:00.890	Custom indicator duto_chart_indicators_v0.5 EURUSD,M1: removed
+0	17:29:00.900	Custom indicator macd_color_indicator_plot1_v0.9 EURUSD,M1: removed
+0	17:29:00.906	Custom indicator SchaffTrendCycle EURUSD,M1: removed
+0	17:29:03.402	duto_chart_indicators_v0.5 EURUSD,M1: uninit reason 4
+0	17:29:03.403	duto_chart_indicators_v0.5 EURUSD,M1: uninit reason 4
+0	17:29:03.403	macd_color_indicator_plot1_v0.9 EURUSD,M1: uninit reason 4
+0	17:29:03.404	SchaffTrendCycle EURUSD,M1: uninit reason 4
+0	17:29:03.412	Custom indicator duto_chart_indicators_v0.5 EURUSD,M1: removed
+0	17:29:03.417	Custom indicator duto_chart_indicators_v0.5 EURUSD,M1: removed
+0	17:29:03.430	Custom indicator macd_color_indicator_plot1_v0.9 EURUSD,M1: removed
+0	17:29:03.436	Custom indicator SchaffTrendCycle EURUSD,M1: removed
+0	17:29:05.874	duto_chart_indicators_v0.5 EURUSD,M1: uninit reason 4
+0	17:29:05.875	duto_chart_indicators_v0.5 EURUSD,M1: uninit reason 4
+0	17:29:05.875	macd_color_indicator_plot1_v0.9 EURUSD,M1: uninit reason 4
+0	17:29:05.876	SchaffTrendCycle EURUSD,M1: uninit reason 4
+0	17:29:05.883	Custom indicator duto_chart_indicators_v0.5 EURUSD,M1: removed
+0	17:29:05.888	Custom indicator duto_chart_indicators_v0.5 EURUSD,M1: removed
+0	17:29:05.904	Custom indicator macd_color_indicator_plot1_v0.9 EURUSD,M1: removed
+0	17:29:05.910	Custom indicator SchaffTrendCycle EURUSD,M1: removed
+0	17:29:10.992	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M1: loaded successfully
+0	17:29:11.009	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M1: loaded successfully
+0	17:29:11.028	Custom indicator _Custom\Duto\macd_color_indicator_plot1_v0.9 EURUSD,M1: loaded successfully
+0	17:29:11.055	Custom indicator _Custom\Duto\SchaffTrendCycle EURUSD,M1: loaded successfully
+0	17:29:11.081	duto_chart_indicators_v0.5 EURUSD,M1: initialized
+0	17:29:11.104	duto_chart_indicators_v0.5 EURUSD,M1: initialized
+0	17:29:11.150	macd_color_indicator_plot1_v0.9 EURUSD,M1: 6
+0	17:29:11.150	macd_color_indicator_plot1_v0.9 EURUSD,M1: plot 1 indicator init()
+0	17:29:11.150	macd_color_indicator_plot1_v0.9 EURUSD,M1: initialized
+0	17:29:11.175	SchaffTrendCycle EURUSD,M1: initialized
+0	17:30:14.946	duto_chart_indicators_v0.5 EURUSD,M5: uninit reason 3
+0	17:30:14.947	macd_color_indicator_plot1_v0.9 EURUSD,M5: uninit reason 3
+0	17:30:14.947	SchaffTrendCycle EURUSD,M5: uninit reason 3
+0	17:30:14.948	duto_chart_indicators_v0.5 EURUSD,M1: initialized
+0	17:30:14.968	macd_color_indicator_plot1_v0.9 EURUSD,M1: 6
+0	17:30:14.968	macd_color_indicator_plot1_v0.9 EURUSD,M1: plot 1 indicator init()
+0	17:30:14.968	macd_color_indicator_plot1_v0.9 EURUSD,M1: initialized
+0	17:30:14.972	SchaffTrendCycle EURUSD,M1: initialized
+0	17:30:17.473	duto_chart_indicators_v0.5 EURUSD,M1: uninit reason 3
+0	17:30:17.474	duto_chart_indicators_v0.5 EURUSD,M1: uninit reason 3
+0	17:30:17.474	macd_color_indicator_plot1_v0.9 EURUSD,M1: uninit reason 3
+0	17:30:17.475	SchaffTrendCycle EURUSD,M1: uninit reason 3
+0	17:30:17.476	duto_chart_indicators_v0.5 EURUSD,M5: initialized
+0	17:30:17.477	duto_chart_indicators_v0.5 EURUSD,M5: initialized
+0	17:30:17.481	macd_color_indicator_plot1_v0.9 EURUSD,M5: 6
+0	17:30:17.481	macd_color_indicator_plot1_v0.9 EURUSD,M5: plot 1 indicator init()
+0	17:30:17.481	macd_color_indicator_plot1_v0.9 EURUSD,M5: initialized
+0	17:30:17.484	SchaffTrendCycle EURUSD,M5: initialized
+0	17:31:27.151	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M1: loaded successfully
+0	17:31:27.168	Custom indicator _Custom\Duto\duto_chart_indicators_v0.5 EURUSD,M1: loaded successfully
+0	17:31:27.188	Custom indicator _Custom\Duto\macd_color_indicator_plot1_v0.9 EURUSD,M1: loaded successfully
+0	17:31:27.216	Custom indicator _Custom\Duto\SchaffTrendCycle EURUSD,M1: loaded successfully

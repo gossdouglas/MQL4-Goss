@@ -384,7 +384,7 @@ ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    //strategy to be used for entry
-   SignalEntry = ReDotuEntry();
+   SignalEntry = DutoSunEntry();
 
    return SignalEntry;
 }
@@ -396,7 +396,7 @@ ENUM_SIGNAL_EXIT ReturnSignalExitToEvaluateExit()
    SignalExit = SIGNAL_EXIT_NEUTRAL;
 
    //strategy to be used for exit
-   SignalExit = ReDotuExit();
+   SignalExit = DutoSunExit();
 
    return SignalExit;
 }
@@ -458,96 +458,23 @@ void GetIndicatorHistory(int indicatorIndex, int numCandles)
 
 //////STRATEGIES BEGIN
 
-////REDOTU
+////DutoSun
 double EntryData[2][11];//
 
-ENUM_SIGNAL_ENTRY ReDotuEntry()
+ENUM_SIGNAL_ENTRY DutoSunEntry()
 {  
    //GetIndicatorHistory(32, 50);//get 1 minute indicator history for the last 20 candles
 
-   //bkup 7 june
-   /* // This is where you should insert your Entry Signal for SELL orders
-   // Include a condition to open a sell order, the condition will have to set SignalEntry=SIGNAL_ENTRY_SELL  
-   if (
-      //1 minute candle history
-      //chart indicators
-      CombinedHistory[1][35] == -1 //delta c, candle 1 is negative, 1 min
-      
-      //plots
-      && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 is positive, 1 min
-      && CombinedHistory[2][36] > CombinedHistory[1][36] //
-      && CombinedHistory[1][37] < 0 //plot 2, candle 1 is negative, 1 min
-      && CombinedHistory[1][38] < 0 //plot 3, candle 1 is negative, 1 min
-      && CombinedHistory[1][39] < 0 //plot 4, candle 1 is negative, 1 min
-
-      //5 minute candle history
-      //chart indicators
-      && CombinedHistory[1][25] == -1 //delta c, candle 1 is negative, 5 min
-      //plots
-      && CombinedHistory[1][26] < 0 //macd, candle 1 is positive, 5 min
-      && CombinedHistory[1][27] < 0 //plot 2, candle 1 is negative, 5 min
-      && CombinedHistory[1][28] < 0 //plot 3, candle 1 is negative, 5 min
-      && CombinedHistory[1][29] < 0 //plot 4, candle 1 is negative, 5 min
-      )
-   {
-      EntryData[0][7] = CombinedHistory[1][36];
-      EntryData[0][10] = Bid;
-
-      SignalEntry = SIGNAL_ENTRY_SELL; 
-      //Print("EntryData[0][7]: " + EntryData[0][7]);    
-      //Print("EntryData[0][10]: " + EntryData[0][10]);   
-   } */
-
-
-   /* //bkup 7june
-   // This is where you should insert your Entry Signal for BUY orders
-   // // Include a condition to open a sell order, the condition will have to set SignalEntry=SIGNAL_ENTRY_SELL  
-    if (
-       //1 minute candle history
-       //chart indicators
-       CombinedHistory[1][35] == 1 //delta c, candle 1 is negative, 1 min
-      
-       //plots
-       && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0 //macd, candle 1 is positive, 1 min
-       && CombinedHistory[2][36] < CombinedHistory[1][36] //
-       && CombinedHistory[1][37] > 0 //plot 2, candle 1 is negative, 1 min
-       && CombinedHistory[1][38] > 0 //plot 3, candle 1 is negative, 1 min
-       && CombinedHistory[1][39] > 0 //plot 4, candle 1 is negative, 1 min
-
-       //5 minute candle history
-       //chart indicators
-       && CombinedHistory[1][25] == 1 //delta c, candle 1 is negative, 5 min
-       //plots
-       && CombinedHistory[1][26] > 0 //macd, candle 1 is positive, 5 min
-       && CombinedHistory[1][27] > 0 //plot 2, candle 1 is negative, 5 min
-       && CombinedHistory[1][28] > 0 //plot 3, candle 1 is negative, 5 min
-       && CombinedHistory[1][29] > 0 //plot 4, candle 1 is negative, 5 min
-       )
-    {
-       EntryData[0][7] = CombinedHistory[1][36];
-      EntryData[0][10] = Bid;
-
-      SignalEntry = SIGNAL_ENTRY_SELL; 
-      //Print("EntryData[0][7]: " + EntryData[0][7]);    
-      //Print("EntryData[0][10]: " + EntryData[0][10]); 
-    } */
-
-
-
-
-
-//////////////////////////////////////////////
-
-    //in work 7 june
+   //SIGNAL_ENTRY_SELL
    if (
        //1 minute candle history
        //chart indicators
        CombinedHistory[1][35] == -1 //delta c, candle 1 is negative, 1 min
       
+      //macd and plots
        //macd
        && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 is positive, 1 min
        && CombinedHistory[2][36] > CombinedHistory[1][36] //
-
        //plots
        && CombinedHistory[1][37] < 0 //plot 2, candle 1 is negative, 1 min
        && CombinedHistory[1][38] < 0 //plot 3, candle 1 is negative, 1 min
@@ -557,17 +484,19 @@ ENUM_SIGNAL_ENTRY ReDotuEntry()
        //chart indicators
        && CombinedHistory[1][25] == -1 //delta c, candle 1 is negative, 5 min
 
-       //macd
+      //macd and plots
+      //macd
        && CombinedHistory[1][26] < 0 && CombinedHistory[2][26] < 0//macd, candle 1 is positive, 5 min
        //&& CombinedHistory[1][26] < CombinedHistory[2][26]
-
        //plots
        && CombinedHistory[1][27] < 0 //plot 2, candle 1 is negative, 5 min
        && CombinedHistory[1][28] < 0 //plot 3, candle 1 is negative, 5 min
        && CombinedHistory[1][29] < 0 //plot 4, candle 1 is negative, 5 min
        )
     {
-       EntryData[0][7] = CombinedHistory[1][36];
+      //macd, 1 min
+      EntryData[0][7] = CombinedHistory[1][36];
+      //bid price
       EntryData[0][10] = Bid;
 
       SignalEntry = SIGNAL_ENTRY_SELL; 
@@ -575,16 +504,16 @@ ENUM_SIGNAL_ENTRY ReDotuEntry()
       //Print("EntryData[0][10]: " + EntryData[0][10]);  
     }
 
-   //in work 7 june
+   //SIGNAL_ENTRY_BUY
    if (
        //1 minute candle history
        //chart indicators
        CombinedHistory[1][35] == 1 //delta c, candle 1 is negative, 1 min
       
+      //macd and plots
        //macd
        && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0 //macd, candle 1 is positive, 1 min
        && CombinedHistory[2][36] < CombinedHistory[1][36] //
-
        //plots
        && CombinedHistory[1][37] > 0 //plot 2, candle 1 is negative, 1 min
        && CombinedHistory[1][38] > 0 //plot 3, candle 1 is negative, 1 min
@@ -594,17 +523,19 @@ ENUM_SIGNAL_ENTRY ReDotuEntry()
        //chart indicators
        && CombinedHistory[1][25] == 1 //delta c, candle 1 is negative, 5 min
 
+       //macd and plots
        //macd
        && CombinedHistory[1][26] > 0 && CombinedHistory[2][26] > 0 //macd, candle 1 is positive, 5 min
        //&& CombinedHistory[1][26] > CombinedHistory[2][26]
-
        //plots
        && CombinedHistory[1][27] > 0 //plot 2, candle 1 is negative, 5 min
        && CombinedHistory[1][28] > 0 //plot 3, candle 1 is negative, 5 min
        && CombinedHistory[1][29] > 0 //plot 4, candle 1 is negative, 5 min
        )
     {
+      //macd, 1 min
        EntryData[1][7] = CombinedHistory[1][36];
+       //ask price
        EntryData[1][10] = Ask;
 
        SignalEntry = SIGNAL_ENTRY_BUY; 
@@ -615,7 +546,7 @@ ENUM_SIGNAL_ENTRY ReDotuEntry()
    return SignalEntry;
 }
 
-ENUM_SIGNAL_EXIT ReDotuExit()
+ENUM_SIGNAL_EXIT DutoSunExit()
 {  
    //bkup 7 june
    /* // This is where you should insert your Exit Signal for SELL orders
@@ -729,7 +660,8 @@ ENUM_SIGNAL_EXIT ReDotuExit()
    
    return SignalExit;
 }
-////REDOTU
+
+////DutoSun
 
 
 //////STRATEGIES END
