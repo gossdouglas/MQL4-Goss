@@ -125,7 +125,6 @@ void LogIndicatorData()
          //60
          FastMAHistoryBuffer[i] = iCustom(Symbol(),60, duto_chart_indicators, 0, i);
          CombinedHistory[i][0] = i;//candle index
-         //CombinedHistory[i][2] = FastMAHistoryBuffer[i];//fast moving average
          CombinedHistory[i][2] = NormalizeDouble(FastMAHistoryBuffer[i], 5);//fast moving average
          
          SlowMAHistoryBuffer[i] = iCustom(Symbol(),60, duto_chart_indicators, 1, i);
@@ -138,12 +137,9 @@ void LogIndicatorData()
          DeltaCollapsedNegHistoryBuffer[i] = iCustom(Symbol(),60, duto_chart_indicators, 6, i);
 
          if (DeltaCollapsedPosHistoryBuffer[i] == 2147483647) {
-
-            //strWriteLine2 = ",Negative";
             CombinedHistory[i][5] = -1;//delta collapsed negative
          }
          else {
-            //strWriteLine2 = ",Positive";
             CombinedHistory[i][5] = 1;//delta collapsed positive
          }
 
@@ -169,7 +165,6 @@ void LogIndicatorData()
 
          //build a line of strings based on a line of data
          strWriteLine = 
-         //"Candle " + i
          i
          + "," + iTime(Symbol(), 60, i) 
 
@@ -201,12 +196,9 @@ void LogIndicatorData()
          DeltaCollapsedNegHistoryBuffer[i] = iCustom(Symbol(),15, duto_chart_indicators, 6, i);
 
          if (DeltaCollapsedPosHistoryBuffer[i] == 2147483647) {
-
-            //strWriteLine2 = ",Negative";
             CombinedHistory[i][15] = -1;//delta collapsed negative
          }
          else {
-            //strWriteLine2 = ",Positive";
             CombinedHistory[i][15] = 1;//delta collapsed positive
          }
 
@@ -264,12 +256,9 @@ void LogIndicatorData()
          DeltaCollapsedNegHistoryBuffer[i] = iCustom(Symbol(),5, duto_chart_indicators, 6, i);
 
          if (DeltaCollapsedPosHistoryBuffer[i] == 2147483647) {
-
-            //strWriteLine2 = ",Negative";
             CombinedHistory[i][25] = -1;//delta collapsed negative
          }
          else {
-            //strWriteLine2 = ",Positive";
             CombinedHistory[i][25] = 1;//delta collapsed positive
          }
 
@@ -295,7 +284,6 @@ void LogIndicatorData()
 
          //build a line of strings based on a line of data
          strWriteLine = strWriteLine +
-         //",Candle " + i
          "," + i
          + "," + iTime(Symbol(), 5, i) 
 
@@ -327,12 +315,9 @@ void LogIndicatorData()
          DeltaCollapsedNegHistoryBuffer[i] = iCustom(Symbol(),1, duto_chart_indicators, 6, i);
 
          if (DeltaCollapsedPosHistoryBuffer[i] == 2147483647) {
-
-            //strWriteLine2 = ",Negative";
             CombinedHistory[i][35] = -1;//delta collapsed negative
          }
          else {
-            //strWriteLine2 = ",Positive";
             CombinedHistory[i][35] = 1;//delta collapsed positive
          }
 
@@ -358,7 +343,6 @@ void LogIndicatorData()
 
          //build a line of strings based on a line of data
          strWriteLine = strWriteLine +
-         //",Candle " + i
          "," + i
          + "," + iTime(Symbol(), 1, i) 
 

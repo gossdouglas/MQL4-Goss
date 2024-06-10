@@ -349,6 +349,7 @@ void InitializeVariables()
    SignalExit = SIGNAL_EXIT_NEUTRAL;
 }
 
+//this logic only allows an evaluation to be made if LogIndicatorData has been executed at least once
 bool StartupFlag;
 
 // Evaluate if there is an entry signal, called from the OnTickEvent
@@ -370,18 +371,13 @@ void EvaluateEntry()
    {
       // Print("new candle in EvaluateEntry at: " + iTime(Symbol(), 1, 0));
       // log data and build the CombinedHistory array
-      // Print("LogIndicatorData()");
       LogIndicatorData();
-      // evaluate for a signal entry
-      // SignalEntry = ReturnSignalEntryToEvaluateEntry();
       StartupFlag = true;
-      //Print("StartupFlag IsNewCandle: " + StartupFlag);
    }
 
    //this logic only allows an evaluation to be made if LogIndicatorData has been executed
    if (StartupFlag ==  true)
    {
-      //Print("StartupFlag ReturnSignalExitToEvaluateExit = true");
       // evaluate for a signal entry
       SignalEntry = ReturnSignalEntryToEvaluateEntry();
    }
@@ -478,15 +474,11 @@ void EvaluateExit()
    {
       // Print("new candle in EvaluateEntry at: " + iTime(Symbol(), 1, 0));
       // log data and build the CombinedHistory array
-      // Print("LogIndicatorData()");
       LogIndicatorData();
-      // evaluate for a signal entry
-      // SignalExit = ReturnSignalExitToEvaluateExit();
-      //Print("StartupFlag EvaluateExit: " + StartupFlag);
       StartupFlag = true;
    }
 
-   //this logic only allows an evaluation to be made if LogIndicatorData has been executed
+   //this logic only allows an evaluation to be made if LogIndicatorData has been executed at least once
    if (StartupFlag == true)
    {
       // evaluate for a signal entry
