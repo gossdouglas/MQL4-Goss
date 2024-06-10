@@ -396,9 +396,6 @@ void LogIndicatorData()
 
 ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
 {  
-
-   //Print("ReturnSignalEntryToEvaluateEntry()");
-
    // Declaring the variables for the entry and exit check
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
