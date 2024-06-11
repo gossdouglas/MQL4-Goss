@@ -640,18 +640,18 @@ ENUM_SIGNAL_EXIT DutoSunExit()
       //5 minute version, maybe use the 5 minute exit version when the 1 minute 550 MA slope is up
       //macd
       (
-         CombinedHistory[1][26] > 0 && CombinedHistory[2][26] > 0 && CombinedHistory[3][26] > 0 //macd, candle 1 is positive, 1 min
-      //&& CombinedHistory[1][36] > EntryData[1][7] //current macd is greater than the macd it was entered at
-      //&& Bid > EntryData[1][10] //current price is greater than the price it was entered at
+         CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 && CombinedHistory[3][36] > 0 //macd, candle 1 is positive, 1 min
+      && CombinedHistory[1][36] > EntryData[1][7] //current macd is greater than the macd it was entered at
+      && Bid > EntryData[1][10] //current price is greater than the price it was entered at
 
       //catch the positive macd decreasing
-      && CombinedHistory[1][26] < CombinedHistory[2][26]
-      && CombinedHistory[2][26] > CombinedHistory[3][26] 
+      && CombinedHistory[1][36] < CombinedHistory[2][36]
+      && CombinedHistory[2][36] > CombinedHistory[3][36] 
       )
       || 
       (
-         CombinedHistory[1][38] < 0 //plot 2, candle 1 is negative, 1 min
-      && CombinedHistory[2][38] > 0
+         CombinedHistory[1][37] < 0 //plot 2, candle 1 is negative, 1 min
+      && CombinedHistory[2][37] > 0
       ) 
       )
    {
