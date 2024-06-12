@@ -460,7 +460,7 @@ void GetIndicatorHistory(int indicatorIndex, int numCandles)
 
 //////STRATEGIES BEGIN
 
-////DutoSun1
+//DutoSun1
 double EntryData[2][11];//
 
 ENUM_SIGNAL_ENTRY DutoSun1Entry()
@@ -663,7 +663,7 @@ ENUM_SIGNAL_EXIT DutoSun1Exit()
    return SignalExit;
 }
 
-////DutoSun1
+//DutoSun1
 
 //DutoSun2
 
@@ -819,6 +819,96 @@ ENUM_SIGNAL_EXIT DutoSun2Exit()
 
 //DutoSun2
 
+//DutoSun3
+double EntryData[2][11];//
+
+ENUM_SIGNAL_ENTRY DutoSun3Entry()
+{  
+   //GetIndicatorHistory(32, 50);//get 1 minute indicator history for the last 20 candles
+
+   //SIGNAL_ENTRY_SELL
+   if (
+       //1 minute candle history
+       //chart indicators
+       CombinedHistory[1][35] == -1 //delta c, candle 1 is negative, 1 min
+      
+      //macd and plots
+       //macd
+       && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 is positive, 1 min
+       && CombinedHistory[2][36] > CombinedHistory[1][36] //
+       //plots
+       && CombinedHistory[1][37] < 0 //plot 2, candle 1 is negative, 1 min
+       && CombinedHistory[1][38] < 0 //plot 3, candle 1 is negative, 1 min
+       && CombinedHistory[1][39] < 0 //plot 4, candle 1 is negative, 1 min
+
+       //5 minute candle history
+       //chart indicators
+       && CombinedHistory[1][25] == -1 //delta c, candle 1 is negative, 5 min
+
+      //macd and plots
+      //macd
+       && CombinedHistory[1][26] < 0 && CombinedHistory[2][26] < 0//macd, candle 1 is positive, 5 min
+       //&& CombinedHistory[1][26] < CombinedHistory[2][26]
+       //plots
+       && CombinedHistory[1][27] < 0 //plot 2, candle 1 is negative, 5 min
+       && CombinedHistory[1][28] < 0 //plot 3, candle 1 is negative, 5 min
+       && CombinedHistory[1][29] < 0 //plot 4, candle 1 is negative, 5 min
+       )
+    {
+      //macd, 1 min
+      EntryData[0][7] = CombinedHistory[1][36];
+      //bid price
+      EntryData[0][10] = Bid;
+
+      SignalEntry = SIGNAL_ENTRY_SELL; 
+      //Print("EntryData[0][7]: " + EntryData[0][7]);    
+      //Print("EntryData[0][10]: " + EntryData[0][10]);  
+    }
+
+
+   return SignalEntry;
+}
+
+ENUM_SIGNAL_EXIT DutoSun3Exit()
+{  
+  // This is where you should insert your Exit Signal for SELL orders
+   // Include a condition to open a buy order, the condition will have to set SignalExit=SIGNAL_EXIT_SELL
+   if (    
+         
+      //macd
+      (
+         /* //5 minute version
+         CombinedHistory[1][26] < 0 && CombinedHistory[2][26] < 0 && CombinedHistory[3][26] < 0 //macd, candle 1 is positive, 1 min
+      //&& CombinedHistory[1][36] < -EntryData[0][7]
+      //&& Ask < EntryData[0][10] //current price is less than the price it was entered at
+
+      //catch the negative macd increasing
+      && CombinedHistory[1][26] > CombinedHistory[2][26] //
+      && CombinedHistory[2][26] < CombinedHistory[3][26]  */
+
+      //1 minute version
+         CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0 && CombinedHistory[3][36] < 0 //macd, candle 1 is positive, 1 min
+      && CombinedHistory[1][36] < -EntryData[0][7]
+      && Ask < EntryData[0][10] //current price is less than the price it was entered at
+
+      //catch the negative macd increasing
+      && CombinedHistory[1][36] > CombinedHistory[2][36] //
+      && CombinedHistory[2][36] < CombinedHistory[3][36] 
+      )
+      || 
+      (
+         CombinedHistory[1][37] > 0 //plot 2, candle 1 is negative, 1 min
+      && CombinedHistory[2][37] < 0
+      )
+      )
+   {
+      SignalExit = SIGNAL_EXIT_SELL;     
+   }
+   
+   return SignalExit;
+}
+
+//DutoSun3
 
 //////STRATEGIES END
    

@@ -87,13 +87,13 @@ UseTradingHours,1=1
 UseTradingHours,2=-1
 UseTradingHours,3=0
 TradingHourStart=10
-TradingHourStart,F=0
-TradingHourStart,1=0
+TradingHourStart,F=1
+TradingHourStart,1=10
 TradingHourStart,2=0
 TradingHourStart,3=0
 TradingHourEnd=22
-TradingHourEnd,F=0
-TradingHourEnd,1=0
+TradingHourEnd,F=1
+TradingHourEnd,1=22
 TradingHourEnd,2=0
 TradingHourEnd,3=0
 Comment_2===========
