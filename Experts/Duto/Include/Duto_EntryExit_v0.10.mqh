@@ -387,7 +387,7 @@ ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
    //SignalEntry = DutoSun1Entry();
    //SignalEntry = DutoSun2Entry();
    //SignalEntry = DutoSun3Entry();
-   SignalEntry = DutoSun3_1Entry();
+   SignalEntry = DutoSun3_2Entry();
 
    return SignalEntry;
 }
@@ -399,10 +399,7 @@ ENUM_SIGNAL_EXIT ReturnSignalExitToEvaluateExit()
    SignalExit = SIGNAL_EXIT_NEUTRAL;
 
    //strategy to be used for exit
-   //SignalExit = DutoSun1Exit();
-   //SignalExit = DutoSun2Exit();
-   //SignalExit = DutoSun3Exit();
-   SignalExit = DutoSun3_1Exit();
+   SignalExit = DutoSun3_2Exit();
 
    return SignalExit;
 }
@@ -939,7 +936,7 @@ ENUM_SIGNAL_ENTRY DutoSun3_1Entry()
 
       //MACD AND PLOTS
        //MACD
-       && CombinedHistory[1][26] < 0 && CombinedHistory[2][26] < 0//macd, candle 1 and 2 are negative, 5 min
+       //&& CombinedHistory[1][26] < 0 && CombinedHistory[2][26] < 0//macd, candle 1 and 2 are negative, 5 min
        //PLOTS
          &&
          (
@@ -983,7 +980,7 @@ ENUM_SIGNAL_ENTRY DutoSun3_1Entry()
 
       //MACD AND PLOTS
        //MACD
-       && CombinedHistory[1][26] > 0 && CombinedHistory[2][26] > 0//macd, candle 1 and 2 are negative, 5 min
+       //&& CombinedHistory[1][26] > 0 && CombinedHistory[2][26] > 0//macd, candle 1 and 2 are positive, 5 min
        //PLOTS
          &&
          (
@@ -1015,8 +1012,11 @@ ENUM_SIGNAL_EXIT DutoSun3_1Exit()
    if (
          //MACD AND PLOTS
          //MACD
-            CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
-         && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0 //macd, candle 1 and candle 2 negative, 1 min
+            (CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+         && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0) //macd, candle 1 and candle 2 negative, 1 min
+         ||
+         //PLOTS
+            (CombinedHistory[1][27] > CombinedHistory[2][27]) //plot 2, candle 1 greater than candle 2, 5 min
       )
    {
       SignalExit = SIGNAL_EXIT_SELL;     
@@ -1029,6 +1029,9 @@ ENUM_SIGNAL_EXIT DutoSun3_1Exit()
          //MACD
             CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
          && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 and candle 2 negative, 1 min
+         ||
+         //PLOTS
+            (CombinedHistory[1][27] < CombinedHistory[2][27]) //plot 2, candle 1 less than candle 2, 5 min
       )
    {
       SignalExit = SIGNAL_EXIT_BUY;     
@@ -1038,6 +1041,222 @@ ENUM_SIGNAL_EXIT DutoSun3_1Exit()
 }
 
 //DutoSun3_1
+
+//DutoSun3_2
+
+bool RideDarkRedToBrightRedSell;
+bool RideBrightGreenToDarkGreenSell;
+
+ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
+{  
+   //SIGNAL_ENTRY_SELL
+   if (
+       //1 MINUTE CANDLE HISTORY
+       //CHART INDICATORS
+       (CombinedHistory[1][35] == -1 //delta c, candle 1 is negative, 1 min
+      
+      //MACD AND PLOTS
+       //MACD
+       && CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 less than candle 2, 1 min
+       && CombinedHistory[3][36] < CombinedHistory[2][36] //macd, candle 3 less than candle 2, 1 min
+       && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 and candle 2 positive, 1 min
+       //PLOTS      
+       && CombinedHistory[1][37] < 0 //plot 2, candle 1 is negative, 1 min
+       && CombinedHistory[1][38] < 0 //plot 3, candle 1 is negative, 1 min
+       && CombinedHistory[1][39] < 0 //plot 4, candle 1 is negative, 1 min
+
+       //5 MINUTE CANDLE HISTORY
+       //CHART INDICATORS
+       && CombinedHistory[1][25] == -1 //delta c, candle 1 is negative, 5 min
+
+      //MACD AND PLOTS
+       //MACD
+       //&& CombinedHistory[1][26] < 0 && CombinedHistory[2][26] < 0//macd, candle 1 and 2 are negative, 5 min
+       //PLOTS
+        &&
+         (
+            (
+               (CombinedHistory[1][27]   < CombinedHistory[2][27]) && CombinedHistory[1][27] < 0
+               && CombinedHistory[1][28] < CombinedHistory[2][28]  && CombinedHistory[1][28] < 0
+               && CombinedHistory[1][29] < CombinedHistory[2][29]  && CombinedHistory[1][29] < 0
+            )
+         )
+       )
+      
+        /* ||//ride the sudden 5 minute change from dark red to bright red
+
+       //plot 2 candle 1 more negative than candle 2 and both negative
+       ((CombinedHistory[1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] < 0)
+       &&
+       //plot 3 candle 1 less negative than candle 2 and both negative
+       ((CombinedHistory[1][28] < CombinedHistory[2][28]) && CombinedHistory[1][28] < 0)
+       //plot 4 candle 1 less negative than candle 2 and candle 3 more negative than candle 2 and all negative
+       &&
+       ((CombinedHistory[1][29] < CombinedHistory[2][29]) && (CombinedHistory[3][29] > CombinedHistory[2][29])
+       && CombinedHistory[1][29] < 0)
+ 
+        ||//ride the sudden 5 minute change from bright green to dark green
+       //plot 2 candle 1 less negative than candle 2 and both negative
+       ((CombinedHistory[1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] > 0)
+       &&
+       //plot 3 candle 1 less negative than candle 2 and both negative
+       ((CombinedHistory[1][28] < CombinedHistory[2][28]) && CombinedHistory[1][28] > 0)
+       //plot 4 candle 1 less negative than candle 2 and both negative
+       &&
+       ((CombinedHistory[1][29] < CombinedHistory[2][29]) && CombinedHistory[1][29] > 0) */
+       )
+    {
+      //macd, 1 min
+      EntryData[0][7] = CombinedHistory[1][36];
+      //bid price
+      EntryData[0][10] = Bid;
+
+      SignalEntry = SIGNAL_ENTRY_SELL; 
+      //Print("EntryData[0][7]: " + EntryData[0][7]);    
+      //Print("EntryData[0][10]: " + EntryData[0][10]);  
+    }
+
+    //ENTER RIDE THE SUDDEN 5 MINUTE CHANGE FROM DARK RED TO BRIGHT RED
+    if (
+      //plot 2 candle 1 more negative than candle 2 and both negative
+       ((CombinedHistory[1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] < 0)
+       &&
+       //plot 3 candle 1 less negative than candle 2 and both negative
+       ((CombinedHistory[1][28] < CombinedHistory[2][28]) && CombinedHistory[1][28] < 0)
+       //plot 4 candle 1 less negative than candle 2 and candle 3 more negative than candle 2 and all negative
+       &&
+       ((CombinedHistory[1][29] < CombinedHistory[2][29]) && (CombinedHistory[3][29] > CombinedHistory[2][29])
+       && CombinedHistory[1][29] < 0)
+ 
+       /* ||//ride the sudden 5 minute change from bright green to dark green
+       //plot 2 candle 1 less negative than candle 2 and both negative
+       ((CombinedHistory[1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] > 0)
+       &&
+       //plot 3 candle 1 less negative than candle 2 and both negative
+       ((CombinedHistory[1][28] < CombinedHistory[2][28]) && CombinedHistory[1][28] > 0)
+       //plot 4 candle 1 less negative than candle 2 and both negative
+       &&
+       ((CombinedHistory[1][29] < CombinedHistory[2][29]) && CombinedHistory[1][29] > 0) */
+
+    )
+    {
+      RideDarkRedToBrightRedSell = true;
+      Print("RideDarkRedToBrightRedSell enter = " + RideDarkRedToBrightRedSell);
+
+      //macd, 1 min
+      EntryData[0][7] = CombinedHistory[1][36];
+      //bid price
+      EntryData[0][10] = Bid;
+
+      SignalEntry = SIGNAL_ENTRY_SELL; 
+      //Print("EntryData[0][7]: " + EntryData[0][7]);    
+      //Print("EntryData[0][10]: " + EntryData[0][10]);  
+    }
+
+    //SIGNAL_ENTRY_BUY
+   if (
+       //1 MINUTE CANDLE HISTORY
+       //CHART INDICATORS
+       CombinedHistory[1][35] == 1 //delta c, candle 1 is positive, 1 min
+      
+      //MACD AND PLOTS
+       //MACD
+       && CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+       && CombinedHistory[3][36] > CombinedHistory[2][36] //macd, candle 3 greater than candle 2, 1 min
+       && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0 //macd, candle 1 and candle 2 negative, 1 min
+       //PLOTS      
+       && CombinedHistory[1][37] > 0 //plot 2, candle 1 is positive, 1 min
+       && CombinedHistory[1][38] > 0 //plot 3, candle 1 is positive, 1 min
+       && CombinedHistory[1][39] > 0 //plot 4, candle 1 is positive, 1 min
+
+       //5 MINUTE CANDLE HISTORY
+       //CHART INDICATORS
+       && CombinedHistory[1][25] == 1 //delta c, candle 1 is negative, 5 min
+
+      //MACD AND PLOTS
+       //MACD
+       //&& CombinedHistory[1][26] > 0 && CombinedHistory[2][26] > 0//macd, candle 1 and 2 are positive, 5 min
+       //PLOTS
+         &&
+         (
+            (
+               (CombinedHistory[1][27]   > CombinedHistory[2][27]) && CombinedHistory[1][27] > 0
+               && CombinedHistory[1][28] > CombinedHistory[2][28]  && CombinedHistory[1][28] > 0
+               && CombinedHistory[1][29] > CombinedHistory[2][29]  && CombinedHistory[1][29] > 0
+            )
+         )
+       )
+    {
+      //macd, 1 min
+      EntryData[1][7] = CombinedHistory[1][36];
+      //bid price
+      EntryData[1][10] = Ask;
+
+      SignalEntry = SIGNAL_ENTRY_BUY; 
+      //Print("EntryData[0][7]: " + EntryData[0][7]);    
+      //Print("EntryData[0][10]: " + EntryData[0][10]);  
+    }
+
+   return SignalEntry;
+}
+
+ENUM_SIGNAL_EXIT DutoSun3_2Exit()
+{  
+   // This is where you should insert your Exit Signal for SELL orders
+   // Include a condition to open a buy order, the condition will have to set SignalExit=SIGNAL_EXIT_SELL
+
+   //EXIT RIDE THE SUDDEN 5 MINUTE CHANGE FROM DARK RED TO BRIGHT RED
+   if (
+      RideDarkRedToBrightRedSell // in the RideDarkRedToBrightRedSell play
+      &&(CombinedHistory[1][37] > CombinedHistory[2][37]) //macd, candle 1 less negative than candle 2, 1 min
+      && CombinedHistory[1][37] < 0 && CombinedHistory[1][37] < 0 //macd, candle 1 and candle 2 negative, 1 min
+   )
+   {
+      RideDarkRedToBrightRedSell = false;
+      SignalExit = SIGNAL_EXIT_SELL;
+      Print("SignalExit = " + SignalExit);
+      Print("RideDarkRedToBrightRedSell exit = " + RideDarkRedToBrightRedSell);
+      return SignalExit;
+   }  
+   
+   else
+
+   if (
+         //MACD AND PLOTS
+         //MACD
+            (CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+         && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0) //macd, candle 1 and candle 2 negative, 1 min
+         ||
+         //PLOTS
+            (CombinedHistory[1][27] > CombinedHistory[2][27]) //plot 2, candle 1 greater than candle 2, 5 min
+      )
+   {
+      SignalExit = SIGNAL_EXIT_SELL; 
+      return SignalExit;    
+   } 
+
+   // This is where you should insert your Exit Signal for SELL orders
+   // Include a condition to open a buy order, the condition will have to set SignalExit=SIGNAL_EXIT_SELL
+   if (
+         //MACD AND PLOTS
+         //MACD
+            CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+         && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 and candle 2 negative, 1 min
+         ||
+         //PLOTS
+            (CombinedHistory[1][27] < CombinedHistory[2][27]) //plot 2, candle 1 less than candle 2, 5 min
+      )
+   {
+      SignalExit = SIGNAL_EXIT_BUY; 
+      return SignalExit;    
+   } 
+
+
+   //Print("SignalExit just before return: = " + SignalExit);
+   //return SignalExit;
+}
+
+//DutoSun3_2
 
 //////STRATEGIES END
    
