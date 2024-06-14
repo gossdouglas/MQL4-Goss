@@ -1203,7 +1203,7 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
 
 ENUM_SIGNAL_EXIT DutoSun3_2Exit()
 {  
-   Print("DutoSun3_2Exit SignalExit = " + SignalExit);
+   Print("DutoSun3_2Exit start of function SignalExit = " + SignalExit);
 
    // This is where you should insert your Exit Signal for SELL orders
    // Include a condition to open a buy order, the condition will have to set SignalExit=SIGNAL_EXIT_SELL
@@ -1212,10 +1212,13 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
    if (
 
       //only allow evaluation when no other logic in this function has set a signal exit type
-      SignalEntry == SIGNAL_ENTRY_NEUTRAL
+      //SignalExit == SIGNAL_EXIT_NEUTRAL
+      //SignalExit == 0
 
-      && RideDarkRedToBrightRedSell // in the RideDarkRedToBrightRedSell play
-      &&(CombinedHistory[1][37] > CombinedHistory[2][37]) //macd, candle 1 less negative than candle 2, 1 min
+      //1 == 1
+
+       RideDarkRedToBrightRedSell // in the RideDarkRedToBrightRedSell play
+      && (CombinedHistory[1][37] > CombinedHistory[2][37]) //macd, candle 1 less negative than candle 2, 1 min
       && CombinedHistory[1][37] < 0 && CombinedHistory[1][37] < 0 //macd, candle 1 and candle 2 negative, 1 min
    )
    {
@@ -1223,44 +1226,57 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
       SignalExit = SIGNAL_EXIT_SELL;
       Print("SignalExit = " + SignalExit);
       Print("RideDarkRedToBrightRedSell exit = " + RideDarkRedToBrightRedSell);
+      Print("SignalExit set to SIGNAL_EXIT_SELL RideDarkRedToBrightRedSell: " + SignalExit);
    }  
    
    else
 
    if (
          //only allow evaluation when no other logic in this function has set a signal exit type
-         SignalEntry == SIGNAL_ENTRY_NEUTRAL
+         //SignalExit == SIGNAL_EXIT_NEUTRAL
+         //SignalExit == 0
+
+         //1 == 1
 
          //MACD AND PLOTS
          //MACD
-         && (CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+          (CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
          && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0) //macd, candle 1 and candle 2 negative, 1 min
          ||
          //PLOTS
             (CombinedHistory[1][27] > CombinedHistory[2][27]) //plot 2, candle 1 greater than candle 2, 5 min
       )
    {
-      SignalExit = SIGNAL_EXIT_SELL;     
+      SignalExit = SIGNAL_EXIT_SELL;
+      Print("SignalExit set to SIGNAL_EXIT_SELL canned: " + SignalExit);       
    } 
+
+   //else
+
+   Print("SignalExit value just before entering to SIGNAL_EXIT_BUY canned: " + SignalExit);    
 
    // This is where you should insert your Exit Signal for SELL orders
    // Include a condition to open a buy order, the condition will have to set SignalExit=SIGNAL_EXIT_SELL
    if (
          //only allow evaluation when no other logic in this function has set a signal exit type
-         SignalEntry == SIGNAL_ENTRY_NEUTRAL
+         //SignalExit == SIGNAL_EXIT_NEUTRAL
+         //SignalExit == 0
+         //SignalExit != SIGNAL_EXIT_NEUTRAL
+
+         //1 == 1
 
          //MACD AND PLOTS
          //MACD
-         && CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+          CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
          && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 and candle 2 negative, 1 min
          ||
          //PLOTS
             (CombinedHistory[1][27] < CombinedHistory[2][27]) //plot 2, candle 1 less than candle 2, 5 min
       )
    {
-      SignalExit = SIGNAL_EXIT_BUY;     
+      SignalExit = SIGNAL_EXIT_BUY;
+      Print("SignalExit set to SIGNAL_EXIT_BUY canned: " + SignalExit);     
    } 
-
 
    Print("SignalExit just before return from DutoSun3_2Exit = " + SignalExit);
    return SignalExit;
