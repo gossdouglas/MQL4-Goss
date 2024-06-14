@@ -965,17 +965,17 @@ ENUM_SIGNAL_ENTRY DutoSun3_1Entry()
    if (
        //1 MINUTE CANDLE HISTORY
        //CHART INDICATORS
-       CombinedHistory[1][35] == 1 //delta c, candle 1 is negative, 1 min
+       CombinedHistory[1][35] == 1 //delta c, candle 1 is positive, 1 min
       
       //MACD AND PLOTS
        //MACD
-       && CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 less than candle 2, 1 min
-       && CombinedHistory[3][36] > CombinedHistory[2][36] //macd, candle 3 less than candle 2, 1 min
-       && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0 //macd, candle 1 and candle 2 positive, 1 min
+       && CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+       && CombinedHistory[3][36] > CombinedHistory[2][36] //macd, candle 3 greater than candle 2, 1 min
+       && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0 //macd, candle 1 and candle 2 negative, 1 min
        //PLOTS      
-       && CombinedHistory[1][37] > 0 //plot 2, candle 1 is negative, 1 min
-       && CombinedHistory[1][38] > 0 //plot 3, candle 1 is negative, 1 min
-       && CombinedHistory[1][39] > 0 //plot 4, candle 1 is negative, 1 min
+       && CombinedHistory[1][37] > 0 //plot 2, candle 1 is positive, 1 min
+       && CombinedHistory[1][38] > 0 //plot 3, candle 1 is positive, 1 min
+       && CombinedHistory[1][39] > 0 //plot 4, candle 1 is positive, 1 min
 
        //5 MINUTE CANDLE HISTORY
        //CHART INDICATORS
