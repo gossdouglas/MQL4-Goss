@@ -1071,8 +1071,6 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
        && CombinedHistory[1][25] == -1 //delta c, candle 1 is negative, 5 min
 
       //MACD AND PLOTS
-       //MACD
-       //&& CombinedHistory[1][26] < 0 && CombinedHistory[2][26] < 0//macd, candle 1 and 2 are negative, 5 min
        //PLOTS
         &&
          (
@@ -1083,28 +1081,6 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
             )
          )
        )
-      
-        /* ||//ride the sudden 5 minute change from dark red to bright red
-
-       //plot 2 candle 1 more negative than candle 2 and both negative
-       ((CombinedHistory[1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] < 0)
-       &&
-       //plot 3 candle 1 less negative than candle 2 and both negative
-       ((CombinedHistory[1][28] < CombinedHistory[2][28]) && CombinedHistory[1][28] < 0)
-       //plot 4 candle 1 less negative than candle 2 and candle 3 more negative than candle 2 and all negative
-       &&
-       ((CombinedHistory[1][29] < CombinedHistory[2][29]) && (CombinedHistory[3][29] > CombinedHistory[2][29])
-       && CombinedHistory[1][29] < 0)
- 
-        ||//ride the sudden 5 minute change from bright green to dark green
-       //plot 2 candle 1 less negative than candle 2 and both negative
-       ((CombinedHistory[1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] > 0)
-       &&
-       //plot 3 candle 1 less negative than candle 2 and both negative
-       ((CombinedHistory[1][28] < CombinedHistory[2][28]) && CombinedHistory[1][28] > 0)
-       //plot 4 candle 1 less negative than candle 2 and both negative
-       &&
-       ((CombinedHistory[1][29] < CombinedHistory[2][29]) && CombinedHistory[1][29] > 0) */
        )
     {
       //macd, 1 min
@@ -1128,17 +1104,6 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
        &&
        ((CombinedHistory[1][29] < CombinedHistory[2][29]) && (CombinedHistory[3][29] > CombinedHistory[2][29])
        && CombinedHistory[1][29] < 0)
- 
-       /* ||//ride the sudden 5 minute change from bright green to dark green
-       //plot 2 candle 1 less negative than candle 2 and both negative
-       ((CombinedHistory[1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] > 0)
-       &&
-       //plot 3 candle 1 less negative than candle 2 and both negative
-       ((CombinedHistory[1][28] < CombinedHistory[2][28]) && CombinedHistory[1][28] > 0)
-       //plot 4 candle 1 less negative than candle 2 and both negative
-       &&
-       ((CombinedHistory[1][29] < CombinedHistory[2][29]) && CombinedHistory[1][29] > 0) */
-
     )
     {
       RideDarkRedToBrightRedSell = true;
