@@ -1051,6 +1051,9 @@ bool RideBrightGreenToDarkGreenSell;
 
 ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
 {  
+   if (PlotChangeDetectedM5())
+   Print("PlotChangeDetectedM5 " + PlotChangeDetectedM5());
+
    if (PlotChangeDetectedM1())
    Print("PlotChangeDetectedM1 " + PlotChangeDetectedM1());
 
@@ -1260,6 +1263,55 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
 
    //Print("SignalExit just before return from DutoSun3_2Exit = " + SignalExit);
    return SignalExit;
+}
+
+bool PlotChangeDetectedM5()
+{
+   bool result = false;
+
+      //plot 4 changed from bright red to dark red
+      if (
+       (
+         //M5
+         (CombinedHistory[1][29] > CombinedHistory[2][29]) 
+         && (CombinedHistory[2][29] < CombinedHistory[3][29])
+         && CombinedHistory[1][29] < 0
+       )
+      )
+      {
+         Print("M5");
+         Print(
+            NormalizeDouble(CombinedHistory[1][29] ,6) + " < " + NormalizeDouble(CombinedHistory[2][29] ,6) + 
+            " && " + NormalizeDouble(CombinedHistory[3][29] ,6) + " > " + NormalizeDouble(CombinedHistory[2][29] ,6) +
+            " && " + NormalizeDouble(CombinedHistory[1][29] ,6) + " < 0" 
+         );
+         Print("Plot 4 changed from bright red to dark red.");
+
+         result = true;
+      }
+
+      //plot 4 changed from dark red to bright red
+      if (
+       (
+         //M1
+         (CombinedHistory[1][29] < CombinedHistory[2][29]) 
+         && (CombinedHistory[2][29] > CombinedHistory[3][29])
+         && CombinedHistory[1][29] < 0
+       )
+      )
+      {
+         Print("M5");
+         Print(
+            NormalizeDouble(CombinedHistory[1][29] ,6) + " < " + NormalizeDouble(CombinedHistory[2][29] ,6) + 
+            " && " + NormalizeDouble(CombinedHistory[3][29] ,6) + " > " + NormalizeDouble(CombinedHistory[2][29] ,6) +
+            " && " + NormalizeDouble(CombinedHistory[1][29] ,6) + " < 0" 
+         );
+         Print("Plot 4 changed from dark red to bright red.");
+
+         result = true;
+      }
+
+      return result;
 }
 
 bool PlotChangeDetectedM1()
