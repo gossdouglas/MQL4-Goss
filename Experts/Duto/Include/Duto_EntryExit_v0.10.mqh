@@ -1051,8 +1051,8 @@ bool RideBrightGreenToDarkGreenSell;
 
 ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
 {  
-   if (PlotChangeDetected())
-   Print("PlotChangeDetected " + PlotChangeDetected());
+   if (PlotChangeDetectedM1())
+   Print("PlotChangeDetectedM1 " + PlotChangeDetectedM1());
 
    //SIGNAL_ENTRY_SELL
    if (
@@ -1262,7 +1262,7 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
    return SignalExit;
 }
 
-bool PlotChangeDetected()
+bool PlotChangeDetectedM1()
 {
    bool result = false;
 
@@ -1298,28 +1298,27 @@ bool PlotChangeDetected()
          result = true;
       }
 
-      /* //plot 4 changed from dark red to bright red
+      //plot 4 changed from dark red to bright red
       if (
        (
          //M1
-         (CombinedHistory[1][39] > CombinedHistory[2][39]) 
-         && (CombinedHistory[3][39] < CombinedHistory[2][39])
+         (CombinedHistory[1][39] < CombinedHistory[2][39]) 
+         && (CombinedHistory[2][39] > CombinedHistory[3][39])
          && CombinedHistory[1][39] < 0
        )
       )
       {
          Print("M1");
          Print(
-            NormalizeDouble(CombinedHistory[1][39] ,6) + " > " + NormalizeDouble(CombinedHistory[2][39] ,6) + 
-            " && " + NormalizeDouble(CombinedHistory[3][39] ,6) + " < " + NormalizeDouble(CombinedHistory[2][39] ,6) +
+            NormalizeDouble(CombinedHistory[1][39] ,6) + " < " + NormalizeDouble(CombinedHistory[2][39] ,6) + 
+            " && " + NormalizeDouble(CombinedHistory[3][39] ,6) + " > " + NormalizeDouble(CombinedHistory[2][39] ,6) +
             " && " + NormalizeDouble(CombinedHistory[1][39] ,6) + " < 0" 
          );
          Print("Plot 4 changed from dark red to bright red.");
 
          result = true;
-      } */
-      
-   
+      }
+
       return result;
 }
       
