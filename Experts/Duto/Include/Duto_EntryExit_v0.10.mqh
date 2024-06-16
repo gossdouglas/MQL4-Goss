@@ -1322,30 +1322,19 @@ bool PlotChangeDetectedM1()
       if (
        (
          //M1
-         /* (CombinedHistory[1][39] < CombinedHistory[2][39]) 
-         && (CombinedHistory[3][39] > CombinedHistory[2][39])
-         && CombinedHistory[1][39] < 0 */
-
          (CombinedHistory[1][39] > CombinedHistory[2][39]) 
          && (CombinedHistory[2][39] < CombinedHistory[3][39])
          && CombinedHistory[1][39] < 0
        )
       )
       {
-         /* Print("M5");
-         Print(
-            NormalizeDouble(CombinedHistory[1][29] ,6) + " < " + NormalizeDouble(CombinedHistory[2][29] ,6) + 
-            " && " + NormalizeDouble(CombinedHistory[3][29] ,6) + " > " + NormalizeDouble(CombinedHistory[2][29] ,6) +
-            " && " + NormalizeDouble(CombinedHistory[1][29] ,6) + " < 0" 
-         ); */
-
-         Print("M1");
+         /* Print("M1");
          Print(
             NormalizeDouble(CombinedHistory[1][39] ,6) + " < " + NormalizeDouble(CombinedHistory[2][39] ,6) + 
             " && " + NormalizeDouble(CombinedHistory[3][39] ,6) + " > " + NormalizeDouble(CombinedHistory[2][39] ,6) +
             " && " + NormalizeDouble(CombinedHistory[1][39] ,6) + " < 0" 
          );
-         Print("Plot 4 changed from bright red to dark red.");
+         Print("Plot 4 changed from bright red to dark red."); */
 
          result = true;
       }
@@ -1360,13 +1349,13 @@ bool PlotChangeDetectedM1()
        )
       )
       {
-         Print("M1");
+         /* Print("M1");
          Print(
             NormalizeDouble(CombinedHistory[1][39] ,6) + " < " + NormalizeDouble(CombinedHistory[2][39] ,6) + 
             " && " + NormalizeDouble(CombinedHistory[3][39] ,6) + " > " + NormalizeDouble(CombinedHistory[2][39] ,6) +
             " && " + NormalizeDouble(CombinedHistory[1][39] ,6) + " < 0" 
          );
-         Print("Plot 4 changed from dark red to bright red.");
+         Print("Plot 4 changed from dark red to bright red."); */
 
          result = true;
       }
