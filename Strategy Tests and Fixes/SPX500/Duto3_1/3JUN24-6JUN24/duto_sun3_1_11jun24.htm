@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Strategy Tester: Duto_v01</title>
+    <meta name="version" content="Build 1420">
+    <meta name="server" content="EagleFX-Demo">
+    <style type="text/css" media="screen">
+    <!--
+    td { font: 8pt Tahoma,Arial; }
+    //-->
+    </style>
+    <style type="text/css" media="print">
+    <!--
+    td { font: 7pt Tahoma,Arial; }
+    //-->
+    </style>
+    <style type="text/css">
+    <!--
+    .msdate { mso-number-format:"General Date"; }
+    .mspt   { mso-number-format:\#\,\#\#0\.00;  }
+    //-->
+    </style>
+  </head>
+<body topmargin=1 marginheight=1>
+<div align=center>
+<div style="font: 20pt Times New Roman"><b>Strategy Tester Report</b></div>
+<div style="font: 16pt Times New Roman"><b>Duto_v01</b></div>
+<div style="font: 10pt Times New Roman"><b>EagleFX-Demo (Build 1420)</b></div><br>
+
+<table width=820 cellspacing=1 cellpadding=3 border=0>
+<tr align=left><td colspan=2>Symbol</td><td colspan=4>SPX500 (S&P 500 Index)</td></tr>
+<tr align=left><td colspan=2>Period</td><td colspan=4>1 Minute (M1)  2024.06.03 01:03 - 2024.06.06 23:57    (2024.06.03 - 2024.06.07)</td></tr>
+<tr align=left><td colspan=2>Model</td><td colspan=4><font color="red"><strong>Open prices only (only for Expert Advisors that explicitly control bar opening)</strong></font></td></tr>
+<tr align=left><td colspan=2>Parameters</td><td colspan=4>Comment_strategy="=========="; MAFastPeriod=10; MAFastShift=0; MAFastMethod=0; MAFastAppliedPrice=0; MASlowPeriod=25; MASlowShift=0; MASlowMethod=0; MASlowAppliedPrice=0; PSARStopStep=0.04; PSARStopMax=0.4; Comment_0="=========="; RiskDefaultSize=2; DefaultLotSize=1; RiskBase=2; MaxRiskPerTrade=2; MinLotSize=0.01; MaxLotSize=100; Comment_1="=========="; UseTradingHours=false; 
+TradingHourStart=7; TradingHourEnd=19; Comment_2="=========="; StopLossMode=0; DefaultStopLoss=0; MinStopLoss=0; MaxStopLoss=5000; TakeProfitMode=0; DefaultTakeProfit=0; MinTakeProfit=0; MaxTakeProfit=5000; Comment_3="=========="; UseTrailingStop=false; 
+Comment_4="=========="; MagicNumber=0; OrderNote=""; Slippage=5; MaxSpread=100; </td></tr>
+<tr align=left><td colspan=2><tr align=left><td>Bars in test</td><td align=right>6369</td><td>Ticks modelled</td><td align=right>11486</td><td>Modelling quality</td><td align=right>n/a</td></tr>
+<tr align=left><td>Mismatched charts errors</td><td align=right>0</td><td></td><td align=right></td><td></td><td align=right></td></tr>
+<tr height=8><td colspan=6></td></tr>
+<tr align=left><td>Initial deposit</td><td align=right>10000.00</td><td></td><td align=right></td><td>Spread</td><td align=right>2</td></tr>
+<tr align=left><td>Total net profit</td><td align=right>994.00</td><td>Gross profit</td><td align=right>1078.00</td><td>Gross loss</td><td align=right>-84.00</td></tr>
+<tr align=left><td>Profit factor</td><td align=right>12.83</td><td>Expected payoff</td><td align=right>248.50</td><td></td><td align=right></td></tr>
+<tr align=left><td>Absolute drawdown</td><td align=right>356.00</td><td>Maximal drawdown</td><td align=right>1156.00 (10.70%)</td><td>Relative drawdown</td><td align=right>10.70% (1156.00)</td></tr>
+<tr height=8><td colspan=6></td></tr>
+<tr align=left><td>Total trades</td><td align=right>4</td><td>Short positions (won %)</td><td align=right>2 (100.00%)</td><td>Long positions (won %)</td><td align=right>2 (50.00%)</td></tr>
+<tr align=left><td colspan=2 align=right></td><td>Profit trades (% of total)</td><td align=right>3 (75.00%)</td><td>Loss trades (% of total)</td><td align=right>1 (25.00%)</td></tr>
+<tr align=left><td colspan=2 align=right>Largest</td><td>profit trade</td><td align=right>518.00</td><td>loss trade</td><td align=right>-84.00</td></tr>
+<tr align=left><td colspan=2 align=right>Average</td><td>profit trade</td><td align=right>359.33</td><td>loss trade</td><td align=right>-84.00</td></tr>
+<tr align=left><td colspan=2 align=right>Maximum</td><td>consecutive wins (profit in money)</td><td align=right>2 (760.00)</td><td>consecutive losses (loss in money)</td><td align=right>1 (-84.00)</td></tr>
+<tr align=left><td colspan=2 align=right>Maximal</td><td>consecutive profit (count of wins)</td><td align=right>760.00 (2)</td><td>consecutive loss (count of losses)</td><td align=right>-84.00 (1)</td></tr>
+<tr align=left><td colspan=2 align=right>Average</td><td>consecutive wins</td><td align=right>2</td><td>consecutive losses</td><td align=right>1</td></tr>
+
+</table>
+<img src="duto_sun3_1_11jun24.gif" width=820 height=200 border=0 alt="Graph"><br>
+<table width=820 cellspacing=1 cellpadding=3 border=0>
+<tr bgcolor="#C0C0C0" align=right><td>#</td><td>Time</td><td>Type</td><td>Order</td><td>Size</td><td>Price</td><td>S / L</td><td>T / P</td><td>Profit</td><td>Balance</td></tr>
+<tr align=right><td>1</td><td class=msdate>2024.06.04 12:45</td><td>sell</td><td>1</td><td class=mspt>1.00</td><td style="mso-number-format:0\.00;">5255.69</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>2</td><td class=msdate>2024.06.04 12:56</td><td>close</td><td>1</td><td class=mspt>1.00</td><td style="mso-number-format:0\.00;">5252.45</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td class=mspt>318.00</td><td class=mspt>10318.00</td></tr>
+<tr align=right><td>3</td><td class=msdate>2024.06.05 19:08</td><td>buy</td><td>2</td><td class=mspt>1.00</td><td style="mso-number-format:0\.00;">5328.91</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>4</td><td class=msdate>2024.06.05 19:26</td><td>close</td><td>2</td><td class=mspt>1.00</td><td style="mso-number-format:0\.00;">5328.13</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td class=mspt>-84.00</td><td class=mspt>10234.00</td></tr>
+<tr align=right><td>5</td><td class=msdate>2024.06.05 20:24</td><td>buy</td><td>3</td><td class=mspt>1.00</td><td style="mso-number-format:0\.00;">5333.91</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>6</td><td class=msdate>2024.06.05 20:42</td><td>close</td><td>3</td><td class=mspt>1.00</td><td style="mso-number-format:0\.00;">5336.39</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td class=mspt>242.00</td><td class=mspt>10476.00</td></tr>
+<tr align=right><td>7</td><td class=msdate>2024.06.06 20:07</td><td>sell</td><td>4</td><td class=mspt>1.00</td><td style="mso-number-format:0\.00;">5343.29</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>8</td><td class=msdate>2024.06.06 21:13</td><td>close</td><td>4</td><td class=mspt>1.00</td><td style="mso-number-format:0\.00;">5338.05</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td style="mso-number-format:0\.00;" align=right>0.00</td><td class=mspt>518.00</td><td class=mspt>10994.00</td></tr>
+
+</table>
+</div></body></html>
