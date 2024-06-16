@@ -333,6 +333,8 @@ void LogIndicatorData()
          MacdPlot4HistoryBuffer[i] = iCustom(Symbol(),1, indicatorName, 3, i);
          CombinedHistory[i][39] = MacdPlot4HistoryBuffer[i];//plot 4
 
+         //Print("MacdPlot4HistoryBuffer[i]: " + NormalizeDouble(MacdPlot4HistoryBuffer[i] ,6)  + " CombinedHistory[i][39]: " + NormalizeDouble(CombinedHistory[i][39] ,6));
+
          if (DeltaCollapsedPosHistoryBuffer[i] == 2147483647) {
 
             strWriteLine2 = ",Negative";
@@ -366,7 +368,7 @@ void LogIndicatorData()
          Print("check combined history data with output");
          string combinedHistoryOutput = "";
 
-         for (int col = 0; col <= 29; col++)
+         for (int col = 0; col <= 39; col++)
          {
             combinedHistoryOutput = combinedHistoryOutput + CombinedHistory[i][col] + ", ";
             //Print(CombinedHistory[i][col] + ", ");
@@ -1049,6 +1051,9 @@ bool RideBrightGreenToDarkGreenSell;
 
 ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
 {  
+   if (PlotChangeDetected())
+   Print("PlotChangeDetected " + PlotChangeDetected());
+
    //SIGNAL_ENTRY_SELL
    if (
 
@@ -1093,7 +1098,7 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
       //Print("EntryData[0][10]: " + EntryData[0][10]);  
     }
 
-    //ENTER RIDE THE SUDDEN 5 MINUTE CHANGE FROM DARK RED TO BRIGHT RED
+    /* //ENTER RIDE THE SUDDEN 5 MINUTE CHANGE FROM DARK RED TO BRIGHT RED
     if (
       //plot 2 candle 1 more negative than candle 2 and both negative
        ((CombinedHistory[1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] < 0)
@@ -1117,7 +1122,7 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
       SignalEntry = SIGNAL_ENTRY_SELL; 
       //Print("EntryData[0][7]: " + EntryData[0][7]);    
       //Print("EntryData[0][10]: " + EntryData[0][10]);  
-    }
+    } */
 
     //SIGNAL_ENTRY_BUY
    if (
@@ -1168,12 +1173,17 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
 
 ENUM_SIGNAL_EXIT DutoSun3_2Exit()
 {  
-   Print("DutoSun3_2Exit start of function SignalExit = " + SignalExit);
+   //Print("DutoSun3_2Exit start of function SignalExit = " + SignalExit);
+
+   if (SignalExit == 0){
+      //Print("SignalExit == 0: " + SignalExit);
+
+   }
 
    // This is where you should insert your Exit Signal for SELL orders
    // Include a condition to open a buy order, the condition will have to set SignalExit=SIGNAL_EXIT_SELL
 
-   //EXIT RIDE THE SUDDEN 5 MINUTE CHANGE FROM DARK RED TO BRIGHT RED
+   /* //EXIT RIDE THE SUDDEN 5 MINUTE CHANGE FROM DARK RED TO BRIGHT RED
    if (
 
       //only allow evaluation when no other logic in this function has set a signal exit type
@@ -1194,7 +1204,7 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
       Print("SignalExit set to SIGNAL_EXIT_SELL RideDarkRedToBrightRedSell: " + SignalExit);
    }  
    
-   else
+   else */
 
    if (
          //only allow evaluation when no other logic in this function has set a signal exit type
@@ -1213,26 +1223,31 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
       )
    {
       SignalExit = SIGNAL_EXIT_SELL;
-      Print("SignalExit set to SIGNAL_EXIT_SELL canned: " + SignalExit);       
+      //Print("SignalExit set to SIGNAL_EXIT_SELL canned: " + SignalExit);       
    } 
 
    //else
 
-   Print("SignalExit value just before entering to SIGNAL_EXIT_BUY canned: " + SignalExit);    
+   if (SignalExit == 0){
+      //Print("SignalExit == 0: " + SignalExit);
+
+   }
+
+   /* Print("SignalExit value just before entering to SIGNAL_EXIT_BUY canned: " + SignalExit);    
 
    // This is where you should insert your Exit Signal for SELL orders
    // Include a condition to open a buy order, the condition will have to set SignalExit=SIGNAL_EXIT_SELL
    if (
          //only allow evaluation when no other logic in this function has set a signal exit type
          //SignalExit == SIGNAL_EXIT_NEUTRAL
-         //SignalExit == 0
+         SignalExit == 0
          //SignalExit != SIGNAL_EXIT_NEUTRAL
 
          //1 == 1
 
          //MACD AND PLOTS
          //MACD
-          CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+         && CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
          && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 and candle 2 negative, 1 min
          ||
          //PLOTS
@@ -1241,11 +1256,74 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
    {
       SignalExit = SIGNAL_EXIT_BUY;
       Print("SignalExit set to SIGNAL_EXIT_BUY canned: " + SignalExit);     
-   } 
+   } */ 
 
-   Print("SignalExit just before return from DutoSun3_2Exit = " + SignalExit);
+   //Print("SignalExit just before return from DutoSun3_2Exit = " + SignalExit);
    return SignalExit;
 }
+
+bool PlotChangeDetected()
+{
+   bool result = false;
+
+      //plot 4 changed from bright red to dark red
+      if (
+       (
+         //M1
+         /* (CombinedHistory[1][39] < CombinedHistory[2][39]) 
+         && (CombinedHistory[3][39] > CombinedHistory[2][39])
+         && CombinedHistory[1][39] < 0 */
+
+         (CombinedHistory[1][39] > CombinedHistory[2][39]) 
+         && (CombinedHistory[2][39] < CombinedHistory[3][39])
+         && CombinedHistory[1][39] < 0
+       )
+      )
+      {
+         /* Print("M5");
+         Print(
+            NormalizeDouble(CombinedHistory[1][29] ,6) + " < " + NormalizeDouble(CombinedHistory[2][29] ,6) + 
+            " && " + NormalizeDouble(CombinedHistory[3][29] ,6) + " > " + NormalizeDouble(CombinedHistory[2][29] ,6) +
+            " && " + NormalizeDouble(CombinedHistory[1][29] ,6) + " < 0" 
+         ); */
+
+         Print("M1");
+         Print(
+            NormalizeDouble(CombinedHistory[1][39] ,6) + " < " + NormalizeDouble(CombinedHistory[2][39] ,6) + 
+            " && " + NormalizeDouble(CombinedHistory[3][39] ,6) + " > " + NormalizeDouble(CombinedHistory[2][39] ,6) +
+            " && " + NormalizeDouble(CombinedHistory[1][39] ,6) + " < 0" 
+         );
+         Print("Plot 4 changed from bright red to dark red.");
+
+         result = true;
+      }
+
+      /* //plot 4 changed from dark red to bright red
+      if (
+       (
+         //M1
+         (CombinedHistory[1][39] > CombinedHistory[2][39]) 
+         && (CombinedHistory[3][39] < CombinedHistory[2][39])
+         && CombinedHistory[1][39] < 0
+       )
+      )
+      {
+         Print("M1");
+         Print(
+            NormalizeDouble(CombinedHistory[1][39] ,6) + " > " + NormalizeDouble(CombinedHistory[2][39] ,6) + 
+            " && " + NormalizeDouble(CombinedHistory[3][39] ,6) + " < " + NormalizeDouble(CombinedHistory[2][39] ,6) +
+            " && " + NormalizeDouble(CombinedHistory[1][39] ,6) + " < 0" 
+         );
+         Print("Plot 4 changed from dark red to bright red.");
+
+         result = true;
+      } */
+      
+   
+      return result;
+}
+      
+
 
 //DutoSun3_2
 
