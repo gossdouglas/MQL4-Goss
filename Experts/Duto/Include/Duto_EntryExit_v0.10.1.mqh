@@ -683,7 +683,7 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
 
 ENUM_SIGNAL_EXIT DutoSun3_2Exit()
 {  
-   // This is where you should insert your Exit Signal for SELL orders
+   // This is where you should insert your Exit Signal for SELL ordersdd
    // Include a condition to open a buy order, the condition will have to set SignalExit=SIGNAL_EXIT_SELL
 
    if (
