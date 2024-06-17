@@ -600,6 +600,9 @@ ENUM_SIGNAL_EXIT DutoSun3_1Exit()
 //DutoSun3_2
 
 bool TradeActive, BuyTradeActive, SellTradeActive;
+bool BrightRedToDarkRedM5Active, DarkRedToBrightRedM5Active;
+bool BrightRedToDarkRedM5StrategyActive, DarkRedToBrightRedM5StrategyActive;
+
 bool RideDarkRedToBrightRedSell;
 bool RideBrightGreenToDarkGreenSell;
 
@@ -612,10 +615,14 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
    //Print("PlotChangeDetectedM1 " + PlotChangeDetectedM1());
 
     //SIGNAL_ENTRY_SELL
+
+    Print("SIGNAL_ENTRY_SELL DarkRedToBrightRedM5Active: " + DarkRedToBrightRedM5Active);
+    Print("SIGNAL_ENTRY_SELL PlotChangeDetectedM5 (): " + PlotChangeDetectedM5 ());
    
       if (
-         SignalEntrySellTypical() 
-         && TradeActive == false
+         (SignalEntrySellTypical() && TradeActive == false && SellTradeActive == false)
+         ||
+         (PlotChangeDetectedM5 () == "DarkRedToBrightRedM5" && TradeActive == false && SellTradeActive == false)
          )
     {
       //macd, 1 min
@@ -624,9 +631,11 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
       EntryData[0][10] = Bid;
 
       TradeActive = true; //flag to indicate that a sell or a buy trade is active
+      SellTradeActive = true;
       SignalEntry = SIGNAL_ENTRY_SELL; 
 
       Print("TradeActive: " + TradeActive);
+      Print("SellTradeActive: " + SellTradeActive);
     }
 
     /* //SIGNAL_ENTRY_BUY
@@ -686,14 +695,20 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
          //PLOTS
             (CombinedHistory[1][27] > CombinedHistory[2][27]) //plot 2, candle 1 greater than candle 2, 5 min */
 
-         SignalExitSellTypical ()
-         && TradeActive == true
+         //TradeActive == true && SellTradeActive == true
+         //&&
+         (SignalExitSellTypical () && TradeActive == true && SellTradeActive == true)
+         || 
+         (PlotChangeDetectedM5 () == "BrightRedToDarkRedM5" && TradeActive == true && SellTradeActive == true)
       )
    {
       TradeActive = false;
+      SellTradeActive = false;
       SignalExit = SIGNAL_EXIT_SELL;
-      Print("SignalExit set to SIGNAL_EXIT_SELL canned: " + SignalExit);     
+
+      Print("SignalExit set to SIGNAL_EXIT_SELL: " + SignalExit);     
       Print("TradeActive: " + TradeActive);  
+      Print("SellTradeActive: " + SellTradeActive);  
    } 
 
    //Print("SignalExit value just before entering to SIGNAL_EXIT_BUY canned: " + SignalExit);    
@@ -721,7 +736,7 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
 
 //DutoSun3_2
 
-bool PlotChangeDetectedM5()
+/* bool PlotChangeDetectedM5()
 {
    bool result = false;
 
@@ -765,6 +780,64 @@ bool PlotChangeDetectedM5()
          Print("Plot 4 changed from dark red to bright red.");
 
          result = true;
+      }
+
+      return result;
+} */
+
+string PlotChangeDetectedM5()
+{
+   string result = "";
+
+      //plot 4 changed from bright red to dark red
+      if (
+       (
+         BrightRedToDarkRedM5Active == false
+         //M5
+         && (CombinedHistory[1][29] > CombinedHistory[2][29]) 
+         && (CombinedHistory[2][29] < CombinedHistory[3][29])
+         && CombinedHistory[1][29] < 0
+       )
+      )
+      {
+         Print("M5");
+         Print(
+            NormalizeDouble(CombinedHistory[1][29] ,6) + " < " + NormalizeDouble(CombinedHistory[2][29] ,6) + 
+            " && " + NormalizeDouble(CombinedHistory[3][29] ,6) + " > " + NormalizeDouble(CombinedHistory[2][29] ,6) +
+            " && " + NormalizeDouble(CombinedHistory[1][29] ,6) + " < 0" 
+         );
+
+         result = "BrightRedToDarkRedM5";
+         BrightRedToDarkRedM5Active = true;
+         DarkRedToBrightRedM5Active = false;
+
+         Print("Plot 4 changed to " + result);
+      }
+
+      //plot 4 changed from dark red to bright red
+      if (
+       (
+         DarkRedToBrightRedM5Active = false
+         //1 == 1
+         //M1
+         && (CombinedHistory[1][29] < CombinedHistory[2][29]) 
+         && (CombinedHistory[2][29] > CombinedHistory[3][29])
+         && CombinedHistory[1][29] < 0
+       )
+      )
+      {
+         Print("M5");
+         Print(
+            NormalizeDouble(CombinedHistory[1][29] ,6) + " < " + NormalizeDouble(CombinedHistory[2][29] ,6) + 
+            " && " + NormalizeDouble(CombinedHistory[3][29] ,6) + " > " + NormalizeDouble(CombinedHistory[2][29] ,6) +
+            " && " + NormalizeDouble(CombinedHistory[1][29] ,6) + " < 0" 
+         );
+
+         result = "DarkRedToBrightRedM5";
+         DarkRedToBrightRedM5Active = true;
+         BrightRedToDarkRedM5Active = false;
+
+         Print("Plot 4 changed to " + result);       
       }
 
       return result;
@@ -879,7 +952,7 @@ bool SignalExitSellTypical ()
    if (
          //there is an active trade
          TradeActive == true
-         
+
          //MACD AND PLOTS
          //MACD
          //macd peaks at red
