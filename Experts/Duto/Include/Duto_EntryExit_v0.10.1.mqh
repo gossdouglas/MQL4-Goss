@@ -602,7 +602,7 @@ ENUM_SIGNAL_EXIT DutoSun3_1Exit()
 bool TradeActive, BuyTradeActive, SellTradeActive;
 
 bool BrightRedToDarkRedM5Active, DarkRedToBrightRedM5Active;;
-bool BrRedToDrRedStgyActive;
+bool BrRedToDrRedStgyActive, DrRedToBrRedStgyActive;
 
 bool BrightRedToDarkRedM1Active, DarkRedToBrightRedM1Active;
 
@@ -632,7 +632,8 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
       Print("SellTradeActive: " + SellTradeActive);
     } */
 
-    if ((PlotChangedDrRedBrRedM5() == "DarkRedToBrightRedM5" && TradeActive == false && SellTradeActive == false && BrRedToDrRedStgyActive == false))
+    //if ((PlotChangedDrRedBrRedM5() == "DarkRedToBrightRedM5" && TradeActive == false && SellTradeActive == false && BrRedToDrRedStgyActive == false))
+    if ((PlotChangedDrRedBrRedM5() == "DarkRedToBrightRedM5" && TradeActive == false && SellTradeActive == false && DrRedToBrRedStgyActive == false))
     {
       //macd, 1 min
       EntryData[0][7] = CombinedHistory[1][36];
@@ -641,12 +642,14 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
 
       TradeActive = true; //flag to indicate that a sell or a buy trade is active
       SellTradeActive = true;
-      BrRedToDrRedStgyActive = true;
+      //BrRedToDrRedStgyActive = true;
+      DrRedToBrRedStgyActive = true;
       SignalEntry = SIGNAL_ENTRY_SELL; 
 
       Print("TradeActive: " + TradeActive);
       Print("SellTradeActive: " + SellTradeActive);
-      Print("BrRedToDrRedStgyActive: " + BrRedToDrRedStgyActive);
+      Print("DrRedToBrRedStgyActive: " + DrRedToBrRedStgyActive);
+      //Print("BrRedToDrRedStgyActive: " + BrRedToDrRedStgyActive);
       Print("SIGNAL_ENTRY_SELL DarkRedToBrightRedM5: ");
     }
 
@@ -716,17 +719,19 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
 
    //if ((PlotChangedBrRedDrRedM1 () == "BrightRedToDarkRedM1" && TradeActive == true && SellTradeActive == true && DarkRedToBrightRedM5Active == true))
    //if ((PlotChangedBrRedDrRedM1 () == "BrightRedToDarkRedM1" && TradeActive == true && SellTradeActive == true && DarkRedToBrightRedM5Active == true))
-   if ((PlotChangedBrRedDrRedM1 () == "BrightRedToDarkRedM1" && TradeActive == true && SellTradeActive == true && BrRedToDrRedStgyActive == true))
+   //if ((PlotChangedBrRedDrRedM1 () == "BrightRedToDarkRedM1" && TradeActive == true && SellTradeActive == true && BrRedToDrRedStgyActive == true))
+   if ((PlotChangedBrRedDrRedM1 () == "BrightRedToDarkRedM1" && TradeActive == true && SellTradeActive == true && DrRedToBrRedStgyActive == true))
    {
       TradeActive = false;
       SellTradeActive = false;
       //DarkRedToBrightRedM5Active = false;
-      BrRedToDrRedStgyActive = false;
+      //BrRedToDrRedStgyActive = false;
+      DrRedToBrRedStgyActive = false;
       SignalExit = SIGNAL_EXIT_SELL;
     
       Print("TradeActive: " + TradeActive);  
       Print("SellTradeActive: " + SellTradeActive); 
-      Print("BrRedToDrRedStgyActive: " + BrRedToDrRedStgyActive);
+      Print("DrRedToBrRedStgyActive: " + DrRedToBrRedStgyActive);
       Print("SIGNAL_EXIT_SELL DarkRedToBrightRedM5: ");
       //Print("SignalExit set to SIGNAL_EXIT_SELL, BrightRedToDarkRedM1: " + SignalExit);  
    }
@@ -792,43 +797,51 @@ string PlotChangedDrRedBrRedM5 ()
 {
    string result = "";
 
-   Print("beginning PlotChangedDrRedBrRedM5.");
-   //Print("DarkRedToBrightRedM5Active: " + DarkRedToBrightRedM5Active);
-   Print("BrRedToDrRedStgyActive: " + BrRedToDrRedStgyActive);
+   /* Print("beginning PlotChangedDrRedBrRedM5.");
+   Print("DrRedToBrRedStgyActive: " + DrRedToBrRedStgyActive);
    Print(CombinedHistory[1][29] < CombinedHistory[2][29]);
    Print(CombinedHistory[3][29] > CombinedHistory[2][29]);
    Print(0 > CombinedHistory[1][29]);//
+   Print("end."); */
+
+   Print("beginning PlotChangedDrRedBrRedM5.");
+   Print("DrRedToBrRedStgyActive: " + DrRedToBrRedStgyActive);
+   Print(CombinedHistory[2][29] > CombinedHistory[1][29]);
+   Print(CombinedHistory[2][29] > CombinedHistory[3][29]);
+   Print(CombinedHistory[1][29] < 0);//
    Print("end.");
 
    //plot 4 changed from dark red to bright red
       if (
        (
-         //DarkRedToBrightRedM5Active == false
-         BrRedToDrRedStgyActive == false
+         DrRedToBrRedStgyActive == false
          //M1
          /* && (CombinedHistory[1][29] < CombinedHistory[2][29]) 
-         && (CombinedHistory[2][29] > CombinedHistory[3][29]) */
-
-         && (CombinedHistory[1][29] < CombinedHistory[2][29]) 
          && (CombinedHistory[3][29] > CombinedHistory[2][29])
+         && CombinedHistory[1][29] < 0 */
+
+         && (CombinedHistory[2][29] > CombinedHistory[1][29]) 
+         && (CombinedHistory[2][29] > CombinedHistory[3][29])
          && CombinedHistory[1][29] < 0
        )
       )
       {
          Print("M5");
-         Print(
+         /* Print(
             NormalizeDouble(CombinedHistory[1][29] ,6) + " < " + NormalizeDouble(CombinedHistory[2][29] ,6) + 
             " && " + NormalizeDouble(CombinedHistory[3][29] ,6) + " > " + NormalizeDouble(CombinedHistory[2][29] ,6) +
+            " && " + NormalizeDouble(CombinedHistory[1][29] ,6) + " < 0" 
+         ); */
+
+         Print(
+            NormalizeDouble(CombinedHistory[2][29] ,6) + " > " + NormalizeDouble(CombinedHistory[1][29] ,6) + 
+            " && " + NormalizeDouble(CombinedHistory[2][29] ,6) + " > " + NormalizeDouble(CombinedHistory[2][29] ,6) +
             " && " + NormalizeDouble(CombinedHistory[1][29] ,6) + " < 0" 
          );
 
          result = "DarkRedToBrightRedM5";
 
-         //BrRedToDrRedStgyActive = true;
-         //DarkRedToBrightRedM5Active = true;
-         //BrightRedToDarkRedM5Active = false;
-
-         Print("Plot 4 changed to " + result);       
+         Print("Plot 4 M5 changed to " + result);       
       }
 
       return result;
@@ -840,18 +853,18 @@ string PlotChangedBrRedDrRedM1 ()
    string result = "";
    //bool result = false;
 
-   Print("beginning PlotChangedBrRedDrRedM1.");
-   Print("BrRedToDrRedStgyActive: " + BrRedToDrRedStgyActive);
+   /* Print("beginning PlotChangedBrRedDrRedM1.");
+   Print("DrRedToBrRedStgyActive: " + DrRedToBrRedStgyActive);
    Print(CombinedHistory[1][37] > CombinedHistory[2][37]);
    Print(CombinedHistory[3][37] < CombinedHistory[2][37]);
    Print(CombinedHistory[1][37] < 0);
-   Print("end.");
+   Print("end."); */
 
       //plot 4 changed from bright red to dark red
       if (
        (
-         BrRedToDrRedStgyActive == true
-         //BrightRedToDarkRedM1Active == false
+         DrRedToBrRedStgyActive == true
+
          //M5
          && (CombinedHistory[1][37] > CombinedHistory[2][37]) 
          && (CombinedHistory[2][37] < CombinedHistory[3][37])
@@ -867,10 +880,8 @@ string PlotChangedBrRedDrRedM1 ()
          );
 
          result = "BrightRedToDarkRedM1";
-         //BrightRedToDarkRedM1Active = true;
-         //DarkRedToBrightRedM1Active = false;
 
-         Print("Plot 4 M1 changed to " + result);
+         Print("Plot 1 M1 changed to " + result);
       }
 
       return result;
