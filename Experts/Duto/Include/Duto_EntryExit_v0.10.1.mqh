@@ -730,13 +730,6 @@ string PlotChangedDrRedBrRedM5 ()
 
    /* Print("beginning PlotChangedDrRedBrRedM5.");
    Print("DrRedToBrRedStgyActive: " + DrRedToBrRedStgyActive);
-   Print(CombinedHistory[1][29] < CombinedHistory[2][29]);
-   Print(CombinedHistory[3][29] > CombinedHistory[2][29]);
-   Print(0 > CombinedHistory[1][29]);//
-   Print("end."); */
-
-   Print("beginning PlotChangedDrRedBrRedM5.");
-   Print("DrRedToBrRedStgyActive: " + DrRedToBrRedStgyActive);
 
    Print("M5 RQMENTS");
    Print(CombinedHistory[2][29] > CombinedHistory[1][29]);//plot 4
@@ -744,9 +737,12 @@ string PlotChangedDrRedBrRedM5 ()
    Print(CombinedHistory[1][29] < 0);//plot 4
 
    Print("M1 RQMENTS");
-   Print(CombinedHistory[1][36] < 0);//plot 1
+   Print(CombinedHistory[1][36] < 0);//macd
+   Print(CombinedHistory[1][37] < 0);//macd
+   Print(CombinedHistory[1][38] < 0);//macd
+   Print(CombinedHistory[1][39] < 0);//macd
 
-   Print("end.");
+   Print("end."); */
 
    //plot 4 changed from dark red to bright red
       if (
@@ -758,6 +754,9 @@ string PlotChangedDrRedBrRedM5 ()
          && CombinedHistory[1][29] < 0
          //M1 RQMENTS
          && CombinedHistory[1][36] < 0
+         && CombinedHistory[1][37] < CombinedHistory[2][37] && CombinedHistory[1][37] < 0
+         && CombinedHistory[1][38] < CombinedHistory[2][38] && CombinedHistory[1][38] < 0
+         && CombinedHistory[1][39] < CombinedHistory[2][39] && CombinedHistory[1][39] < 0
        )
       )
       {
