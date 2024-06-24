@@ -601,22 +601,19 @@ ENUM_SIGNAL_EXIT DutoSun3_1Exit()
 
 bool TradeActive, BuyTradeActive, SellTradeActive;
 
-bool BrightRedToDarkRedM5Active, DarkRedToBrightRedM5Active;;
-bool BrRedToDrRedStgyActive, DrRedToBrRedStgyActive;
+bool BrightRedToDarkRedM5Active, DarkRedToBrightRedM5Active;
+
+bool DrRedToBrRedStgyActive, SellTypicalStgyActive;
 
 bool BrightRedToDarkRedM1Active, DarkRedToBrightRedM1Active;
 
-bool RideDarkRedToBrightRedSell;
-bool RideBrightGreenToDarkGreenSell;
 
 ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
 {  
     //SIGNAL_ENTRY_SELL
    
-   /* if (
-      (SignalEntrySellTypical() && TradeActive == false && SellTradeActive == false)
-      //||
-      //(PlotChangedDrRedBrRedM5() == "DarkRedToBrightRedM5" && TradeActive == false && SellTradeActive == false)
+   if (
+      (SignalEntrySellTypical() && TradeActive == false && SellTradeActive == false && SellTypicalStgyActive == false && DrRedToBrRedStgyActive == false)
       )
     {
       //macd, 1 min
@@ -626,13 +623,15 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
 
       TradeActive = true; //flag to indicate that a sell or a buy trade is active
       SellTradeActive = true;
+      SellTypicalStgyActive = true;
       SignalEntry = SIGNAL_ENTRY_SELL; 
 
-      Print("TradeActive: " + TradeActive);
-      Print("SellTradeActive: " + SellTradeActive);
-    } */
+      //Print("TradeActive: " + TradeActive);
+      //Print("SellTradeActive: " + SellTradeActive);
+      Print("Enter sell SellTypicalStgyActive: " + SellTypicalStgyActive);
+    }
 
-    if ((PlotChangedDrRedBrRedM5() == "DarkRedToBrightRedM5" && TradeActive == false && SellTradeActive == false && DrRedToBrRedStgyActive == false))
+    /* if ((PlotChangedDrRedBrRedM5() == "DarkRedToBrightRedM5" && TradeActive == false && SellTradeActive == false && DrRedToBrRedStgyActive == false))
     {
       //macd, 1 min
       EntryData[0][7] = CombinedHistory[1][36];
@@ -644,11 +643,11 @@ ENUM_SIGNAL_ENTRY DutoSun3_2Entry()
       DrRedToBrRedStgyActive = true;
       SignalEntry = SIGNAL_ENTRY_SELL; 
 
-      Print("TradeActive: " + TradeActive);
-      Print("SellTradeActive: " + SellTradeActive);
-      Print("DrRedToBrRedStgyActive: " + DrRedToBrRedStgyActive);
-      Print("SIGNAL_ENTRY_SELL DarkRedToBrightRedM5: ");
-    }
+      //Print("TradeActive: " + TradeActive);
+      //Print("SellTradeActive: " + SellTradeActive);
+      Print("Enter sell DrRedToBrRedStgyActive: " + DrRedToBrRedStgyActive);
+      //Print("SIGNAL_ENTRY_SELL DarkRedToBrightRedM5: ");
+    } */
 
    return SignalEntry;
 }
@@ -658,34 +657,34 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
    // This is where you should insert your Exit Signal for SELL orders
    // Include a condition to open a buy order, the condition will have to set SignalExit=SIGNAL_EXIT_SELL
 
-   /* if (
+   if (
 
-         (SignalExitSellTypical () && TradeActive == true && SellTradeActive == true)
-         //|| 
-         //(PlotChangedBrRedDrRedM1 () == "BrightRedToDarkRedM1" && TradeActive == true && SellTradeActive == true)
+         (SignalExitSellTypical () && TradeActive == true && SellTradeActive == true && SellTypicalStgyActive == true && DrRedToBrRedStgyActive == false)
       )
    {
       TradeActive = false;
       SellTradeActive = false;
+      SellTypicalStgyActive = false;
       SignalExit = SIGNAL_EXIT_SELL;
 
-      Print("SignalExit set to SIGNAL_EXIT_SELL typical: " + SignalExit);     
-      Print("TradeActive: " + TradeActive);  
-      Print("SellTradeActive: " + SellTradeActive);  
-   }  */
+      //Print("SignalExit set to SIGNAL_EXIT_SELL typical: " + SignalExit);     
+      //Print("TradeActive: " + TradeActive);  
+      //Print("SellTradeActive: " + SellTradeActive);  
+      Print("Exit SellTypicalStgyActive: " + SellTypicalStgyActive);  
+   } 
 
-   if ((PlotChangedBrRedDrRedM1 () == "BrightRedToDarkRedM1" && TradeActive == true && SellTradeActive == true && DrRedToBrRedStgyActive == true))
+   /* if ((PlotChangedBrRedDrRedM1 () == "BrightRedToDarkRedM1" && TradeActive == true && SellTradeActive == true && SellTypicalStgyActive == false && DrRedToBrRedStgyActive == true))
    {
       TradeActive = false;
       SellTradeActive = false;
       DrRedToBrRedStgyActive = false;
       SignalExit = SIGNAL_EXIT_SELL;
     
-      Print("TradeActive: " + TradeActive);  
-      Print("SellTradeActive: " + SellTradeActive); 
+      //Print("TradeActive: " + TradeActive);  
+      //Print("SellTradeActive: " + SellTradeActive); 
       Print("DrRedToBrRedStgyActive: " + DrRedToBrRedStgyActive);
-      Print("SIGNAL_EXIT_SELL DarkRedToBrightRedM5: " + SignalExit);
-   }
+      //Print("SIGNAL_EXIT_SELL DarkRedToBrightRedM5: " + SignalExit);
+   } */
 
    return SignalExit;
 }
@@ -776,7 +775,6 @@ string PlotChangedDrRedBrRedM5 ()
 }
 
 string PlotChangedBrRedDrRedM1 ()
-//bool PlotChangedBrRedDrRedM1 ()
 {
    string result = "";
    //bool result = false;
@@ -805,13 +803,6 @@ string PlotChangedBrRedDrRedM1 ()
        )
       )
       {
-         /* Print("M1");
-         Print(
-            NormalizeDouble(CombinedHistory[1][37] ,6) + " < " + NormalizeDouble(CombinedHistory[2][37] ,6) + 
-            " && " + NormalizeDouble(CombinedHistory[3][37] ,6) + " > " + NormalizeDouble(CombinedHistory[2][37] ,6) +
-            " && " + NormalizeDouble(CombinedHistory[1][37] ,6) + " < 0" 
-         ); */
-
          Print("M1");
          Print(
             NormalizeDouble(CombinedHistory[2][36] ,6) + " < " + NormalizeDouble(CombinedHistory[1][36] ,6) + 
@@ -826,6 +817,89 @@ string PlotChangedBrRedDrRedM1 ()
       }
 
       return result;
+}
+
+bool SignalEntrySellTypical ()
+{
+   //enter a sell if the M5 chart has a red delta c and plots 2-3 are increasing negative 
+   //AND if the M1 chart has a red delta c and plots 2-3 are negative
+   //AND if the M1 macd peaks at green
+
+   //SIGNAL_ENTRY_SELL TYPICAL
+   if (
+       SellTypicalStgyActive == false
+       && SellTradeActive == false
+
+       //1 MINUTE CANDLE HISTORY
+       //CHART INDICATORS
+       //delta c is red
+       && (CombinedHistory[1][35] == -1 //delta c, candle 1 is negative, 1 min
+      
+       //MACD AND PLOTS
+       //MACD
+       //macd peaks at green
+       && CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 less than candle 2, 1 min
+       && CombinedHistory[3][36] < CombinedHistory[2][36] //macd, candle 3 less than candle 2, 1 min
+       && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 and candle 2 positive, 1 min
+
+       //PLOTS
+       //plots 2-3 are negative      
+       && CombinedHistory[1][37] < 0 //plot 2, candle 1 is negative, 1 min
+       && CombinedHistory[1][38] < 0 //plot 3, candle 1 is negative, 1 min
+       && CombinedHistory[1][39] < 0 //plot 4, candle 1 is negative, 1 min
+
+       //5 MINUTE CANDLE HISTORY
+       //CHART INDICATORS
+       //delta c is red
+       && CombinedHistory[1][25] == -1 //delta c, candle 1 is negative, 5 min
+
+       //MACD AND PLOTS
+       //PLOTS
+       //plots 2-4 are increasing negative
+        &&
+         (
+            (
+               (CombinedHistory  [1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] < 0
+               && CombinedHistory[1][28] < CombinedHistory[2][28]  && CombinedHistory[1][28] < 0
+               && CombinedHistory[1][29] < CombinedHistory[2][29]  && CombinedHistory[1][29] < 0
+            )
+         )
+       )
+       )
+       {
+         //Print("SignalEntrySellTypical");
+         return true;
+       }
+       else 
+       {
+         return false;
+       }
+}
+
+bool SignalExitSellTypical ()
+{
+   //SIGNAL_EXIT_SELL TYPICAL
+   if (
+         //there is an active trade
+         TradeActive == true
+
+         //MACD AND PLOTS
+         //MACD
+         //macd peaks at red
+         && (CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+         && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0) //macd, candle 1 and candle 2 negative, 1 min
+         //||
+         //PLOTS
+            //(CombinedHistory[1][27] > CombinedHistory[2][27]) //plot 2, candle 1 greater than candle 2, 5 min
+      )
+       {
+         //Print("SignalExitSellTypical");
+         return true;
+       }
+       else 
+       {
+         return false;
+       }
 }
 
 string PlotChangedDrRedBrRedM1 ()
@@ -860,87 +934,6 @@ string PlotChangedDrRedBrRedM1 ()
 
       return result;
 }
-
-bool SignalEntrySellTypical ()
-{
-   //enter a sell if the M5 chart has a red delta c and plots 2-3 are increasing negative 
-   //AND if the M1 chart has a red delta c and plots 2-3 are negative
-   //AND if the M1 macd peaks at green
-
-   //SIGNAL_ENTRY_SELL TYPICAL
-   if (
-       //1 MINUTE CANDLE HISTORY
-       //CHART INDICATORS
-       //delta c is red
-       (CombinedHistory[1][35] == -1 //delta c, candle 1 is negative, 1 min
-      
-       //MACD AND PLOTS
-       //MACD
-       //macd peaks at green
-       && CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 less than candle 2, 1 min
-       && CombinedHistory[3][36] < CombinedHistory[2][36] //macd, candle 3 less than candle 2, 1 min
-       && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 and candle 2 positive, 1 min
-
-       //PLOTS
-       //plots 2-3 are negative      
-       && CombinedHistory[1][37] < 0 //plot 2, candle 1 is negative, 1 min
-       && CombinedHistory[1][38] < 0 //plot 3, candle 1 is negative, 1 min
-       && CombinedHistory[1][39] < 0 //plot 4, candle 1 is negative, 1 min
-
-       //5 MINUTE CANDLE HISTORY
-       //CHART INDICATORS
-       //delta c is red
-       && CombinedHistory[1][25] == -1 //delta c, candle 1 is negative, 5 min
-
-       //MACD AND PLOTS
-       //PLOTS
-       //plots 2-4 are increasing negative
-        &&
-         (
-            (
-               (CombinedHistory  [1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] < 0
-               && CombinedHistory[1][28] < CombinedHistory[2][28]  && CombinedHistory[1][28] < 0
-               && CombinedHistory[1][29] < CombinedHistory[2][29]  && CombinedHistory[1][29] < 0
-            )
-         )
-       )
-       )
-       {
-         Print("SignalEntrySellTypical");
-         return true;
-       }
-       else 
-       {
-         return false;
-       }
-}
-
-bool SignalExitSellTypical ()
-{
-   //SIGNAL_EXIT_SELL TYPICAL
-   if (
-         //there is an active trade
-         TradeActive == true
-
-         //MACD AND PLOTS
-         //MACD
-         //macd peaks at red
-         && (CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
-         && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0) //macd, candle 1 and candle 2 negative, 1 min
-         //||
-         //PLOTS
-            //(CombinedHistory[1][27] > CombinedHistory[2][27]) //plot 2, candle 1 greater than candle 2, 5 min
-      )
-       {
-         Print("SignalExitSellTypical");
-         return true;
-       }
-       else 
-       {
-         return false;
-       }
-}
-
 
 //////STRATEGIES END
    
