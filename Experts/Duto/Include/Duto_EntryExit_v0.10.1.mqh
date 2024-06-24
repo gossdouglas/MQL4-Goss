@@ -833,7 +833,8 @@ bool SignalEntrySellTypical ()
        //1 MINUTE CANDLE HISTORY
        //CHART INDICATORS
        //delta c is red
-       && (CombinedHistory[1][35] == -1 //delta c, candle 1 is negative, 1 min
+       && 
+       (CombinedHistory[1][35] == -1 //delta c, candle 1 is negative, 1 min
       
        //MACD AND PLOTS
        //MACD
@@ -855,19 +856,17 @@ bool SignalEntrySellTypical ()
 
        //MACD AND PLOTS
        //PLOTS
-       //plots 2-4 are increasing negative
+       //plots 1-4 are increasing negative
         &&
-         (
-            (
-               (CombinedHistory  [1][27] < CombinedHistory[2][27]) && CombinedHistory[1][27] < 0
-               && CombinedHistory[1][28] < CombinedHistory[2][28]  && CombinedHistory[1][28] < 0
-               && CombinedHistory[1][29] < CombinedHistory[2][29]  && CombinedHistory[1][29] < 0
-            )
+         ( 
+                  CombinedHistory[1][27] < CombinedHistory[2][27] && CombinedHistory[1][27] < 0
+               && CombinedHistory[1][28] < CombinedHistory[2][28] && CombinedHistory[1][28] < 0
+               && CombinedHistory[1][29] < CombinedHistory[2][29] && CombinedHistory[1][29] < 0  
          )
        )
        )
        {
-         //Print("SignalEntrySellTypical");
+         Print("SignalEntrySellTypical");
          return true;
        }
        else 
@@ -882,18 +881,21 @@ bool SignalExitSellTypical ()
    if (
          //there is an active trade
          TradeActive == true
+         && SellTypicalStgyActive == true
 
          //MACD AND PLOTS
          //MACD
          //macd peaks at red
-         && (CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
-         && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0) //macd, candle 1 and candle 2 negative, 1 min
-         //||
-         //PLOTS
-            //(CombinedHistory[1][27] > CombinedHistory[2][27]) //plot 2, candle 1 greater than candle 2, 5 min
+         && 
+         (
+         CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+         && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0 //macd, candle 1 and candle 2 negative, 1 min
+         )
+         ||
+         (CombinedHistory[1][27] > CombinedHistory[2][27] && CombinedHistory[1][27] < 0 )
       )
        {
-         //Print("SignalExitSellTypical");
+         Print("SignalExitSellTypical");
          return true;
        }
        else 
