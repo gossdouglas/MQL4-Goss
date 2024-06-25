@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Strategy Tester: Duto_v01</title>
+    <meta name="version" content="Build 1420">
+    <meta name="server" content="OANDA-Demo-1">
+    <style type="text/css" media="screen">
+    <!--
+    td { font: 8pt Tahoma,Arial; }
+    //-->
+    </style>
+    <style type="text/css" media="print">
+    <!--
+    td { font: 7pt Tahoma,Arial; }
+    //-->
+    </style>
+    <style type="text/css">
+    <!--
+    .msdate { mso-number-format:"General Date"; }
+    .mspt   { mso-number-format:\#\,\#\#0\.00;  }
+    //-->
+    </style>
+  </head>
+<body topmargin=1 marginheight=1>
+<div align=center>
+<div style="font: 20pt Times New Roman"><b>Strategy Tester Report</b></div>
+<div style="font: 16pt Times New Roman"><b>Duto_v01</b></div>
+<div style="font: 10pt Times New Roman"><b>OANDA-Demo-1 (Build 1420)</b></div><br>
+
+<table width=820 cellspacing=1 cellpadding=3 border=0>
+<tr align=left><td colspan=2>Symbol</td><td colspan=4>EURUSD (EUR/USD)</td></tr>
+<tr align=left><td colspan=2>Period</td><td colspan=4>1 Minute (M1)  2024.06.17 00:05 - 2024.06.17 23:59    (2024.06.17 - 2024.06.18)</td></tr>
+<tr align=left><td colspan=2>Model</td><td colspan=4>Every tick (the most precise method based on all available least timeframes)</td></tr>
+<tr align=left><td colspan=2>Parameters</td><td colspan=4>Comment_strategy="=========="; MAFastPeriod=10; MAFastShift=0; MAFastMethod=0; MAFastAppliedPrice=0; MASlowPeriod=25; MASlowShift=0; MASlowMethod=0; MASlowAppliedPrice=0; PSARStopStep=0.04; PSARStopMax=0.4; Comment_0="=========="; RiskDefaultSize=1; DefaultLotSize=0.1; RiskBase=2; MaxRiskPerTrade=2; MinLotSize=0.01; MaxLotSize=100; Comment_1="=========="; UseTradingHours=false; 
+TradingHourStart=10; TradingHourEnd=22; Comment_2="=========="; StopLossMode=0; DefaultStopLoss=150; MinStopLoss=0; MaxStopLoss=5000; TakeProfitMode=0; DefaultTakeProfit=0; MinTakeProfit=0; MaxTakeProfit=5000; Comment_3="=========="; UseTrailingStop=false; 
+Comment_4="=========="; MagicNumber=0; OrderNote=""; Slippage=5; MaxSpread=100; </td></tr>
+<tr align=left><td colspan=2><tr align=left><td>Bars in test</td><td align=right>2414</td><td>Ticks modelled</td><td align=right>37275</td><td>Modelling quality</td><td align=right>25.00%</td></tr>
+<tr align=left><td>Mismatched charts errors</td><td align=right>0</td><td></td><td align=right></td><td></td><td align=right></td></tr>
+<tr height=8><td colspan=6></td></tr>
+<tr align=left><td>Initial deposit</td><td align=right>10000.00</td><td></td><td align=right></td><td>Spread</td><td align=right>2</td></tr>
+<tr align=left><td>Total net profit</td><td align=right>-4.00</td><td>Gross profit</td><td align=right>4.70</td><td>Gross loss</td><td align=right>-8.70</td></tr>
+<tr align=left><td>Profit factor</td><td align=right>0.54</td><td>Expected payoff</td><td align=right>-0.57</td><td></td><td align=right></td></tr>
+<tr align=left><td>Absolute drawdown</td><td align=right>10.20</td><td>Maximal drawdown</td><td align=right>10.30 (0.10%)</td><td>Relative drawdown</td><td align=right>0.10% (10.30)</td></tr>
+<tr height=8><td colspan=6></td></tr>
+<tr align=left><td>Total trades</td><td align=right>7</td><td>Short positions (won %)</td><td align=right>1 (0.00%)</td><td>Long positions (won %)</td><td align=right>6 (66.67%)</td></tr>
+<tr align=left><td colspan=2 align=right></td><td>Profit trades (% of total)</td><td align=right>4 (57.14%)</td><td>Loss trades (% of total)</td><td align=right>3 (42.86%)</td></tr>
+<tr align=left><td colspan=2 align=right>Largest</td><td>profit trade</td><td align=right>2.10</td><td>loss trade</td><td align=right>-7.20</td></tr>
+<tr align=left><td colspan=2 align=right>Average</td><td>profit trade</td><td align=right>1.18</td><td>loss trade</td><td align=right>-2.90</td></tr>
+<tr align=left><td colspan=2 align=right>Maximum</td><td>consecutive wins (profit in money)</td><td align=right>2 (2.40)</td><td>consecutive losses (loss in money)</td><td align=right>2 (-7.90)</td></tr>
+<tr align=left><td colspan=2 align=right>Maximal</td><td>consecutive profit (count of wins)</td><td align=right>2.40 (2)</td><td>consecutive loss (count of losses)</td><td align=right>-7.90 (2)</td></tr>
+<tr align=left><td colspan=2 align=right>Average</td><td>consecutive wins</td><td align=right>2</td><td>consecutive losses</td><td align=right>2</td></tr>
+
+</table>
+<img src="item_14_problem.gif" width=820 height=200 border=0 alt="Graph"><br>
+<table width=820 cellspacing=1 cellpadding=3 border=0>
+<tr bgcolor="#C0C0C0" align=right><td>#</td><td>Time</td><td>Type</td><td>Order</td><td>Size</td><td>Price</td><td>S / L</td><td>T / P</td><td>Profit</td><td>Balance</td></tr>
+<tr align=right><td>1</td><td class=msdate>2024.06.17 08:00</td><td>buy</td><td>1</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07038</td><td style="mso-number-format:0\.00000;" align=right>1.06888</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>2</td><td class=msdate>2024.06.17 08:05</td><td>close</td><td>1</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07031</td><td style="mso-number-format:0\.00000;" align=right>1.06888</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-0.70</td><td class=mspt>9999.30</td></tr>
+<tr align=right><td>3</td><td class=msdate>2024.06.17 09:35</td><td>sell</td><td>2</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06921</td><td style="mso-number-format:0\.00000;" align=right>1.07071</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>4</td><td class=msdate>2024.06.17 09:45</td><td>close</td><td>2</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06993</td><td style="mso-number-format:0\.00000;" align=right>1.07071</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-7.20</td><td class=mspt>9992.10</td></tr>
+<tr align=right><td>5</td><td class=msdate>2024.06.17 12:01</td><td>buy</td><td>3</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07090</td><td style="mso-number-format:0\.00000;" align=right>1.06940</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>6</td><td class=msdate>2024.06.17 12:11</td><td>close</td><td>3</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07099</td><td style="mso-number-format:0\.00000;" align=right>1.06940</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>0.90</td><td class=mspt>9993.00</td></tr>
+<tr align=right><td>7</td><td class=msdate>2024.06.17 12:24</td><td>buy</td><td>4</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07092</td><td style="mso-number-format:0\.00000;" align=right>1.06942</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>8</td><td class=msdate>2024.06.17 12:39</td><td>close</td><td>4</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07107</td><td style="mso-number-format:0\.00000;" align=right>1.06942</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>1.50</td><td class=mspt>9994.50</td></tr>
+<tr align=right><td>9</td><td class=msdate>2024.06.17 12:59</td><td>buy</td><td>5</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07107</td><td style="mso-number-format:0\.00000;" align=right>1.06957</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>10</td><td class=msdate>2024.06.17 13:05</td><td>close</td><td>5</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07099</td><td style="mso-number-format:0\.00000;" align=right>1.06957</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-0.80</td><td class=mspt>9993.70</td></tr>
+<tr align=right><td>11</td><td class=msdate>2024.06.17 18:45</td><td>buy</td><td>6</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07200</td><td style="mso-number-format:0\.00000;" align=right>1.07050</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>12</td><td class=msdate>2024.06.17 18:55</td><td>close</td><td>6</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07202</td><td style="mso-number-format:0\.00000;" align=right>1.07050</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>0.20</td><td class=mspt>9993.90</td></tr>
+<tr align=right><td>13</td><td class=msdate>2024.06.17 19:25</td><td>buy</td><td>7</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07225</td><td style="mso-number-format:0\.00000;" align=right>1.07075</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>14</td><td class=msdate>2024.06.17 19:34</td><td>close</td><td>7</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07246</td><td style="mso-number-format:0\.00000;" align=right>1.07075</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>2.10</td><td class=mspt>9996.00</td></tr>
+
+</table>
+</div></body></html>
