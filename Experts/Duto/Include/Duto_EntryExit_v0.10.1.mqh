@@ -86,14 +86,24 @@ void LogIndicatorData()
    string strWriteLine, strWriteLine2 = "";
    int fileHandleIndicatorData;
    int periodArray[] = {60, 15, 5};
-   
+
+   string fileName = "duto_indicator_data_" + Symbol() + ".csv";
+
    //if the file exists, then delete it so only the most recent data is included
+   if (FileIsExist(fileName)) {
+
+      FileDelete(fileName);
+   } 
+
+   FileCopy("duto_indicator_data_blank.csv", 0, fileName, 0);
+   
+   /* //if the file exists, then delete it so only the most recent data is included
    if (FileIsExist("duto_indicator_data.csv")) {
 
       FileDelete("duto_indicator_data.csv");
    } 
 
-   FileCopy("duto_indicator_data_blank.csv", 0, "duto_indicator_data.csv", 0);
+   FileCopy("duto_indicator_data_blank.csv", 0, "duto_indicator_data.csv", 0); */
 
    //open the file
    fileHandleIndicatorData = FileOpen("duto_indicator_data.csv", FILE_BIN | FILE_READ | FILE_WRITE | FILE_CSV);
