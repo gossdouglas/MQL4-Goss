@@ -913,6 +913,35 @@ bool SignalEntrySellTypical ()
        }
 }
 
+bool SignalExitSellTypical ()
+{
+   //SIGNAL_EXIT_SELL TYPICAL
+   if (
+         //there is an active trade
+         TradeActive == true
+         && SellTypicalStgyActive == true
+
+         //MACD AND PLOTS
+         //MACD
+         //macd peaks at red
+         && 
+         (
+         CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+         && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0 //macd, candle 1 and candle 2 negative, 1 min
+         )
+         ||
+         (CombinedHistory[1][27] > CombinedHistory[2][27] && CombinedHistory[1][27] < 0 )
+      )
+       {
+         Print("SignalExitSellTypical");
+         return true;
+       }
+       else 
+       {
+         return false;
+       }
+}
+
 bool SignalEntryBuyTypical ()
 {
    //enter a sell if the M5 chart has a red delta c and plots 2-3 are increasing negative 
@@ -950,7 +979,7 @@ bool SignalEntryBuyTypical ()
 
        //MACD AND PLOTS
        //PLOTS
-       //plots 1-4 are increasing negative
+       //plots 2-4 are increasing negative
         &&
          ( 
                   CombinedHistory[1][27] > CombinedHistory[2][27] && CombinedHistory[1][27] > 0
@@ -969,53 +998,24 @@ bool SignalEntryBuyTypical ()
        }
 }
 
-bool SignalExitSellTypical ()
-{
-   //SIGNAL_EXIT_SELL TYPICAL
-   if (
-         //there is an active trade
-         TradeActive == true
-         && SellTypicalStgyActive == true
-
-         //MACD AND PLOTS
-         //MACD
-         //macd peaks at red
-         && 
-         (
-         CombinedHistory[1][36] > CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
-         && CombinedHistory[1][36] < 0 && CombinedHistory[2][36] < 0 //macd, candle 1 and candle 2 negative, 1 min
-         )
-         ||
-         (CombinedHistory[1][27] > CombinedHistory[2][27] && CombinedHistory[1][27] < 0 )
-      )
-       {
-         Print("SignalExitSellTypical");
-         return true;
-       }
-       else 
-       {
-         return false;
-       }
-}
-
 bool SignalExitBuyTypical ()
 {
    //SIGNAL_EXIT_BUY TYPICAL
    if (
          //there is an active trade
-         TradeActive == true
-         && BuyTypicalStgyActive == true
+         (TradeActive == true
+         && BuyTypicalStgyActive == true)
 
          //MACD AND PLOTS
          //MACD
          //macd peaks at red
          && 
          (
-         CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
-         && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0 //macd, candle 1 and candle 2 negative, 1 min
+              (CombinedHistory[1][36] < CombinedHistory[2][36] //macd, candle 1 greater than candle 2, 1 min
+              && CombinedHistory[1][36] > 0 && CombinedHistory[2][36] > 0) //macd, candle 1 and candle 2 negative, 1 min       
+              ||
+              (CombinedHistory[1][27] < CombinedHistory[2][27] && CombinedHistory[1][27] > 0 )
          )
-         ||
-         (CombinedHistory[1][27] < CombinedHistory[2][27] && CombinedHistory[1][27] > 0 )
       )
        {
          Print("SignalExitBuyTypical");
