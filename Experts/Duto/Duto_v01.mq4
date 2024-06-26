@@ -35,7 +35,7 @@ TRAILING STOP: Stop following the PSAR
 // In the following instance the file has to be placed in the MQL4/Include Folder
 #include <MQLTA ErrorHandling.mqh>
 // #include <MA Crossover.mqh>
-#include <Duto_EntryExit_v0.10.1.mqh>
+#include <Duto_EntryExit_v1.0.mqh>
 
 //-COMMENTS-//
 // This is a single line comment and I do it placing // at the start of the comment, this text is ignored when compiling
