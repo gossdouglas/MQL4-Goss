@@ -493,7 +493,8 @@ bool SellTradeActive, BuyTradeActive;
 ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 {
    if (
-      (AskThePlots(28, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
+      //(AskThePlots(28, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
+      (AskThePlots(27, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
       && SellStrategyActive == false
       )
    {
@@ -504,7 +505,8 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    }
    else 
    if (
-      (AskThePlots(28, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
+      //(AskThePlots(28, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
+      (AskThePlots(27, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
       && BuyStrategyActive == false
       )
    {
@@ -517,7 +519,8 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    //ENTRY LOGIC
 
    if (
-      (AskThePlots(36, 1, 1, "SELL_ENTRY") == "ENTER A SELL") 
+      //(AskThePlots(36, 1, 1, "SELL_ENTRY") == "ENTER A SELL") 
+      (AskThePlots(37, 1, 1, "SELL_ENTRY") == "ENTER A SELL") 
       && SellStrategyActive == true 
       //&& SellTradeActive == false
       )
@@ -526,7 +529,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 
       //Print("ENTER A SELL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
       //Print("ENTER A SELL. SellTradeActive: " + SellTradeActive);
-      SignalEntry = SIGNAL_ENTRY_SELL;
+      //SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
    return SignalEntry;
@@ -538,15 +541,16 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
    
    if (
       //AskThePlots(36, 1, 1, "SELL_EXIT") == "EXIT A SELL"
-      AskThePlots(39, 1, 1, "SELL_EXIT") == "EXIT A SELL"
+      AskThePlots(37, 1, 1, "SELL_EXIT") == "EXIT A SELL"
+      //AskThePlots(39, 1, 1, "SELL_EXIT") == "EXIT A SELL"
       && SellStrategyActive == true 
       //&& SellTradeActive == true
       )
    {
       SellTradeActive = false;
 
-      Print("EXIT A SELL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
-      SignalExit = SIGNAL_EXIT_SELL;
+      //Print("EXIT A SELL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
+      //SignalExit = SIGNAL_EXIT_SELL;
    }
 
    return SignalExit;
@@ -561,7 +565,8 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    //STRATEGY LOGIC
    if (
       OverallStrategy == "SELL" &&
-      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart + 1][Idx] > CombinedHistory[CndleStart + 2][Idx]  
       )
    {
       result = "PLOT INCREASING NEGATIVE";
@@ -577,12 +582,29 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
    //ENTRY LOGIC
 
+   //positive plot
    if (
-      OverallStrategy == "SELL_ENTRY" &&
-      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] &&
-      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 2][Idx] 
+      SellStrategyActive == true 
+      && OverallStrategy == "SELL_ENTRY"
+      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] > CombinedHistory[CndleStart + 2][Idx] 
+      && CombinedHistory[CndleStart][Idx] > 0 
       )
    {
+      Print("BRIGHT GREEN TO DARK GREEN SELL.");
+      result = "ENTER A SELL";
+   }
+
+   //negative plot
+   if (
+      SellStrategyActive == true 
+      && OverallStrategy == "SELL_ENTRY"
+      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] < CombinedHistory[CndleStart + 2][Idx] 
+      && CombinedHistory[CndleStart][Idx] < 0 
+      )
+   {
+      Print("DARK GREEN TO BRIGHT RED SELL.");
       result = "ENTER A SELL";
    }
 
@@ -592,7 +614,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       OverallStrategy == "SELL_EXIT" &&
       //CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
       CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
-      && CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 2][Idx] 
+      //&& CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 2][Idx] 
       )
    {
       result = "EXIT A SELL";
