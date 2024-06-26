@@ -488,6 +488,7 @@ Bright red entries will be exited when a dark red candle appears.
 Sell trades will be entered and exited again and again until conditions on the M5 plot 2 set the boolean variable SellStrategyActive to false.  */
 
 bool SellStrategyActive, BuyStrategyActive;
+bool SellTradeActive, BuyTradeActive;
 
 ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 {
@@ -513,11 +514,38 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       Print("PLOT INCREASING POSITIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
    }
 
+   //ENTRY LOGIC
+
+   if (
+      (AskThePlots(36, 1, 1, "SELL_ENTRY") == "ENTER A SELL") 
+      && SellStrategyActive == true && SellTradeActive == false
+      )
+   {
+      SellTradeActive = true;
+
+      Print("ENTER A SELL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
+      Print("ENTER A SELL. SellTradeActive: " + SellTradeActive);
+      SignalEntry = SIGNAL_ENTRY_SELL;
+   }
+
    return SignalEntry;
 }
 
 ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
 { 
+   //EXIT LOGIC
+   
+   if (
+      //AskThePlots(36, 1, 1, "SELL_EXIT") == "EXIT A SELL"
+      AskThePlots(39, 1, 1, "SELL_EXIT") == "EXIT A SELL"
+      && SellStrategyActive == true && SellTradeActive == true
+      )
+   {
+      SellTradeActive = false;
+
+      Print("EXIT A SELL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
+      SignalExit = SIGNAL_EXIT_SELL;
+   }
 
    return SignalExit;
 }
@@ -528,6 +556,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 {
    string result = "";
 
+   //STRATEGY LOGIC
    if (
       OverallStrategy == "SELL" &&
       CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
@@ -544,6 +573,26 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       result = "PLOT INCREASING POSITIVE";
    }
 
+   //ENTRY LOGIC
+
+   if (
+      OverallStrategy == "SELL_ENTRY" &&
+      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+      )
+   {
+      result = "ENTER A SELL";
+   }
+
+   //EXIT LOGIC
+
+   if (
+      OverallStrategy == "SELL_EXIT" &&
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      )
+   {
+      result = "EXIT A SELL";
+   }
+
    return result;
 }
 
@@ -552,7 +601,8 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
 //DutoSun3_2
 
-bool TradeActive, BuyTradeActive, SellTradeActive;
+//bool TradeActive, BuyTradeActive, SellTradeActive;
+bool TradeActive;
 
 bool BrightRedToDarkRedM5Active, DarkRedToBrightRedM5Active;
 
