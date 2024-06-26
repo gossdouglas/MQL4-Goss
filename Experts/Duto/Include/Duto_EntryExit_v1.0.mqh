@@ -386,9 +386,6 @@ ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    //strategy to be used for entry
-   //SignalEntry = DutoSun1Entry();
-   //SignalEntry = DutoSun2Entry();
-   //SignalEntry = DutoSun3Entry();
    SignalEntry = DutoSun3_2Entry();
 
    return SignalEntry;
@@ -464,6 +461,11 @@ void GetIndicatorHistory(int indicatorIndex, int numCandles)
 //////STRATEGIES BEGIN
 
 double EntryData[2][11];
+
+//DutoSunOverhaul
+
+
+//DutoSunOverhaul
 
 //DutoSun3_2
 
@@ -595,7 +597,7 @@ ENUM_SIGNAL_EXIT DutoSun3_2Exit()
    return SignalExit;
 }
 
-//DutoSun3_2
+
 
 string PlotChangedBrRedDrRedM5 ()
 {
@@ -927,6 +929,8 @@ string PlotChangedDrRedBrRedM1 ()
 
       return result;
 }
+
+//DutoSun3_2
 
 //////STRATEGIES END
    
