@@ -386,7 +386,8 @@ ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    //strategy to be used for entry
-   SignalEntry = DutoSun3_2Entry();
+   //SignalEntry = DutoSun3_2Entry();
+   SignalEntry = DutoSunOverhaul_Entry();
 
    return SignalEntry;
 }
@@ -398,7 +399,8 @@ ENUM_SIGNAL_EXIT ReturnSignalExitToEvaluateExit()
    SignalExit = SIGNAL_EXIT_NEUTRAL;
 
    //strategy to be used for exit
-   SignalExit = DutoSun3_2Exit();
+   //SignalExit = DutoSun3_2Exit();
+   SignalExit = DutoSunOverhaul_Exit();
 
    return SignalExit;
 }
@@ -463,6 +465,90 @@ void GetIndicatorHistory(int indicatorIndex, int numCandles)
 double EntryData[2][11];
 
 //DutoSunOverhaul
+
+/* OVERALL SELL STRATEGY
+
+If the M5 plot 3 changes from bright green to dark green or dark green to bright red
+then enter an overall sell strategy that is signalled by the Boolean variable SellStrategyActive being set to true. 
+This overall strategy ends when the M5 plot 3 changes from dark green to bright green or from bright red to dark red.
+
+-bright green to dark green indicates a decreasing positive trend.
+
+-dark green to bright red indicates a switch to a negative trend from a decreasing positive trend.
+
+TRADES WHEN THE  SELL STRATEGY IS ACTIVE
+
+Sells will be entered and exited based upon conditions of the MACD  M1 chart.  A sell may be entered on the  
+first available dark green candle or the first available bright red candle.  
+
+Dark green entries will be exited when a bright green candle or dark red candle appears. 
+
+Bright red entries will be exited when a dark red candle appears. 
+
+Sell trades will be entered and exited again and again until conditions on the M5 plot 2 set the boolean variable SellStrategyActive to false.  */
+
+bool SellStrategyActive, BuyStrategyActive;
+
+ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
+{
+   if (
+      (AskThePlots(28, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
+      && SellStrategyActive == false
+      )
+   {
+      SellStrategyActive = true;
+      BuyStrategyActive = false;
+
+      Print("PLOT INCREASING NEGATIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
+   }
+   else 
+   if (
+      (AskThePlots(28, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
+      && BuyStrategyActive == false
+      )
+   {
+      SellStrategyActive = false;
+      BuyStrategyActive = true;
+
+      //Print("PLOT INCREASING POSITIVE");
+      Print("PLOT INCREASING POSITIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
+   }
+
+   return SignalEntry;
+}
+
+ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
+{ 
+
+   return SignalExit;
+}
+
+//functions
+
+string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string OverallStrategy)
+{
+   string result = "";
+
+   if (
+      OverallStrategy == "SELL" &&
+      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+      //&& CombinedHistory[CndleStart][Idx] < 0
+      )
+   {
+      result = "PLOT INCREASING NEGATIVE";
+   }
+
+   if (
+      OverallStrategy == "BUY" &&
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      //&& CombinedHistory[CndleStart][Idx] < 0
+      )
+   {
+      result = "PLOT INCREASING POSITIVE";
+   }
+
+   return result;
+}
 
 
 //DutoSunOverhaul
