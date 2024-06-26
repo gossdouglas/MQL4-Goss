@@ -518,13 +518,14 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 
    if (
       (AskThePlots(36, 1, 1, "SELL_ENTRY") == "ENTER A SELL") 
-      && SellStrategyActive == true && SellTradeActive == false
+      && SellStrategyActive == true 
+      //&& SellTradeActive == false
       )
    {
-      SellTradeActive = true;
+      //SellTradeActive = true;
 
-      Print("ENTER A SELL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
-      Print("ENTER A SELL. SellTradeActive: " + SellTradeActive);
+      //Print("ENTER A SELL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
+      //Print("ENTER A SELL. SellTradeActive: " + SellTradeActive);
       SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
@@ -538,7 +539,8 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
    if (
       //AskThePlots(36, 1, 1, "SELL_EXIT") == "EXIT A SELL"
       AskThePlots(39, 1, 1, "SELL_EXIT") == "EXIT A SELL"
-      && SellStrategyActive == true && SellTradeActive == true
+      && SellStrategyActive == true 
+      //&& SellTradeActive == true
       )
    {
       SellTradeActive = false;
@@ -587,7 +589,9 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
    if (
       OverallStrategy == "SELL_EXIT" &&
+      //CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
       CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 2][Idx] 
       )
    {
       result = "EXIT A SELL";
