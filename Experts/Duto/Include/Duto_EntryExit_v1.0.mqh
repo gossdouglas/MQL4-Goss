@@ -579,7 +579,8 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
    if (
       OverallStrategy == "SELL_ENTRY" &&
-      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] &&
+      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 2][Idx] 
       )
    {
       result = "ENTER A SELL";
