@@ -510,7 +510,6 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       SellStrategyActive = false;
       BuyStrategyActive = true;
 
-      //Print("PLOT INCREASING POSITIVE");
       Print("PLOT INCREASING POSITIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
    }
 
@@ -532,7 +531,6 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    if (
       OverallStrategy == "SELL" &&
       CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
-      //&& CombinedHistory[CndleStart][Idx] < 0
       )
    {
       result = "PLOT INCREASING NEGATIVE";
@@ -541,7 +539,6 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    if (
       OverallStrategy == "BUY" &&
       CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
-      //&& CombinedHistory[CndleStart][Idx] < 0
       )
    {
       result = "PLOT INCREASING POSITIVE";
