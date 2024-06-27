@@ -492,6 +492,8 @@ bool SellTradeActive, BuyTradeActive;
 
 ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 {
+   //OVERALL STRATEGY LOGIC
+   
    if (
          //(AskThePlots(25, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE")
       //&& 
@@ -572,7 +574,8 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
    //EXIT LOGIC
    
    if (
-      AskThePlots(39, 1, 1, "SELL_EXIT") == "EXIT A SELL"
+      //AskThePlots(39, 1, 1, "SELL_EXIT") == "EXIT A SELL"
+      AskThePlots(37, 1, 1, "SELL_EXIT") == "EXIT A SELL"
       && SellStrategyActive == true 
       && SellTradeActive == true
       )
@@ -584,7 +587,8 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
    }
 
    if (
-      AskThePlots(39, 1, 1, "BUY_EXIT") == "EXIT A BUY"
+      //AskThePlots(39, 1, 1, "BUY_EXIT") == "EXIT A BUY"
+      AskThePlots(37, 1, 1, "BUY_EXIT") == "EXIT A BUY"
       && BuyStrategyActive == true 
       && BuyTradeActive == true
       )
