@@ -495,8 +495,9 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    if (
          //(AskThePlots(25, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE")
       //&& 
-      (AskThePlots(26, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE")
-      && (AskThePlots(27, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
+      //(AskThePlots(26, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE")
+      //&& 
+      (AskThePlots(27, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
       && (AskThePlots(28, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
       && (AskThePlots(29, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
       && SellStrategyActive == false
@@ -511,8 +512,9 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    if (
          //(AskThePlots(25, 1, 1, "BUY") == "PLOT INCREASING POSITIVE")
       //&& 
-      (AskThePlots(26, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
-      && (AskThePlots(27, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
+      //(AskThePlots(26, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
+      //&& 
+      (AskThePlots(27, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
       && (AskThePlots(28, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
       && (AskThePlots(29, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
       && BuyStrategyActive == false
@@ -610,6 +612,9 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    if (
       OverallStrategy == "SELL"
       && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 2][Idx]
+
+      //keep or not?
       && CombinedHistory[CndleStart][Idx] < 0   
       )
    {
@@ -619,6 +624,9 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    if (
       OverallStrategy == "BUY" &&
       CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 2][Idx] 
+
+      //keep or not?
       && CombinedHistory[CndleStart][Idx] > 0
       )
    {
