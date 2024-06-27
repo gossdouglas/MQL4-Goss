@@ -493,7 +493,8 @@ bool SellTradeActive, BuyTradeActive;
 ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 {
    if (
-      //(AskThePlots(28, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
+         //(AskThePlots(25, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE")
+      //&& 
       (AskThePlots(26, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE")
       && (AskThePlots(27, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
       && (AskThePlots(28, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
@@ -504,11 +505,13 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       SellStrategyActive = true;
       BuyStrategyActive = false;
 
+      Print("delta c: " + CombinedHistory[1][25]);
       Print("PLOT INCREASING NEGATIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
    }
    else 
    if (
-      //(AskThePlots(28, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
+         //(AskThePlots(25, 1, 1, "BUY") == "PLOT INCREASING POSITIVE")
+      //&& 
       (AskThePlots(26, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
       && (AskThePlots(27, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
       && (AskThePlots(28, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
@@ -538,8 +541,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    {
       SellTradeActive = true;
 
-      Print("ENTER A SELL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
-      Print("ENTER A SELL. SellTradeActive: " + SellTradeActive);
+      Print("ENTER A SELL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive + " SellTradeActive: " + SellTradeActive);
       SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
@@ -569,6 +571,10 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
 
 //functions
 
+/* //hump logic
+      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart + 1][Idx] > CombinedHistory[CndleStart + 2][Idx]  */ 
+
 string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string OverallStrategy)
 {
    string result = "";
@@ -577,10 +583,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    if (
       OverallStrategy == "SELL"
       && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
-
-      /* //hump logic
-      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
-      && CombinedHistory[CndleStart + 1][Idx] > CombinedHistory[CndleStart + 2][Idx]  */ 
+      && CombinedHistory[CndleStart][Idx] < 0   
       )
    {
       result = "PLOT INCREASING NEGATIVE";
@@ -589,6 +592,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    if (
       OverallStrategy == "BUY" &&
       CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart][Idx] > 0
       )
    {
       result = "PLOT INCREASING POSITIVE";
@@ -596,37 +600,16 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
    //ENTRY LOGIC
 
-   /* //positive plot
-   if (
-      SellStrategyActive == true 
-      && OverallStrategy == "SELL_ENTRY"
-
-      //bright to dark logic
-      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
-      && CombinedHistory[CndleStart + 1][Idx] > CombinedHistory[CndleStart + 2][Idx] 
-      && CombinedHistory[CndleStart][Idx] > 0 
-      )
-   {
-      //Print("BRIGHT GREEN TO DARK GREEN SELL.");
-      result = "ENTER A SELL";
-   } */
-
    //negative plot
    if (
       SellStrategyActive == true 
       && OverallStrategy == "SELL_ENTRY"
 
       && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
-      && CombinedHistory[CndleStart][Idx] != CombinedHistory[CndleStart + 1][Idx]
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) != NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6)
       && CombinedHistory[CndleStart][Idx] < 0 
-
-      /* //dark to green logic
-      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
-      && CombinedHistory[CndleStart + 1][Idx] < CombinedHistory[CndleStart + 2][Idx] 
-      && CombinedHistory[CndleStart][Idx] < 0  */
       )
    {
-      //Print("DARK GREEN TO BRIGHT RED SELL.");
       result = "ENTER A SELL";
    }
 
@@ -634,9 +617,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
    if (
       OverallStrategy == "SELL_EXIT" &&
-      //CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
       CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
-      //&& CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 2][Idx] 
       )
    {
       result = "EXIT A SELL";
