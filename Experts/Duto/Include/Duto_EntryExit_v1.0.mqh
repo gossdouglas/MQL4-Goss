@@ -565,11 +565,13 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 
    //BUY ENTRY
    if (
-      (AskThePlots(36, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
-      && (AskThePlots(37, 1, 1, "BUY_ENTRY_SPEC_1") == "ENTER A BUY") 
-      //&& (AskThePlots(38, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
-      //&& (AskThePlots(39, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
+      /* (AskThePlots(37, 1, 1, "BUY_ENTRY_SPEC_1") == "ENTER A BUY") 
+      && (AskThePlots(38, 1, 1, "BUY_ENTRY_SPEC_1") == "ENTER A BUY") 
+      && (AskThePlots(39, 1, 1, "BUY_ENTRY_SPEC_1") == "ENTER A BUY") */ 
 
+      (AskThePlots(36, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
+      && (AskThePlots(38, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
+      && (AskThePlots(39, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
       && (AskThePlots(26, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
 
       && BuyStrategyActive == true 
@@ -592,7 +594,6 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
    //EXIT LOGIC
    
    if (
-      //AskThePlots(39, 1, 1, "SELL_EXIT") == "EXIT A SELL"
       AskThePlots(37, 1, 1, "SELL_EXIT") == "EXIT A SELL"
       && SellStrategyActive == true 
       && SellTradeActive == true
@@ -605,14 +606,13 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
    }
 
    if (
-      //AskThePlots(39, 1, 1, "BUY_EXIT") == "EXIT A BUY"
       AskThePlots(37, 1, 1, "BUY_EXIT") == "EXIT A BUY"
+      //AskThePlots(36, 1, 1, "BUY_EXIT_SPEC_1") == "EXIT A BUY"
       && BuyStrategyActive == true 
       && BuyTradeActive == true
       )
    {
       BuyTradeActive = false;
-
       Print("EXIT A BUY. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
       SignalExit = SIGNAL_EXIT_BUY;
    }
@@ -733,6 +733,17 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    if (
       OverallStrategy == "BUY_EXIT" &&
       CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+      )
+   {
+      result = "EXIT A BUY";
+   }
+
+   if (
+      OverallStrategy == "BUY_EXIT_SPEC_1" &&
+
+      //(NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) - NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6)) <= .000001
+      MathAbs((NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) - NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6)) <= .000001)
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) > NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6)
       )
    {
       result = "EXIT A BUY";
