@@ -86,16 +86,14 @@ void LogIndicatorData()
    string strWriteLine, strWriteLine2 = "";
    int fileHandleIndicatorData;
    int periodArray[] = {60, 15, 5};
-
-   string fileName = "duto_indicator_data_" + Symbol(); 
    
    //if the file exists, then delete it so only the most recent data is included
-   if (FileIsExist(fileName + ".csv")) {
+   if (FileIsExist("duto_indicator_data.csv")) {
 
-      FileDelete(fileName + ".csv");
+      FileDelete("duto_indicator_data.csv");
    } 
 
-   FileCopy("duto_indicator_data_blank.csv", 0, fileName + ".csv", 0);
+   FileCopy("duto_indicator_data_blank.csv", 0, "duto_indicator_data.csv", 0);
 
    //open the file
    fileHandleIndicatorData = FileOpen("duto_indicator_data.csv", FILE_BIN | FILE_READ | FILE_WRITE | FILE_CSV);
@@ -568,9 +566,9 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    //BUY ENTRY
    if (
       (AskThePlots(36, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
-      && (AskThePlots(37, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
-      && (AskThePlots(38, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
-      && (AskThePlots(39, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
+      && (AskThePlots(37, 1, 1, "BUY_ENTRY_SPEC_1") == "ENTER A BUY") 
+      //&& (AskThePlots(38, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
+      //&& (AskThePlots(39, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
 
       && (AskThePlots(26, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
 
@@ -705,6 +703,20 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && CombinedHistory[CndleStart][Idx] > 0 
       )
    {
+      result = "ENTER A BUY";
+   }
+
+   //positive plot
+   if (
+      BuyStrategyActive == true 
+      && OverallStrategy == "BUY_ENTRY_SPEC_1"
+
+      && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) == NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6)
+      && CombinedHistory[CndleStart][Idx] > 0 
+      )
+   {
+      //Print(Idx + ", " + NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) + ", " + NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6));
       result = "ENTER A BUY";
    }
 
