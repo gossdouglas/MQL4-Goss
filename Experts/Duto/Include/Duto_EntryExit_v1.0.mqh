@@ -488,13 +488,14 @@ Bright red entries will be exited when a dark red candle appears.
 Sell trades will be entered and exited again and again until conditions on the M5 plot 2 set the boolean variable SellStrategyActive to false.  */
 
 bool SellStrategyActive, BuyStrategyActive, NeutralStrategyActive;
+bool BuyNegativeStrategyActive, BuyPositiveStrategyActive;
 bool SellTradeActive, BuyTradeActive;
 
 ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 {
    //OVERALL STRATEGY LOGIC
 
-   //NEUTRAL STRATEGY CHECK
+   /* //NEUTRAL STRATEGY CHECK
    if (
       (AskThePlots(27, 1, 1, "NEUTRAL") == "PLOT STEADY NEUTRAL") 
       && (AskThePlots(28, 1, 1, "NEUTRAL") == "PLOT STEADY NEUTRAL") 
@@ -509,8 +510,8 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       Print("PLOT STEADY NEUTRAL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
    }
-   else
-   //SELL STRATEGY CHECK
+   else */
+   /* //SELL STRATEGY CHECK
    if (
       (AskThePlots(27, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
       && (AskThePlots(28, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
@@ -525,12 +526,12 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       Print("PLOT INCREASING NEGATIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
    }
-   else 
+   else  */
    //BUY STRATEGY CHECK
    if (
-      (AskThePlots(27, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
-      && (AskThePlots(28, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
-      && (AskThePlots(29, 1, 1, "BUY") == "PLOT INCREASING POSITIVE") 
+      (AskThePlots(27, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING BRIGHT GREEN POSITIVE") 
+      && (AskThePlots(28, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING BRIGHT GREEN POSITIVE") 
+      && (AskThePlots(29, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING BRIGHT GREEN POSITIVE") 
       && BuyStrategyActive == false
       )
    {
@@ -538,7 +539,23 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       BuyStrategyActive = true;
       NeutralStrategyActive = false;
 
-      Print("PLOT INCREASING POSITIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      Print("PLOT INCREASING BRIGHT GREEN POSITIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive);
+   }
+   else
+   if (
+      //(AskThePlots(27, 1, 1, "BUY_NEGATIVE") == "PLOT INCREASING DARK RED POSITIVE") 
+      //&& (AskThePlots(28, 1, 1, "BUY_NEGATIVE") == "PLOT INCREASING DARK RED POSITIVE") 
+      //&& 
+      (AskThePlots(29, 1, 1, "BUY_NEGATIVE") == "PLOT INCREASING DARK RED POSITIVE") 
+      && BuyStrategyActive == false
+      )
+   {
+      SellStrategyActive = false;
+      BuyStrategyActive = true;
+      NeutralStrategyActive = false;
+
+      Print("PLOT INCREASING DARK RED POSITIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
    }
 
@@ -565,14 +582,12 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 
    //BUY ENTRY
    if (
-      /* (AskThePlots(37, 1, 1, "BUY_ENTRY_SPEC_1") == "ENTER A BUY") 
-      && (AskThePlots(38, 1, 1, "BUY_ENTRY_SPEC_1") == "ENTER A BUY") 
-      && (AskThePlots(39, 1, 1, "BUY_ENTRY_SPEC_1") == "ENTER A BUY") */ 
-
-      (AskThePlots(36, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
+      //(AskThePlots(36, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
+         (AskThePlots(36, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
+      && (AskThePlots(37, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
       && (AskThePlots(38, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
       && (AskThePlots(39, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
-      && (AskThePlots(26, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
+      //&& (AskThePlots(26, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
 
       && BuyStrategyActive == true 
       && BuyTradeActive == false
@@ -593,7 +608,7 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
 { 
    //EXIT LOGIC
    
-   if (
+   /* if (
       AskThePlots(37, 1, 1, "SELL_EXIT") == "EXIT A SELL"
       && SellStrategyActive == true 
       && SellTradeActive == true
@@ -603,11 +618,11 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
 
       Print("EXIT A SELL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
       SignalExit = SIGNAL_EXIT_SELL;
-   }
+   } */
 
    if (
-      AskThePlots(37, 1, 1, "BUY_EXIT") == "EXIT A BUY"
-      //AskThePlots(36, 1, 1, "BUY_EXIT_SPEC_1") == "EXIT A BUY"
+      //AskThePlots(37, 1, 1, "BUY_EXIT") == "EXIT A BUY"
+      AskThePlots(36, 1, 1, "BUY_EXIT") == "EXIT A BUY"
       && BuyStrategyActive == true 
       && BuyTradeActive == true
       )
@@ -667,7 +682,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
  
    //BUY STRATEGY
    if (
-      OverallStrategy == "BUY" &&
+      OverallStrategy == "BUY_POSITIVE" &&
       CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
       && CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 2][Idx] 
 
@@ -675,12 +690,29 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && CombinedHistory[CndleStart][Idx] > 0
       )
    {
-      result = "PLOT INCREASING POSITIVE";
+      result = "PLOT INCREASING BRIGHT GREEN POSITIVE";
+   }
+   else
+   if (
+
+      /* //hump logic
+      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart + 1][Idx] > CombinedHistory[CndleStart + 2][Idx]  */ 
+
+      OverallStrategy == "BUY_NEGATIVE" &&
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] <= CombinedHistory[CndleStart + 2][Idx] 
+
+      //keep or not?
+      && CombinedHistory[CndleStart][Idx] < 0
+      )
+   {
+      result = "PLOT INCREASING DARK RED POSITIVE";
    }
 
    //ENTRY LOGIC
 
-   //negative plot
+   /* //negative plot
    if (
       SellStrategyActive == true 
       && OverallStrategy == "SELL_ENTRY"
@@ -691,7 +723,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       )
    {
       result = "ENTER A SELL";
-   }
+   } */
 
    //positive plot
    if (
@@ -700,35 +732,21 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
       && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
       && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) != NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6)
-      && CombinedHistory[CndleStart][Idx] > 0 
+      //&& CombinedHistory[CndleStart][Idx] > 0 
       )
    {
-      result = "ENTER A BUY";
-   }
-
-   //positive plot
-   if (
-      BuyStrategyActive == true 
-      && OverallStrategy == "BUY_ENTRY_SPEC_1"
-
-      && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
-      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) == NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6)
-      && CombinedHistory[CndleStart][Idx] > 0 
-      )
-   {
-      //Print(Idx + ", " + NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) + ", " + NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6));
       result = "ENTER A BUY";
    }
 
    //EXIT LOGIC
 
-   if (
+   /* if (
       OverallStrategy == "SELL_EXIT" &&
       CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
       )
    {
       result = "EXIT A SELL";
-   }
+   } */
 
    if (
       OverallStrategy == "BUY_EXIT" &&
