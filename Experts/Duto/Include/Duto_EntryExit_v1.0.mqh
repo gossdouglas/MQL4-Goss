@@ -509,8 +509,8 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 
       Print("PLOT STEADY NEUTRAL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
-   }
-   else */
+   } */
+   //else
    /* //SELL STRATEGY CHECK
    if (
       (AskThePlots(27, 1, 1, "SELL") == "PLOT INCREASING NEGATIVE") 
@@ -529,9 +529,10 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    else  */
    //BUY STRATEGY CHECK
    if (
-      (AskThePlots(27, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING BRIGHT GREEN POSITIVE") 
-      && (AskThePlots(28, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING BRIGHT GREEN POSITIVE") 
-      && (AskThePlots(29, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING BRIGHT GREEN POSITIVE") 
+      //(AskThePlots(27, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING BRIGHT GREEN POSITIVE") 
+      //&& 
+      (AskThePlots(28, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE") 
+      && (AskThePlots(29, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE") 
       && BuyStrategyActive == false
       )
    {
@@ -539,24 +540,32 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       BuyStrategyActive = true;
       NeutralStrategyActive = false;
 
-      Print("PLOT INCREASING BRIGHT GREEN POSITIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      BuyNegativeStrategyActive =  false;
+      BuyPositiveStrategyActive =  true;
+
+      Print("PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
+      Print("PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE. BuyNegativeStrategyActive: " + BuyNegativeStrategyActive + " BuyPositiveStrategyActive: " + BuyPositiveStrategyActive);
    }
    else
    if (
       //(AskThePlots(27, 1, 1, "BUY_NEGATIVE") == "PLOT INCREASING DARK RED POSITIVE") 
-      //&& (AskThePlots(28, 1, 1, "BUY_NEGATIVE") == "PLOT INCREASING DARK RED POSITIVE") 
       //&& 
-      (AskThePlots(29, 1, 1, "BUY_NEGATIVE") == "PLOT INCREASING DARK RED POSITIVE") 
+      (AskThePlots(28, 1, 1, "BUY_NEGATIVE") == "PLOT INCREASING DARK RED POSITIVE") 
+      && (AskThePlots(29, 1, 1, "BUY_NEGATIVE") == "PLOT INCREASING DARK RED POSITIVE") 
       && BuyStrategyActive == false
       )
    {
       SellStrategyActive = false;
-      BuyStrategyActive = true;
+      BuyStrategyActive = true;    
       NeutralStrategyActive = false;
+
+      BuyNegativeStrategyActive =  true;
+      BuyPositiveStrategyActive =  false;
 
       Print("PLOT INCREASING DARK RED POSITIVE. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
+      Print("PLOT INCREASING DARK RED POSITIVE. BuyNegativeStrategyActive: " + BuyNegativeStrategyActive + " BuyPositiveStrategyActive: " + BuyPositiveStrategyActive);
    }
 
    //ENTRY LOGIC
@@ -599,7 +608,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       SignalEntry = SIGNAL_ENTRY_BUY;
    }
 
-   //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
+   SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    return SignalEntry;
 }
@@ -682,15 +691,19 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
  
    //BUY STRATEGY
    if (
-      OverallStrategy == "BUY_POSITIVE" &&
-      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
-      && CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 2][Idx] 
+      OverallStrategy == "BUY_POSITIVE"
+      //CombinedHistory[CndleStart][Idx] >= CombinedHistory[CndleStart + 1][Idx] 
+      //&& CombinedHistory[CndleStart + 1][Idx] >= CombinedHistory[CndleStart + 2][Idx] 
+
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) >= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6) 
+      && NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,6) >= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6) 
 
       //keep or not?
       && CombinedHistory[CndleStart][Idx] > 0
       )
    {
-      result = "PLOT INCREASING BRIGHT GREEN POSITIVE";
+      Print(Idx + " yo BUY_POSITIVE. BuyStrategyActive: " + BuyStrategyActive);
+      result = "PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE";
    }
    else
    if (
