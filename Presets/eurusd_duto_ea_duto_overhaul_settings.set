@@ -81,11 +81,11 @@ MaxLotSize,1=100.00000000
 MaxLotSize,2=0.00000000
 MaxLotSize,3=0.00000000
 Comment_1===========
-UseTradingHours=1
+UseTradingHours=0
 UseTradingHours,F=1
-UseTradingHours,1=1
-UseTradingHours,2=-1
-UseTradingHours,3=0
+UseTradingHours,1=0
+UseTradingHours,2=1
+UseTradingHours,3=1
 TradingHourStart=3
 TradingHourStart,F=1
 TradingHourStart,1=3

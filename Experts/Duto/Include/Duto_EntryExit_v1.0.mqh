@@ -174,10 +174,10 @@ void LogIndicatorData()
 
          + strWriteLine2
          
-         + "," + DoubleToString(MacdHistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot2HistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot3HistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot4HistoryBuffer[i], 6)
+         + "," + DoubleToString(MacdHistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot2HistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot3HistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot4HistoryBuffer[i], 7)
          + "";
 
          //build a line of data
@@ -234,10 +234,10 @@ void LogIndicatorData()
 
          + strWriteLine2
          
-         + "," + DoubleToString(MacdHistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot2HistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot3HistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot4HistoryBuffer[i], 6)
+         + "," + DoubleToString(MacdHistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot2HistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot3HistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot4HistoryBuffer[i], 7)
          + "";
 
          //build a line of data
@@ -293,10 +293,10 @@ void LogIndicatorData()
 
          + strWriteLine2
          
-         + "," + DoubleToString(MacdHistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot2HistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot3HistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot4HistoryBuffer[i], 6)
+         + "," + DoubleToString(MacdHistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot2HistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot3HistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot4HistoryBuffer[i], 7)
          + "";
 
          //build a line of data
@@ -354,10 +354,10 @@ void LogIndicatorData()
 
          + strWriteLine2
          
-         + "," + DoubleToString(MacdHistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot2HistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot3HistoryBuffer[i], 6)
-         + "," + DoubleToString(MacdPlot4HistoryBuffer[i], 6)
+         + "," + DoubleToString(MacdHistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot2HistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot3HistoryBuffer[i], 7)
+         + "," + DoubleToString(MacdPlot4HistoryBuffer[i], 7)
 
          + "\r\n";
 
@@ -532,7 +532,8 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       //(AskThePlots(27, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING BRIGHT GREEN POSITIVE") 
       //&& 
       (AskThePlots(28, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE") 
-      && (AskThePlots(29, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE") 
+      //&& 
+      //(AskThePlots(29, 1, 1, "BUY_POSITIVE") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE") 
       && BuyStrategyActive == false
       )
    {
@@ -591,12 +592,10 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 
    //BUY ENTRY
    if (
-      //(AskThePlots(36, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
          (AskThePlots(36, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
       && (AskThePlots(37, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
       && (AskThePlots(38, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
       && (AskThePlots(39, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
-      //&& (AskThePlots(26, 1, 1, "BUY_ENTRY") == "ENTER A BUY") 
 
       && BuyStrategyActive == true 
       && BuyTradeActive == false
@@ -689,20 +688,15 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       result = "PLOT INCREASING NEGATIVE";
    }
  
-   //BUY STRATEGY
+   //BUY STRATEGY, DARK GREEN TO BRIGHT GREEN
    if (
       OverallStrategy == "BUY_POSITIVE"
-      //CombinedHistory[CndleStart][Idx] >= CombinedHistory[CndleStart + 1][Idx] 
-      //&& CombinedHistory[CndleStart + 1][Idx] >= CombinedHistory[CndleStart + 2][Idx] 
 
-      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,6) >= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6) 
-      && NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,6) >= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,6) 
-
-      //keep or not?
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,7) >= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) 
+      && NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) <= NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,7) 
       && CombinedHistory[CndleStart][Idx] > 0
       )
    {
-      Print(Idx + " yo BUY_POSITIVE. BuyStrategyActive: " + BuyStrategyActive);
       result = "PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE";
    }
    else
@@ -713,6 +707,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && CombinedHistory[CndleStart + 1][Idx] > CombinedHistory[CndleStart + 2][Idx]  */ 
 
       OverallStrategy == "BUY_NEGATIVE" &&
+
       CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
       && CombinedHistory[CndleStart + 1][Idx] <= CombinedHistory[CndleStart + 2][Idx] 
 
