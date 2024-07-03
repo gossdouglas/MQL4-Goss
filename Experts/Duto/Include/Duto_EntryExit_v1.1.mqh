@@ -496,7 +496,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 {
    //OVERALL STRATEGY LOGIC
 
-   //NEUTRAL STRATEGY CHECK
+   /* //NEUTRAL STRATEGY CHECK
    if (
       (AskThePlots(1, 1, 1, "NEUTRAL") == "PLOT STEADY NEUTRAL") 
       //&& (AskThePlots(28, 1, 1, "NEUTRAL") == "PLOT STEADY NEUTRAL") 
@@ -510,7 +510,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
 
       Print("PLOT STEADY NEUTRAL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
-   }
+   } */
    //else
    /* //SELL STRATEGY CHECK
    if (
@@ -667,20 +667,14 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
 
 string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string OverallStrategy)
 {
-   string result = "";
+   string result = "PLOT STEADY NEUTRAL";
 
    //STRATEGY LOGIC
 
-   //NEUTRAL STRATEGY
+   /* //NEUTRAL STRATEGY
    if (
       OverallStrategy == "NEUTRAL"
       &&
-
-      /* //CONDITIONS NOT RIGHT FOR A SELL STRATEGY
-      !(CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
-      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 2][Idx]
-      && CombinedHistory[CndleStart][Idx] < 0)
-      && */
 
       //CONDITIONS NOT RIGHT FOR A BUY DARK GREEN TO BRIGHT GREEN STRATEGY
       !(
@@ -695,9 +689,9 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    {
       //Print("neutral " + Idx);
       result = "PLOT STEADY NEUTRAL";
-   }
+   } */
 
-   //SELL STRATEGY
+   /* //SELL STRATEGY
    if (
       OverallStrategy == "SELL"
       && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
@@ -708,7 +702,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       )
    {
       result = "PLOT INCREASING NEGATIVE";
-   }
+   } */
  
    //BUY STRATEGY, DARK GREEN TO BRIGHT GREEN
    if (
