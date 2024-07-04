@@ -638,7 +638,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    //BUY STRATEGY CHECK FOR DARK RED TO BRIGHT GREEN
    if (
       (AskThePlots(28, 1, 1, "BUY_DK_RED_BR_GREEN") == "PLOT INCREASING DARK RED TO BRIGHT GREEN") 
-      && BuyStrategyActive == false
+      //&& BuyStrategyActive == false //this line is troublesome. it likely needs to die.
       )
    {
       SellStrategyActive = false;
@@ -861,6 +861,22 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
       SignalExit = SIGNAL_EXIT_SELL;
    }
 
+   //BUY EXIT, DARK RED TO BRIGHT GREEN
+   if (
+      AskThePlots(36, 1, 1, "BUY_DK_RED_BR_GREEN_EXIT") == "EXIT A BUY DARK RED BRIGHT GREEN"
+      && BuyStrategyActive == true 
+      && BuyTradeActive == true
+
+      && BuyDkRdBrGrStrategyActive == true
+      )
+   {
+      BuyTradeActive = false;
+      BuyDkRdBrGrStrategyActive = false;
+
+      Print("EXIT A BUY, DARK RED TO BRIGHT GREEN. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
+      SignalExit = SIGNAL_EXIT_BUY;
+   }
+
    return SignalExit;
 }
 
@@ -1080,13 +1096,13 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    //BUY ENTRY, DARK RED TO BRIGHT GREEN
    if (
       BuyStrategyActive == true 
-      && OverallStrategy == "SELL_DK_GREEN_BR_RED_ENTRY"
+      && OverallStrategy == "BUY_DK_RED_BR_GREEN_ENTRY"
 
       && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
-      && CombinedHistory[CndleStart + 1][Idx] < 0 //don't care if plot 2 is decreasing positive or decreasing negative?
+      && CombinedHistory[CndleStart + 1][Idx] > 0 //don't care if plot 2 is decreasing positive or decreasing negative?
       )
    {
-      result = "ENTER A SELL DARK GREEN BRIGHT RED";
+      result = "ENTER A BUY DARK RED BRIGHT GREEN";
    }
 
    //EXIT LOGIC
@@ -1139,6 +1155,16 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       )
    {
       result = "EXIT A SELL DARK RED BRIGHT RED";
+   }
+
+   //BUY EXIT, DARK RED TO BRIGHT GREEN
+   if (
+      OverallStrategy == "BUY_DK_RED_BR_GREEN_EXIT" &&
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] > 0 
+      )
+   {
+      result = "EXIT A BUY DARK RED BRIGHT GREEN";
    }
 
    return result;
