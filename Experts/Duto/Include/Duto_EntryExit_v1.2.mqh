@@ -536,7 +536,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       Print("PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE. BuyDkGrBrGrStrategyActive: " + BuyDkGrBrGrStrategyActive);
    }
    else
-   //SELL STRATEGY CHECK FOR DARK GREEN TO BRIGHT GREEN
+   //SELL STRATEGY CHECK FOR BRIGHT GREEN TO DARK GREEN
    if (
       (AskThePlots(28, 1, 1, "SELL_BR_GREEN_DK_GREEN") == "PLOT DECREASING BRIGHT GREEN TO DARK GREEN") 
       && SellStrategyActive == false
@@ -621,6 +621,24 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
+   //SELL ENTRY, DARK GREEN TO BRIGHT RED
+   if (
+         (AskThePlots(38, 1, 1, "SELL_DK_GREEN_BR_RED_ENTRY") == "ENTER A SELL DARK GREEN BRIGHT RED") 
+      && SellStrategyActive == true 
+      && SellTradeActive == false
+
+      && SellDkGrBrRdStrategyActive == true
+      )
+   {
+      SellTradeActive = true;
+
+      Print("ENTER A SELL, DARK GREEN TO BRIGHT RED. " +
+      "SellStrategyActive: " + SellStrategyActive + 
+      " BuyTradeActive: " + BuyTradeActive + 
+      " SellDkGrBrRdStrategyActive: " + SellDkGrBrRdStrategyActive);
+      SignalEntry = SIGNAL_ENTRY_SELL;
+   }
+
    //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    return SignalEntry;
@@ -659,6 +677,22 @@ ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
       SellBrGrDkGrStrategyActive = false;
 
       Print("EXIT A SELL, BRIGHT GREEN TO DARK GREEN. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
+      SignalExit = SIGNAL_EXIT_SELL;
+   }
+
+   //SELL EXIT, DARK GREEN TO BRIGHT RED
+   if (
+      AskThePlots(36, 1, 1, "SELL_DK_GREEN_BR_RED_EXIT") == "EXIT A SELL DARK GREEN BRIGHT RED"
+      && SellStrategyActive == true 
+      && SellTradeActive == true
+
+      && SellDkGrBrRdStrategyActive == true
+      )
+   {
+      SellTradeActive = false;
+      SellDkGrBrRdStrategyActive = false;
+
+      Print("EXIT A SELL, DARK GREEN TO BRIGHT RED. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
       SignalExit = SIGNAL_EXIT_SELL;
    }
 
@@ -796,6 +830,18 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       result = "ENTER A SELL BRIGHT GREEN DARK GREEN";
    }
 
+   //SELL ENTRY, DARK GREEN TO BRIGHT RED
+   if (
+      SellStrategyActive == true 
+      && OverallStrategy == "SELL_DK_GREEN_BR_RED_ENTRY"
+
+      && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart + 1][Idx] < 0 //don't care if plot 2 is decreasing positive or decreasing negative?
+      )
+   {
+      result = "ENTER A SELL DARK GREEN BRIGHT RED";
+   }
+
    //EXIT LOGIC
 
    //BUY EXIT, DARK GREEN TO BRIGHT GREEN
@@ -816,6 +862,16 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       )
    {
       result = "EXIT A SELL BRIGHT GREEN DARK GREEN";
+   }
+
+   //SELL EXIT, DARK GREEN TO BRIGHT RED
+   if (
+      OverallStrategy == "SELL_DK_GREEN_BR_RED_EXIT" &&
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] < 0 
+      )
+   {
+      result = "EXIT A SELL DARK GREEN BRIGHT RED";
    }
 
    return result;
