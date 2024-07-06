@@ -668,7 +668,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    
    //ENTRY LOGIC
 
-   //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
+   /* //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
    if (
          //MACD INCREASING FROM NEGATIVE TO POSITIVE
          (AskThePlots(36, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
@@ -688,13 +688,15 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyDkGrBrGrStrategyActive: " + BuyDkGrBrGrStrategyActive);
       SignalEntry = SIGNAL_ENTRY_BUY;
-   }
+   } */
 
    //SELL ENTRY, BRIGHT GREEN TO DARK GREEN
    if (
          //(AskThePlots(38, 1, 1, "SELL_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A SELL BRIGHT GREEN DARK GREEN") 
          //MACD DECREASING FROM POSITIVE TO NEGATIVE
-         (AskThePlots(36, 1, 1, "SELL_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A SELL BRIGHT GREEN DARK GREEN")
+         //(AskThePlots(36, 1, 1, "SELL_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A SELL BRIGHT GREEN DARK GREEN")
+         //SAFETY TRADE
+         (AskThePlots(36, 1, 1, "SELL_ST_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A ST SELL BRIGHT GREEN DARK GREEN")
       && SellStrategyActive == true 
       && SellTradeActive == false
 
@@ -782,7 +784,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       SignalEntry = SIGNAL_ENTRY_BUY;
    } */
 
-   //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
+   SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    return SignalEntry;
 }
@@ -921,19 +923,6 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       //Print("neutral " + Idx);
       result = "PLOT STEADY NEUTRAL";
    } */
-
-   /* //SELL STRATEGY
-   if (
-      OverallStrategy == "SELL"
-      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
-      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 2][Idx]
-
-      //keep or not?
-      && CombinedHistory[CndleStart][Idx] < 0   
-      )
-   {
-      result = "PLOT INCREASING NEGATIVE";
-   } */
  
    //BUY STRATEGY, DARK GREEN TO BRIGHT GREEN
    if (
@@ -1015,7 +1004,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    {
       CurrentStrategy = OverallStrategy; 
       //Print("TEST TEST PLOT DECREASING DARK RED TO BRIGHT RED");
-      result = "PLOT INCREASING BRIGHT RED TO DARK RED";
+      result = "PLOT DECREASING DARK RED TO BRIGHT RED";
    }
    //BUY STRATEGY, DARK RED TO BRIGHT GREEN
    if (
@@ -1037,7 +1026,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
    //ENTRY LOGIC
 
-  //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
+  /* //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
    if (
       BuyStrategyActive == true 
       && OverallStrategy == "BUY_DK_GREEN_BR_GREEN_ENTRY"
@@ -1049,7 +1038,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    {
       Print("ENTRY LOGIC-- ENTER A BUY DARK GREEN BRIGHT GREEN");
       result = "ENTER A BUY DARK GREEN BRIGHT GREEN";
-   }
+   } */
 
    //SELL ENTRY, BRIGHT GREEN TO DARK GREEN, POSITIVE M1
    if (
