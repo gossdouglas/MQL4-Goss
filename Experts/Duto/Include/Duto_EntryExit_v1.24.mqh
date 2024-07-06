@@ -386,7 +386,8 @@ ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    //strategy to be used for entry
-   //SignalEntry = DutoSun3_2Entry();
+   DutoSunOverhaul_Strategy();
+   //check for an entry
    SignalEntry = DutoSunOverhaul_Entry();
 
    return SignalEntry;
@@ -488,16 +489,14 @@ Bright red entries will be exited when a dark red candle appears.
 Sell trades will be entered and exited again and again until conditions on the M5 plot 2 set the boolean variable SellStrategyActive to false.  */
 
 bool SellStrategyActive, BuyStrategyActive, NeutralStrategyActive;
-bool BuyNegativeStrategyActive, BuyPositiveStrategyActive;
 
 bool BuyDkGrBrGrStrategyActive, SellBrGrDkGrStrategyActive;
 bool SellDkGrBrRdStrategyActive, BuyBrRdDkRdStrategyActive;
 bool SellDkRdBrRdStrategyActive, BuyDkRdBrGrStrategyActive;
 
 bool SellTradeActive, BuyTradeActive, TradeActive;
-;
 
-ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
+void DutoSunOverhaul_Strategy()
 {
    //OVERALL STRATEGY LOGIC
 
@@ -659,6 +658,12 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    }
 
 
+
+}
+
+ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
+{
+   
    //ENTRY LOGIC
 
    //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
@@ -1170,7 +1175,6 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
    return result;
 }
-
 
 //DutoSunOverhaul
 
