@@ -712,8 +712,6 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
-   
-
    /* //SELL ENTRY, DARK GREEN TO BRIGHT RED
    if (
          (AskThePlots(38, 1, 1, "SELL_DK_GREEN_BR_RED_ENTRY") == "ENTER A SELL DARK GREEN BRIGHT RED") 
@@ -786,7 +784,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       SignalEntry = SIGNAL_ENTRY_BUY;
    } */
 
-   SignalEntry = SIGNAL_ENTRY_NEUTRAL;
+   //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    return SignalEntry;
 }
@@ -1064,11 +1062,12 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
       && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
+      && BarColorCount(Idx, "POSITIVE") <= 6
       )
    {   
       Print(BarColorCount(Idx, "POSITIVE"));  
       //Print("ENTRY LOGIC-- ENTER A SELL BRIGHT GREEN DARK GREEN");
-      result = "ENTER A SELL BRIGHT GREEN DARK GREEN";
+      result = "ENTER A ST SELL BRIGHT GREEN DARK GREEN";
    }
 
    /* else
@@ -1201,7 +1200,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
 int BarColorCount (int Idx, string PosNeg){
 
-   Print("ENTER BarColorCount");
+   //Print("ENTER BarColorCount");
 
    int count = 2;
 
@@ -1219,13 +1218,13 @@ int BarColorCount (int Idx, string PosNeg){
    else
    if (PosNeg == "POSITIVE" && CombinedHistory[count + 1][Idx] > 0)
    {
-      Print("CANDLE 3 IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
-
-      /* do 
+      //Print("CANDLE 3 IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
+      do 
      { 
+      //Print("CANDLE " + (count + 1) + " IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
       count++; // without this operator an infinite loop will appear! 
      } 
-      while(CombinedHistory[count + 1][Idx] > 0); */
+      while(CombinedHistory[count + 1][Idx] > 0);
    }
 
    return count;
