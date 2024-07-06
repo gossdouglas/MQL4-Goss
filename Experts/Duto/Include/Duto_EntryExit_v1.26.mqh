@@ -520,7 +520,9 @@ void DutoSunOverhaul_Strategy()
    //BUY STRATEGY CHECK FOR DARK GREEN TO BRIGHT GREEN
    if (
       (AskThePlots(28, 1, 1, "BUY_DK_GREEN_BR_GREEN") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN") 
-      && BuyStrategyActive == false
+      && 
+      //BuyStrategyActive == false
+      BuyDkGrBrGrStrategyActive == false
       )
    {
       SellStrategyActive = false;
@@ -542,15 +544,15 @@ void DutoSunOverhaul_Strategy()
    //SELL STRATEGY CHECK FOR BRIGHT GREEN TO DARK GREEN
    if (
       (AskThePlots(28, 1, 1, "SELL_BR_GREEN_DK_GREEN") == "PLOT DECREASING BRIGHT GREEN TO DARK GREEN") 
-      && SellStrategyActive == false
+      && 
+      //SellStrategyActive == false
+      SellBrGrDkGrStrategyActive == false
       )
    {
       SellStrategyActive = true;
       BuyStrategyActive = false;
       NeutralStrategyActive = false;
 
-      //BuyNegativeStrategyActive =  false;
-      //BuyPositiveStrategyActive =  true;
       BuyDkGrBrGrStrategyActive = false;
       SellBrGrDkGrStrategyActive = true;
       SellDkGrBrRdStrategyActive = false;
@@ -566,15 +568,15 @@ void DutoSunOverhaul_Strategy()
    //SELL STRATEGY CHECK FOR DARK GREEN TO BRIGHT RED
    if (
       (AskThePlots(28, 1, 1, "SELL_DK_GREEN_BR_RED") == "PLOT DECREASING DARK GREEN TO BRIGHT RED") 
-      //&& SellStrategyActive == false
+      && 
+      //SellStrategyActive == false
+      SellDkGrBrRdStrategyActive == false
       )
    {
       SellStrategyActive = true;
       BuyStrategyActive = false;
       NeutralStrategyActive = false;
 
-      //BuyNegativeStrategyActive =  false;
-      //BuyPositiveStrategyActive =  true;
       BuyDkGrBrGrStrategyActive = false;
       SellBrGrDkGrStrategyActive = false;
       SellDkGrBrRdStrategyActive = true;
@@ -590,15 +592,14 @@ void DutoSunOverhaul_Strategy()
    //BUY STRATEGY CHECK FOR BRIGHT RED TO DARK RED
    if (
       (AskThePlots(28, 1, 1, "BUY_BR_RED_DK_RED") == "PLOT INCREASING BRIGHT RED TO DARK RED") 
-      //&& SellStrategyActive == false
+      && BuyBrRdDkRdStrategyActive == false
+      //SellStrategyActive == false
       )
    {
       SellStrategyActive = false;
       BuyStrategyActive = true;
       NeutralStrategyActive = false;
 
-      //BuyNegativeStrategyActive =  false;
-      //BuyPositiveStrategyActive =  true;
       BuyDkGrBrGrStrategyActive = false;
       SellBrGrDkGrStrategyActive = false;
       SellDkGrBrRdStrategyActive = false;
@@ -614,15 +615,15 @@ void DutoSunOverhaul_Strategy()
    //SELL STRATEGY CHECK FOR DARK RED TO BRIGHT RED
    if (
       (AskThePlots(28, 1, 1, "SELL_DK_RED_BR_RED") == "PLOT DECREASING DARK RED TO BRIGHT RED") 
-      //&& SellStrategyActive == false
+      && 
+      //SellStrategyActive == false
+      SellDkRdBrRdStrategyActive == false
       )
    {
       SellStrategyActive = true;
       BuyStrategyActive = false;
       NeutralStrategyActive = false;
 
-      //BuyNegativeStrategyActive =  false;
-      //BuyPositiveStrategyActive =  true;
       BuyDkGrBrGrStrategyActive = false;
       SellBrGrDkGrStrategyActive = false;
       SellDkGrBrRdStrategyActive = true;
@@ -637,7 +638,9 @@ void DutoSunOverhaul_Strategy()
    //BUY STRATEGY CHECK FOR DARK RED TO BRIGHT GREEN
    if (
       (AskThePlots(28, 1, 1, "BUY_DK_RED_BR_GREEN") == "PLOT INCREASING DARK RED TO BRIGHT GREEN") 
-      //&& BuyStrategyActive == false //this line is troublesome. it likely needs to die.
+      && 
+      //BuyStrategyActive == false //this line is troublesome. it likely needs to die.
+      BuyDkRdBrGrStrategyActive == false
       )
    {
       SellStrategyActive = false;
@@ -705,7 +708,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
-   //SELL ENTRY, DARK GREEN TO BRIGHT RED
+   /* //SELL ENTRY, DARK GREEN TO BRIGHT RED
    if (
          (AskThePlots(38, 1, 1, "SELL_DK_GREEN_BR_RED_ENTRY") == "ENTER A SELL DARK GREEN BRIGHT RED") 
       && SellStrategyActive == true 
@@ -721,9 +724,9 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " SellDkGrBrRdStrategyActive: " + SellDkGrBrRdStrategyActive);
       SignalEntry = SIGNAL_ENTRY_SELL;
-   }
+   } */
 
-   //BUY ENTRY, BRIGHT RED TO DARK RED
+   /* //BUY ENTRY, BRIGHT RED TO DARK RED
    if (
          (AskThePlots(38, 1, 1, "BUY_BR_RED_DK_RED_ENTRY") == "ENTER A BUY BRIGHT RED DARK RED") 
       && BuyStrategyActive == true 
@@ -739,9 +742,9 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
       SignalEntry = SIGNAL_ENTRY_BUY;
-   }
+   } */
 
-   //SELL ENTRY, DARK RED TO BRIGHT RED
+   /* //SELL ENTRY, DARK RED TO BRIGHT RED
    if (
          (AskThePlots(38, 1, 1, "SELL_DK_RED_BR_RED_ENTRY") == "ENTER A SELL DARK RED BRIGHT RED") 
       && SellStrategyActive == true 
@@ -757,9 +760,9 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " SellDkRdBrRdStrategyActive: " + SellDkRdBrRdStrategyActive);
       SignalEntry = SIGNAL_ENTRY_SELL;
-   }
+   } */
 
-   //BUY ENTRY, DARK RED TO BRIGHT GREEN
+   /* //BUY ENTRY, DARK RED TO BRIGHT GREEN
    if (
          (AskThePlots(38, 1, 1, "BUY_DK_RED_BR_GREEN_ENTRY") == "ENTER A BUY DARK RED BRIGHT GREEN") 
       && BuyStrategyActive == true 
@@ -775,7 +778,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyDkRdBrGrStrategyActive: " + BuyDkRdBrGrStrategyActive);
       SignalEntry = SIGNAL_ENTRY_BUY;
-   }
+   } */
 
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
@@ -943,6 +946,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       )
    {
       CurrentStrategy = OverallStrategy; 
+      //Print("ask the plots PLOT INCREASING DARK GREEN TO BRIGHT GREEN");
       result = "PLOT INCREASING DARK GREEN TO BRIGHT GREEN"; 
    }
    else
@@ -959,6 +963,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       )
    {
       CurrentStrategy = OverallStrategy; 
+      //Print("ask the plots PLOT DECREASING BRIGHT GREEN TO DARK GREEN");
       result = "PLOT DECREASING BRIGHT GREEN TO DARK GREEN";
    }
    else

@@ -35,7 +35,7 @@ TRAILING STOP: Stop following the PSAR
 // In the following instance the file has to be placed in the MQL4/Include Folder
 #include <MQLTA ErrorHandling.mqh>
 // #include <MA Crossover.mqh>
-#include <Duto_EntryExit_v1.25.mqh>
+#include <Duto_EntryExit_v1.26.mqh>
 
 //-COMMENTS-//
 // This is a single line comment and I do it placing // at the start of the comment, this text is ignored when compiling
@@ -372,7 +372,7 @@ void EvaluateEntry()
       // Print("new candle in EvaluateEntry at: " + iTime(Symbol(), 1, 0));
       // log data and build the CombinedHistory array
       LogIndicatorData();
-      DutoSunOverhaul_Strategy();
+      //DutoSunOverhaul_Strategy();
       StartupFlag = true;
       //Comment(StringFormat("Show prices\nAsk = %G\nBid = %G = %d",Ask,Bid)); 
    }
