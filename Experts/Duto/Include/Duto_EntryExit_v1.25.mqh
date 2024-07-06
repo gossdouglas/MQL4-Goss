@@ -658,8 +658,8 @@ void DutoSunOverhaul_Strategy()
       Print("PLOT INCREASING DARK RED TO BRIGHT GREEN POSITIVE. BuyDkRdBrGrStrategyActive: " + BuyDkRdBrGrStrategyActive);
    }
 
-
-
+   //Comment(StringFormat("Show prices\nAsk = %G\nBid = %G = %d",Ask,Bid));
+   Comment("Current Strategy : " + CurrentStrategy);
 }
 
 ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
@@ -944,7 +944,8 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && CombinedHistory[CndleStart][Idx] > 0
       )
    {
-      result = "PLOT INCREASING DARK GREEN TO BRIGHT GREEN";
+      CurrentStrategy = OverallStrategy; 
+      result = "PLOT INCREASING DARK GREEN TO BRIGHT GREEN"; 
    }
    else
    //SELL STRATEGY, BRIGHT GREEN TO DARK GREEN
@@ -959,6 +960,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && CombinedHistory[CndleStart][Idx] > 0
       )
    {
+      CurrentStrategy = OverallStrategy; 
       result = "PLOT DECREASING BRIGHT GREEN TO DARK GREEN";
    }
    else
@@ -974,6 +976,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0 && CombinedHistory[CndleStart + 2][Idx] > 0
       )
    {
+      CurrentStrategy = OverallStrategy; 
       //Print("TEST TEST PLOT DECREASING DARK GREEN TO BRIGHT RED");
       result = "PLOT DECREASING DARK GREEN TO BRIGHT RED";
    }
@@ -989,6 +992,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] < 0 && CombinedHistory[CndleStart + 2][Idx] < 0
       )
    {
+      CurrentStrategy = OverallStrategy; 
       //Print("TEST TEST PLOT INCREASING BRIGHT RED TO DARK RED");
       result = "PLOT INCREASING BRIGHT RED TO DARK RED";
    }
@@ -1004,6 +1008,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] < 0 && CombinedHistory[CndleStart + 2][Idx] < 0
       )
    {
+      CurrentStrategy = OverallStrategy; 
       //Print("TEST TEST PLOT DECREASING DARK RED TO BRIGHT RED");
       result = "PLOT INCREASING BRIGHT RED TO DARK RED";
    }
@@ -1019,6 +1024,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0 && CombinedHistory[CndleStart + 2][Idx] < 0
       )
    {
+      CurrentStrategy = OverallStrategy; 
       //Print("TEST TEST PLOT INCREASING DARK RED TO BRIGHT GREEN");
       result = "PLOT INCREASING DARK RED TO BRIGHT GREEN";
    }
