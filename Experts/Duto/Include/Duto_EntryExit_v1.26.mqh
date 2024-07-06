@@ -671,9 +671,9 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
    if (
          //MACD INCREASING FROM NEGATIVE TO POSITIVE
-         //(AskThePlots(36, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
+         (AskThePlots(36, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
          //PLOT 3 INCREASING POSITIVE
-         (AskThePlots(38, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
+         //(AskThePlots(38, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
 
       && BuyStrategyActive == true 
       && BuyTradeActive == false
@@ -690,7 +690,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       SignalEntry = SIGNAL_ENTRY_BUY;
    }
 
-   //SELL ENTRY, BRIGHT GREEN TO DARK GREEN
+   /* //SELL ENTRY, BRIGHT GREEN TO DARK GREEN
    if (
          (AskThePlots(38, 1, 1, "SELL_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A SELL BRIGHT GREEN DARK GREEN") 
       && SellStrategyActive == true 
@@ -706,7 +706,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " SellBrGrDkGrStrategyActive: " + SellBrGrDkGrStrategyActive);
       SignalEntry = SIGNAL_ENTRY_SELL;
-   }
+   } */
 
    /* //SELL ENTRY, DARK GREEN TO BRIGHT RED
    if (
@@ -780,7 +780,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
       SignalEntry = SIGNAL_ENTRY_BUY;
    } */
 
-   SignalEntry = SIGNAL_ENTRY_NEUTRAL;
+   //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    return SignalEntry;
 }
@@ -1041,7 +1041,8 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && OverallStrategy == "BUY_DK_GREEN_BR_GREEN_ENTRY"
 
       && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
-      && CombinedHistory[CndleStart + 1][Idx] > 0 
+      //&& CombinedHistory[CndleStart + 1][Idx] > 0 
+      && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
       )
    {
       result = "ENTER A BUY DARK GREEN BRIGHT GREEN";
