@@ -386,9 +386,9 @@ ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    //strategy to be used for entry
-   DutoSunOverhaul_Strategy();
+   DutoWind_Strategy();
    //check for an entry
-   SignalEntry = DutoSunOverhaul_Entry();
+   SignalEntry = DutoWind_Entry();
 
    return SignalEntry;
 }
@@ -401,7 +401,7 @@ ENUM_SIGNAL_EXIT ReturnSignalExitToEvaluateExit()
 
    //strategy to be used for exit
    //SignalExit = DutoSun3_2Exit();
-   SignalExit = DutoSunOverhaul_Exit();
+   SignalExit = DutoWind_Exit();
 
    return SignalExit;
 }
@@ -465,7 +465,7 @@ void GetIndicatorHistory(int indicatorIndex, int numCandles)
 
 double EntryData[2][11];
 
-//DutoSunOverhaul
+//DutoWind
 
 /* OVERALL SELL STRATEGY
 
@@ -497,7 +497,7 @@ bool SellDkRdBrRdStrategyActive, BuyDkRdBrGrStrategyActive;
 
 bool SellTradeActive, BuyTradeActive, TradeActive;
 
-void DutoSunOverhaul_Strategy()
+void DutoWind_Strategy()
 {
    //OVERALL STRATEGY LOGIC
 
@@ -663,7 +663,7 @@ void DutoSunOverhaul_Strategy()
    Comment("Current Strategy : " + CurrentStrategy);
 }
 
-ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
+ENUM_SIGNAL_ENTRY DutoWind_Entry()
 {
    
    //ENTRY LOGIC
@@ -789,7 +789,7 @@ ENUM_SIGNAL_ENTRY DutoSunOverhaul_Entry()
    return SignalEntry;
 }
 
-ENUM_SIGNAL_EXIT DutoSunOverhaul_Exit()
+ENUM_SIGNAL_EXIT DutoWind_Exit()
 { 
    //EXIT LOGIC
 
@@ -1230,7 +1230,7 @@ int BarColorCount (int Idx, string PosNeg){
    return count;
 }
 
-//DutoSunOverhaul
+//DutoWind
 
 //////STRATEGIES END
    
