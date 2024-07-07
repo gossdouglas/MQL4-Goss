@@ -386,7 +386,7 @@ ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    //strategy to be used for entry
-   DutoWind_Strategy();
+   //DutoWind_Strategy();
    //check for an entry
    SignalEntry = DutoWind_Entry();
 
@@ -668,12 +668,12 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
    
    //ENTRY LOGIC
 
-   /* //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
+   //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
    if (
          //MACD INCREASING FROM NEGATIVE TO POSITIVE
-         (AskThePlots(36, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
+         //(AskThePlots(36, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
          //PLOT 3 INCREASING POSITIVE
-         //(AskThePlots(38, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
+         (AskThePlots(38, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
 
       && BuyStrategyActive == true 
       && BuyTradeActive == false
@@ -688,15 +688,15 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyDkGrBrGrStrategyActive: " + BuyDkGrBrGrStrategyActive);
       SignalEntry = SIGNAL_ENTRY_BUY;
-   } */
+   }
 
    //SELL ENTRY, BRIGHT GREEN TO DARK GREEN
    if (
-         //(AskThePlots(38, 1, 1, "SELL_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A SELL BRIGHT GREEN DARK GREEN") 
+         (AskThePlots(38, 1, 1, "SELL_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A SELL BRIGHT GREEN DARK GREEN") 
          //MACD DECREASING FROM POSITIVE TO NEGATIVE
          //(AskThePlots(36, 1, 1, "SELL_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A SELL BRIGHT GREEN DARK GREEN")
          //SAFETY TRADE
-         (AskThePlots(36, 1, 1, "SELL_ST_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A ST SELL BRIGHT GREEN DARK GREEN")
+         //(AskThePlots(36, 1, 1, "SELL_ST_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A ST SELL BRIGHT GREEN DARK GREEN")
       && SellStrategyActive == true 
       && SellTradeActive == false
 
@@ -712,7 +712,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
-   /* //SELL ENTRY, DARK GREEN TO BRIGHT RED
+   //SELL ENTRY, DARK GREEN TO BRIGHT RED
    if (
          (AskThePlots(38, 1, 1, "SELL_DK_GREEN_BR_RED_ENTRY") == "ENTER A SELL DARK GREEN BRIGHT RED") 
       && SellStrategyActive == true 
@@ -728,9 +728,9 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " SellDkGrBrRdStrategyActive: " + SellDkGrBrRdStrategyActive);
       SignalEntry = SIGNAL_ENTRY_SELL;
-   } */
+   }
 
-   /* //BUY ENTRY, BRIGHT RED TO DARK RED
+   //BUY ENTRY, BRIGHT RED TO DARK RED
    if (
          (AskThePlots(38, 1, 1, "BUY_BR_RED_DK_RED_ENTRY") == "ENTER A BUY BRIGHT RED DARK RED") 
       && BuyStrategyActive == true 
@@ -746,9 +746,9 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
       SignalEntry = SIGNAL_ENTRY_BUY;
-   } */
+   }
 
-   /* //SELL ENTRY, DARK RED TO BRIGHT RED
+   //SELL ENTRY, DARK RED TO BRIGHT RED
    if (
          (AskThePlots(38, 1, 1, "SELL_DK_RED_BR_RED_ENTRY") == "ENTER A SELL DARK RED BRIGHT RED") 
       && SellStrategyActive == true 
@@ -764,9 +764,9 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " SellDkRdBrRdStrategyActive: " + SellDkRdBrRdStrategyActive);
       SignalEntry = SIGNAL_ENTRY_SELL;
-   } */
+   }
 
-   /* //BUY ENTRY, DARK RED TO BRIGHT GREEN
+   //BUY ENTRY, DARK RED TO BRIGHT GREEN
    if (
          (AskThePlots(38, 1, 1, "BUY_DK_RED_BR_GREEN_ENTRY") == "ENTER A BUY DARK RED BRIGHT GREEN") 
       && BuyStrategyActive == true 
@@ -782,7 +782,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyDkRdBrGrStrategyActive: " + BuyDkRdBrGrStrategyActive);
       SignalEntry = SIGNAL_ENTRY_BUY;
-   } */
+   }
 
    //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
@@ -1070,7 +1070,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       result = "ENTER A ST SELL BRIGHT GREEN DARK GREEN";
    }
 
-   /* else
+   else
    //SELL ENTRY, BRIGHT GREEN TO DARK GREEN, NEGATIVE M1
    if (
       SellStrategyActive == true 
@@ -1131,7 +1131,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       )
    {
       result = "ENTER A BUY DARK RED BRIGHT GREEN";
-   } */
+   }
 
    //EXIT LOGIC
 
