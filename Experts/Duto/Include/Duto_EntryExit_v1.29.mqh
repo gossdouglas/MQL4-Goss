@@ -626,7 +626,7 @@ void DutoWind_Strategy()
 
       BuyDkGrBrGrStrategyActive = false;
       SellBrGrDkGrStrategyActive = false;
-      SellDkGrBrRdStrategyActive = true;
+      SellDkGrBrRdStrategyActive = false;
       BuyBrRdDkRdStrategyActive = false;
       SellDkRdBrRdStrategyActive = true;
       BuyDkRdBrGrStrategyActive = false;
@@ -687,7 +687,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       "BuyStrategyActive: " + BuyStrategyActive + 
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyDkGrBrGrStrategyActive: " + BuyDkGrBrGrStrategyActive);
-      SignalEntry = SIGNAL_ENTRY_BUY;
+      //SignalEntry = SIGNAL_ENTRY_BUY;
    }
 
    //SELL ENTRY, BRIGHT GREEN TO DARK GREEN
@@ -727,7 +727,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       "SellStrategyActive: " + SellStrategyActive + 
       " BuyTradeActive: " + BuyTradeActive + 
       " SellDkGrBrRdStrategyActive: " + SellDkGrBrRdStrategyActive);
-      SignalEntry = SIGNAL_ENTRY_SELL;
+      //SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
    //BUY ENTRY, BRIGHT RED TO DARK RED
@@ -763,7 +763,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       "SellStrategyActive: " + SellStrategyActive + 
       " BuyTradeActive: " + BuyTradeActive + 
       " SellDkRdBrRdStrategyActive: " + SellDkRdBrRdStrategyActive);
-      SignalEntry = SIGNAL_ENTRY_SELL;
+      //SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
    //BUY ENTRY, DARK RED TO BRIGHT GREEN
@@ -781,7 +781,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       "SellStrategyActive: " + SellStrategyActive + 
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyDkRdBrGrStrategyActive: " + BuyDkRdBrGrStrategyActive);
-      SignalEntry = SIGNAL_ENTRY_BUY;
+      //SignalEntry = SIGNAL_ENTRY_BUY;
    }
 
    //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
