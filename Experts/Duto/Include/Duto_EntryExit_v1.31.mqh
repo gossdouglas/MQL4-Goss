@@ -1092,7 +1092,11 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
 
       && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
-      && BarColorCount(Idx, "POSITIVE") <= 15
+
+      //this version counts the bars
+      //&& BarColorCount(Idx, "POSITIVE") <= 15
+      //this version calculates the ratio between the sum of the bars and the number of the bars
+      && BarColorCount(Idx, "POSITIVE") <= 0.00002
       )
    {   
       Print(BarColorCount(Idx, "POSITIVE"));  
@@ -1133,7 +1137,10 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
 
-      && BarColorCount(Idx, "NEGATIVE") <= 25
+      //this version counts the bars
+      //&& BarColorCount(Idx, "NEGATIVE") <= 25
+      //this version calculates the ratio between the sum of the bars and the number of the bars
+      && BarColorCount(Idx, "NEGATIVE") <= 0.00002
       )
    {   
       Print(BarColorCount(Idx, "NEGATIVE"));  
@@ -1241,20 +1248,16 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    return result;
 }
 
-int BarColorCount (int Idx, string PosNeg){
-
-   //Print("ENTER BarColorCount");
+//int BarColorCount (int Idx, string PosNeg){
+double BarColorCount (int Idx, string PosNeg){
 
    int count = 1;
    float barSum = 0.0;
 
    if (PosNeg == "NEGATIVE" && CombinedHistory[count + 1][Idx] < 0 )
    {
-      //Print("CANDLE 3 IS NEGATIVE: " + CombinedHistory[count + 1][Idx]);
-      //Print("CANDLE 3 IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
       do 
      { 
-      //Print("CANDLE " + (count + 1) + " IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
       barSum = barSum + CombinedHistory[count + 1][Idx];
       count++; // without this operator an infinite loop will appear! 
      } 
@@ -1263,10 +1266,8 @@ int BarColorCount (int Idx, string PosNeg){
    else
    if (PosNeg == "POSITIVE" && CombinedHistory[count + 1][Idx] > 0)
    {
-      //Print("CANDLE 3 IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
       do 
      { 
-      //Print("CANDLE " + (count + 1) + " IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
       barSum = barSum + CombinedHistory[count + 1][Idx];
       count++; // without this operator an infinite loop will appear! 
      } 
@@ -1276,9 +1277,10 @@ int BarColorCount (int Idx, string PosNeg){
    Print("Bar sum absolute value: " + MathAbs(barSum));
    Print("Returned BarColorCount: " + count);
    Print("Bar sum/BarColorCount: " + NormalizeDouble((MathAbs(barSum)/count) ,6));
-   Print("Bar sum/BarColorCount: " + MathAbs(barSum)/count);
+   //Print("Bar sum/BarColorCount: " + MathAbs(barSum)/count);
 
-   return count;
+   //return count;
+   return MathAbs(barSum)/count;
 }
 
 //DutoWind
