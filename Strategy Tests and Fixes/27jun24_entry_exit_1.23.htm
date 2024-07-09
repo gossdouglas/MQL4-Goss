@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Strategy Tester: Duto_v01</title>
+    <meta name="version" content="Build 1420">
+    <meta name="server" content="OANDA-Demo-1">
+    <style type="text/css" media="screen">
+    <!--
+    td { font: 8pt Tahoma,Arial; }
+    //-->
+    </style>
+    <style type="text/css" media="print">
+    <!--
+    td { font: 7pt Tahoma,Arial; }
+    //-->
+    </style>
+    <style type="text/css">
+    <!--
+    .msdate { mso-number-format:"General Date"; }
+    .mspt   { mso-number-format:\#\,\#\#0\.00;  }
+    //-->
+    </style>
+  </head>
+<body topmargin=1 marginheight=1>
+<div align=center>
+<div style="font: 20pt Times New Roman"><b>Strategy Tester Report</b></div>
+<div style="font: 16pt Times New Roman"><b>Duto_v01</b></div>
+<div style="font: 10pt Times New Roman"><b>OANDA-Demo-1 (Build 1420)</b></div><br>
+
+<table width=820 cellspacing=1 cellpadding=3 border=0>
+<tr align=left><td colspan=2>Symbol</td><td colspan=4>EURUSD (EUR/USD)</td></tr>
+<tr align=left><td colspan=2>Period</td><td colspan=4>1 Minute (M1)  2024.06.27 00:04 - 2024.06.27 23:59    (2024.06.27 - 2024.06.28)</td></tr>
+<tr align=left><td colspan=2>Model</td><td colspan=4><font color="red"><strong>Open prices only (only for Expert Advisors that explicitly control bar opening)</strong></font></td></tr>
+<tr align=left><td colspan=2>Parameters</td><td colspan=4>Comment_strategy="=========="; MAFastPeriod=10; MAFastShift=0; MAFastMethod=0; MAFastAppliedPrice=0; MASlowPeriod=25; MASlowShift=0; MASlowMethod=0; MASlowAppliedPrice=0; PSARStopStep=0.04; PSARStopMax=0.4; Comment_0="=========="; RiskDefaultSize=1; DefaultLotSize=0.1; RiskBase=2; MaxRiskPerTrade=2; MinLotSize=0.01; MaxLotSize=100; Comment_1="=========="; UseTradingHours=false; 
+TradingHourStart=3; TradingHourEnd=22; Comment_2="=========="; StopLossMode=0; DefaultStopLoss=150; MinStopLoss=0; MaxStopLoss=5000; TakeProfitMode=0; DefaultTakeProfit=0; MinTakeProfit=0; MaxTakeProfit=5000; Comment_3="=========="; UseTrailingStop=false; 
+Comment_4="=========="; MagicNumber=0; OrderNote=""; Slippage=5; MaxSpread=100; </td></tr>
+<tr align=left><td colspan=2><tr align=left><td>Bars in test</td><td align=right>2417</td><td>Ticks modelled</td><td align=right>3823</td><td>Modelling quality</td><td align=right>n/a</td></tr>
+<tr align=left><td>Mismatched charts errors</td><td align=right>0</td><td></td><td align=right></td><td></td><td align=right></td></tr>
+<tr height=8><td colspan=6></td></tr>
+<tr align=left><td>Initial deposit</td><td align=right>1000.00</td><td></td><td align=right></td><td>Spread</td><td align=right>2</td></tr>
+<tr align=left><td>Total net profit</td><td align=right>-4.10</td><td>Gross profit</td><td align=right>6.90</td><td>Gross loss</td><td align=right>-11.00</td></tr>
+<tr align=left><td>Profit factor</td><td align=right>0.63</td><td>Expected payoff</td><td align=right>-0.26</td><td></td><td align=right></td></tr>
+<tr align=left><td>Absolute drawdown</td><td align=right>8.70</td><td>Maximal drawdown</td><td align=right>11.30 (1.13%)</td><td>Relative drawdown</td><td align=right>1.13% (11.30)</td></tr>
+<tr height=8><td colspan=6></td></tr>
+<tr align=left><td>Total trades</td><td align=right>16</td><td>Short positions (won %)</td><td align=right>8 (37.50%)</td><td>Long positions (won %)</td><td align=right>8 (37.50%)</td></tr>
+<tr align=left><td colspan=2 align=right></td><td>Profit trades (% of total)</td><td align=right>6 (37.50%)</td><td>Loss trades (% of total)</td><td align=right>10 (62.50%)</td></tr>
+<tr align=left><td colspan=2 align=right>Largest</td><td>profit trade</td><td align=right>2.40</td><td>loss trade</td><td align=right>-2.60</td></tr>
+<tr align=left><td colspan=2 align=right>Average</td><td>profit trade</td><td align=right>1.15</td><td>loss trade</td><td align=right>-1.10</td></tr>
+<tr align=left><td colspan=2 align=right>Maximum</td><td>consecutive wins (profit in money)</td><td align=right>3 (4.70)</td><td>consecutive losses (loss in money)</td><td align=right>6 (-6.10)</td></tr>
+<tr align=left><td colspan=2 align=right>Maximal</td><td>consecutive profit (count of wins)</td><td align=right>4.70 (3)</td><td>consecutive loss (count of losses)</td><td align=right>-6.10 (6)</td></tr>
+<tr align=left><td colspan=2 align=right>Average</td><td>consecutive wins</td><td align=right>2</td><td>consecutive losses</td><td align=right>3</td></tr>
+
+</table>
+<img src="27jun24_entry_exit_1.23.gif" width=820 height=200 border=0 alt="Graph"><br>
+<table width=820 cellspacing=1 cellpadding=3 border=0>
+<tr bgcolor="#C0C0C0" align=right><td>#</td><td>Time</td><td>Type</td><td>Order</td><td>Size</td><td>Price</td><td>S / L</td><td>T / P</td><td>Profit</td><td>Balance</td></tr>
+<tr align=right><td>1</td><td class=msdate>2024.06.27 04:02</td><td>buy</td><td>1</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06789</td><td style="mso-number-format:0\.00000;" align=right>1.06639</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>2</td><td class=msdate>2024.06.27 04:06</td><td>close</td><td>1</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06798</td><td style="mso-number-format:0\.00000;" align=right>1.06639</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>0.90</td><td class=mspt>1000.90</td></tr>
+<tr align=right><td>3</td><td class=msdate>2024.06.27 05:50</td><td>buy</td><td>2</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06907</td><td style="mso-number-format:0\.00000;" align=right>1.06757</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>4</td><td class=msdate>2024.06.27 05:51</td><td>close</td><td>2</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06902</td><td style="mso-number-format:0\.00000;" align=right>1.06757</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-0.50</td><td class=mspt>1000.40</td></tr>
+<tr align=right><td>5</td><td class=msdate>2024.06.27 05:52</td><td>buy</td><td>3</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06903</td><td style="mso-number-format:0\.00000;" align=right>1.06753</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>6</td><td class=msdate>2024.06.27 06:23</td><td>close</td><td>3</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06894</td><td style="mso-number-format:0\.00000;" align=right>1.06753</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-0.90</td><td class=mspt>999.50</td></tr>
+<tr align=right><td>7</td><td class=msdate>2024.06.27 09:45</td><td>sell</td><td>4</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06921</td><td style="mso-number-format:0\.00000;" align=right>1.07071</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>8</td><td class=msdate>2024.06.27 09:49</td><td>close</td><td>4</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06925</td><td style="mso-number-format:0\.00000;" align=right>1.07071</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-0.40</td><td class=mspt>999.10</td></tr>
+<tr align=right><td>9</td><td class=msdate>2024.06.27 10:15</td><td>buy</td><td>5</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06935</td><td style="mso-number-format:0\.00000;" align=right>1.06785</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>10</td><td class=msdate>2024.06.27 10:23</td><td>close</td><td>5</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06934</td><td style="mso-number-format:0\.00000;" align=right>1.06785</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-0.10</td><td class=mspt>999.00</td></tr>
+<tr align=right><td>11</td><td class=msdate>2024.06.27 10:30</td><td>sell</td><td>6</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06922</td><td style="mso-number-format:0\.00000;" align=right>1.07072</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>12</td><td class=msdate>2024.06.27 10:35</td><td>close</td><td>6</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06943</td><td style="mso-number-format:0\.00000;" align=right>1.07072</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-2.10</td><td class=mspt>996.90</td></tr>
+<tr align=right><td>13</td><td class=msdate>2024.06.27 10:36</td><td>buy</td><td>7</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06946</td><td style="mso-number-format:0\.00000;" align=right>1.06796</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>14</td><td class=msdate>2024.06.27 10:41</td><td>close</td><td>7</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06925</td><td style="mso-number-format:0\.00000;" align=right>1.06796</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-2.10</td><td class=mspt>994.80</td></tr>
+<tr align=right><td>15</td><td class=msdate>2024.06.27 10:45</td><td>sell</td><td>8</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06932</td><td style="mso-number-format:0\.00000;" align=right>1.07082</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>16</td><td class=msdate>2024.06.27 10:51</td><td>close</td><td>8</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06923</td><td style="mso-number-format:0\.00000;" align=right>1.07082</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>0.90</td><td class=mspt>995.70</td></tr>
+<tr align=right><td>17</td><td class=msdate>2024.06.27 12:29</td><td>buy</td><td>9</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06973</td><td style="mso-number-format:0\.00000;" align=right>1.06823</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>18</td><td class=msdate>2024.06.27 12:30</td><td>close</td><td>9</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06956</td><td style="mso-number-format:0\.00000;" align=right>1.06823</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-1.70</td><td class=mspt>994.00</td></tr>
+<tr align=right><td>19</td><td class=msdate>2024.06.27 13:15</td><td>sell</td><td>10</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06911</td><td style="mso-number-format:0\.00000;" align=right>1.07061</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>20</td><td class=msdate>2024.06.27 13:17</td><td>close</td><td>10</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06937</td><td style="mso-number-format:0\.00000;" align=right>1.07061</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-2.60</td><td class=mspt>991.40</td></tr>
+<tr align=right><td>21</td><td class=msdate>2024.06.27 13:25</td><td>sell</td><td>11</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06932</td><td style="mso-number-format:0\.00000;" align=right>1.07082</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>22</td><td class=msdate>2024.06.27 13:26</td><td>close</td><td>11</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06933</td><td style="mso-number-format:0\.00000;" align=right>1.07082</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-0.10</td><td class=mspt>991.30</td></tr>
+<tr align=right><td>23</td><td class=msdate>2024.06.27 13:30</td><td>buy</td><td>12</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06961</td><td style="mso-number-format:0\.00000;" align=right>1.06811</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>24</td><td class=msdate>2024.06.27 13:38</td><td>close</td><td>12</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06970</td><td style="mso-number-format:0\.00000;" align=right>1.06811</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>0.90</td><td class=mspt>992.20</td></tr>
+<tr align=right><td>25</td><td class=msdate>2024.06.27 14:55</td><td>sell</td><td>13</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06971</td><td style="mso-number-format:0\.00000;" align=right>1.07121</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>26</td><td class=msdate>2024.06.27 15:01</td><td>close</td><td>13</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06947</td><td style="mso-number-format:0\.00000;" align=right>1.07121</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>2.40</td><td class=mspt>994.60</td></tr>
+<tr align=right><td>27</td><td class=msdate>2024.06.27 15:20</td><td>buy</td><td>14</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.06996</td><td style="mso-number-format:0\.00000;" align=right>1.06846</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>28</td><td class=msdate>2024.06.27 15:30</td><td>close</td><td>14</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07010</td><td style="mso-number-format:0\.00000;" align=right>1.06846</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>1.40</td><td class=mspt>996.00</td></tr>
+<tr align=right><td>29</td><td class=msdate>2024.06.27 17:25</td><td>sell</td><td>15</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07121</td><td style="mso-number-format:0\.00000;" align=right>1.07271</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>30</td><td class=msdate>2024.06.27 17:27</td><td>close</td><td>15</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07126</td><td style="mso-number-format:0\.00000;" align=right>1.07271</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>-0.50</td><td class=mspt>995.50</td></tr>
+<tr align=right><td>31</td><td class=msdate>2024.06.27 17:45</td><td>sell</td><td>16</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07125</td><td style="mso-number-format:0\.00000;" align=right>1.07275</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td colspan=2></td></tr>
+<tr bgcolor="#E0E0E0" align=right><td>32</td><td class=msdate>2024.06.27 17:49</td><td>close</td><td>16</td><td class=mspt>0.10</td><td style="mso-number-format:0\.00000;">1.07121</td><td style="mso-number-format:0\.00000;" align=right>1.07275</td><td style="mso-number-format:0\.00000;" align=right>0.00000</td><td class=mspt>0.40</td><td class=mspt>995.90</td></tr>
+
+</table>
+</div></body></html>
