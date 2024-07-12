@@ -713,6 +713,8 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       "SellStrategyActive: " + SellStrategyActive + 
       " BuyTradeActive: " + BuyTradeActive + 
       " SellBrGrDkGrStrategyActive: " + SellBrGrDkGrStrategyActive);
+
+      EntryData[0][10] = Ask;
       SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
@@ -755,6 +757,8 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       "SellTradeActive: " + SellTradeActive + 
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
+
+      EntryData[1][10] = Bid;
       SignalEntry = SIGNAL_ENTRY_BUY;
    }
 
@@ -829,6 +833,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
       && SellTradeActive == true
 
       && SellBrGrDkGrStrategyActive == true
+      && Ask < EntryData[0][10] //current price is less than the price it was entered at
       )
    {
       SellTradeActive = false;
@@ -862,6 +867,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
       && BuyTradeActive == true
 
       && BuyBrRdDkRdStrategyActive == true
+      && Bid > EntryData[1][10] //current price is greater than the price it was entered at
       )
    {
       BuyTradeActive = false;
