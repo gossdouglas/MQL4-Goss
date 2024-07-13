@@ -833,11 +833,13 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
       && SellTradeActive == true
 
       && SellBrGrDkGrStrategyActive == true
-      && Ask < EntryData[0][10] //current price is less than the price it was entered at
+      //&& Ask < EntryData[0][10] //current price is less than the price it was entered at
       )
    {
       SellTradeActive = false;
       //SellBrGrDkGrStrategyActive = false;
+
+      Print("Ask/EntryData[0][10] in SELL_BR_GREEN_DK_GREEN_EXIT: " + Ask + "/" + EntryData[0][10]);
 
       Print("EXIT A SELL, BRIGHT GREEN TO DARK GREEN. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
       SignalExit = SIGNAL_EXIT_SELL;
@@ -867,14 +869,14 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
       && BuyTradeActive == true
 
       && BuyBrRdDkRdStrategyActive == true
-      && Bid > EntryData[1][10] //current price is greater than the price it was entered at
+      //&& Bid > EntryData[1][10] //current price is greater than the price it was entered at
       )
    {
       BuyTradeActive = false;
       //BuyBrRdDkRdStrategyActive = false;
 
+      Print("Ask/EntryData[0][10] in BUY_ST_BR_RED_DK_RED_EXIT: " + Ask + "/" + EntryData[0][10]);
       Print("EXIT A BUY, BRIGHT RED TO DARK RED. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
-      Print("BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
       SignalExit = SIGNAL_EXIT_BUY;
    }
 
@@ -924,26 +926,6 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    string result = "PLOT STEADY NEUTRAL";
 
    //STRATEGY LOGIC
-
-   /* //NEUTRAL STRATEGY
-   if (
-      OverallStrategy == "NEUTRAL"
-      &&
-
-      //CONDITIONS NOT RIGHT FOR A BUY DARK GREEN TO BRIGHT GREEN STRATEGY
-      !(
-         //candle 1 greater than or equal to candle 2
-         NormalizeDouble(CombinedHistory[CndleStart][Idx] ,7) >= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) 
-         //candle 2 less than or equal to candle 3
-         && NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) <= NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,7) 
-         //candle 1 is positive
-         && CombinedHistory[CndleStart][Idx] > 0
-      )
-      )
-   {
-      //Print("neutral " + Idx);
-      result = "PLOT STEADY NEUTRAL";
-   } */
  
    //BUY STRATEGY, DARK GREEN TO BRIGHT GREEN
    if (
@@ -1096,7 +1078,10 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && OverallStrategy == "SELL_ST_BR_GREEN_DK_GREEN_ENTRY"
       && SellBrGrDkGrStrategyActive == true
 
-      && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
+      //timeframe above less than
+      //&& CombinedHistory[CndleStart][Idx-10] < CombinedHistory[CndleStart + 1][Idx-10]
+
+      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
 
       //this version counts the bars
@@ -1139,6 +1124,9 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       BuyStrategyActive == true 
       && OverallStrategy == "BUY_ST_BR_RED_DK_RED_ENTRY"
       && BuyBrRdDkRdStrategyActive == true
+
+      //timeframe above
+      //&& CombinedHistory[CndleStart][Idx-10] > CombinedHistory[CndleStart + 1][Idx-10]
 
       && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
