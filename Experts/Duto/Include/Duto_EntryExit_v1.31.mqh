@@ -1078,8 +1078,8 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && OverallStrategy == "SELL_ST_BR_GREEN_DK_GREEN_ENTRY"
       && SellBrGrDkGrStrategyActive == true
 
-      //timeframe above less than
-      //&& CombinedHistory[CndleStart][Idx-10] < CombinedHistory[CndleStart + 1][Idx-10]
+      //timeframe above
+      && CombinedHistory[CndleStart][Idx-10] < CombinedHistory[CndleStart + 1][Idx-10]
 
       && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
@@ -1126,7 +1126,7 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && BuyBrRdDkRdStrategyActive == true
 
       //timeframe above
-      //&& CombinedHistory[CndleStart][Idx-10] > CombinedHistory[CndleStart + 1][Idx-10]
+      && CombinedHistory[CndleStart][Idx-10] > CombinedHistory[CndleStart + 1][Idx-10]
 
       && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
