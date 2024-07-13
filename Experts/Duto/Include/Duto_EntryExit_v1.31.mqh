@@ -713,6 +713,8 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       "SellStrategyActive: " + SellStrategyActive + 
       " BuyTradeActive: " + BuyTradeActive + 
       " SellBrGrDkGrStrategyActive: " + SellBrGrDkGrStrategyActive);
+
+      EntryData[0][10] = Ask;
       SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
@@ -755,6 +757,8 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       "SellTradeActive: " + SellTradeActive + 
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
+
+      EntryData[1][10] = Bid;
       SignalEntry = SIGNAL_ENTRY_BUY;
    }
 
@@ -829,10 +833,13 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
       && SellTradeActive == true
 
       && SellBrGrDkGrStrategyActive == true
+      //&& Ask < EntryData[0][10] //current price is less than the price it was entered at
       )
    {
       SellTradeActive = false;
       //SellBrGrDkGrStrategyActive = false;
+
+      Print("Ask/EntryData[0][10] in SELL_BR_GREEN_DK_GREEN_EXIT: " + Ask + "/" + EntryData[0][10]);
 
       Print("EXIT A SELL, BRIGHT GREEN TO DARK GREEN. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
       SignalExit = SIGNAL_EXIT_SELL;
@@ -862,13 +869,14 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
       && BuyTradeActive == true
 
       && BuyBrRdDkRdStrategyActive == true
+      //&& Bid > EntryData[1][10] //current price is greater than the price it was entered at
       )
    {
       BuyTradeActive = false;
       //BuyBrRdDkRdStrategyActive = false;
 
+      Print("Ask/EntryData[0][10] in BUY_ST_BR_RED_DK_RED_EXIT: " + Ask + "/" + EntryData[0][10]);
       Print("EXIT A BUY, BRIGHT RED TO DARK RED. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
-      Print("BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
       SignalExit = SIGNAL_EXIT_BUY;
    }
 
@@ -918,26 +926,6 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    string result = "PLOT STEADY NEUTRAL";
 
    //STRATEGY LOGIC
-
-   /* //NEUTRAL STRATEGY
-   if (
-      OverallStrategy == "NEUTRAL"
-      &&
-
-      //CONDITIONS NOT RIGHT FOR A BUY DARK GREEN TO BRIGHT GREEN STRATEGY
-      !(
-         //candle 1 greater than or equal to candle 2
-         NormalizeDouble(CombinedHistory[CndleStart][Idx] ,7) >= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) 
-         //candle 2 less than or equal to candle 3
-         && NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) <= NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,7) 
-         //candle 1 is positive
-         && CombinedHistory[CndleStart][Idx] > 0
-      )
-      )
-   {
-      //Print("neutral " + Idx);
-      result = "PLOT STEADY NEUTRAL";
-   } */
  
    //BUY STRATEGY, DARK GREEN TO BRIGHT GREEN
    if (
@@ -1090,9 +1078,16 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && OverallStrategy == "SELL_ST_BR_GREEN_DK_GREEN_ENTRY"
       && SellBrGrDkGrStrategyActive == true
 
-      && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
+      //timeframe above less than
+      //&& CombinedHistory[CndleStart][Idx-10] < CombinedHistory[CndleStart + 1][Idx-10]
+
+      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
-      && BarColorCount(Idx, "POSITIVE") <= 15
+
+      //this version counts the bars
+      //&& BarColorCount(Idx, "POSITIVE") <= 15
+      //this version calculates the ratio between the sum of the bars and the number of the bars
+      && BarColorCount(Idx, "POSITIVE") <= 0.00002
       )
    {   
       Print(BarColorCount(Idx, "POSITIVE"));  
@@ -1130,10 +1125,16 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
       && OverallStrategy == "BUY_ST_BR_RED_DK_RED_ENTRY"
       && BuyBrRdDkRdStrategyActive == true
 
+      //timeframe above
+      //&& CombinedHistory[CndleStart][Idx-10] > CombinedHistory[CndleStart + 1][Idx-10]
+
       && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
 
-      && BarColorCount(Idx, "NEGATIVE") <= 25
+      //this version counts the bars
+      //&& BarColorCount(Idx, "NEGATIVE") <= 25
+      //this version calculates the ratio between the sum of the bars and the number of the bars
+      && BarColorCount(Idx, "NEGATIVE") <= 0.00002
       )
    {   
       Print(BarColorCount(Idx, "NEGATIVE"));  
@@ -1241,20 +1242,16 @@ string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string O
    return result;
 }
 
-int BarColorCount (int Idx, string PosNeg){
-
-   //Print("ENTER BarColorCount");
+//int BarColorCount (int Idx, string PosNeg){
+double BarColorCount (int Idx, string PosNeg){
 
    int count = 1;
    float barSum = 0.0;
 
    if (PosNeg == "NEGATIVE" && CombinedHistory[count + 1][Idx] < 0 )
    {
-      //Print("CANDLE 3 IS NEGATIVE: " + CombinedHistory[count + 1][Idx]);
-      //Print("CANDLE 3 IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
       do 
      { 
-      //Print("CANDLE " + (count + 1) + " IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
       barSum = barSum + CombinedHistory[count + 1][Idx];
       count++; // without this operator an infinite loop will appear! 
      } 
@@ -1263,10 +1260,8 @@ int BarColorCount (int Idx, string PosNeg){
    else
    if (PosNeg == "POSITIVE" && CombinedHistory[count + 1][Idx] > 0)
    {
-      //Print("CANDLE 3 IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
       do 
      { 
-      //Print("CANDLE " + (count + 1) + " IS POSITIVE: " + CombinedHistory[count + 1][Idx]);
       barSum = barSum + CombinedHistory[count + 1][Idx];
       count++; // without this operator an infinite loop will appear! 
      } 
@@ -1276,9 +1271,10 @@ int BarColorCount (int Idx, string PosNeg){
    Print("Bar sum absolute value: " + MathAbs(barSum));
    Print("Returned BarColorCount: " + count);
    Print("Bar sum/BarColorCount: " + NormalizeDouble((MathAbs(barSum)/count) ,6));
-   Print("Bar sum/BarColorCount: " + MathAbs(barSum)/count);
+   //Print("Bar sum/BarColorCount: " + MathAbs(barSum)/count);
 
-   return count;
+   //return count;
+   return MathAbs(barSum)/count;
 }
 
 //DutoWind
