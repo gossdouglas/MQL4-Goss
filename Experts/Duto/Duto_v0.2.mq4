@@ -34,7 +34,6 @@ TRAILING STOP: Stop following the PSAR
 // Include allows to import code from another file
 // In the following instance the file has to be placed in the MQL4/Include Folder
 #include <MQLTA ErrorHandling.mqh>
-// #include <MA Crossover.mqh>
 #include <Duto_EntryExit_v1.32.mqh>
 
 //-COMMENTS-//
@@ -377,7 +376,7 @@ void EvaluateEntry()
       //Comment(StringFormat("Show prices\nAsk = %G\nBid = %G = %d",Ask,Bid)); 
    }
 
-   //this logic only allows an evaluation to be made if LogIndicatorData has been executed
+   //this logic only allows an evaluation to be made if LogIndicatorData has been executed at least once
    if (StartupFlag ==  true)
    {
       // evaluate for a signal entry
@@ -912,3 +911,12 @@ bool ScanOrders()
    }
    return true;
 }
+
+//BEGIN DUTO STRATEGY, ENTRY AND EXIT
+
+
+
+
+
+
+//END DUTO STRATEGY, ENTRY AND EXIT

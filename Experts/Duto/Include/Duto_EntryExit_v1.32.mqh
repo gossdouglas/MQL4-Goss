@@ -519,7 +519,7 @@ void DutoWind_Strategy()
    
    //BUY STRATEGY CHECK FOR DARK GREEN TO BRIGHT GREEN
    if (
-      (AskThePlots(28, 1, 1, "BUY_DK_GREEN_BR_GREEN") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN") 
+      (AskThePlotsStrategy(28, 1, 1, "BUY_DK_GREEN_BR_GREEN") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN") 
       && 
       //BuyStrategyActive == false
       BuyDkGrBrGrStrategyActive == false
@@ -543,7 +543,7 @@ void DutoWind_Strategy()
    else
    //SELL STRATEGY CHECK FOR BRIGHT GREEN TO DARK GREEN
    if (
-      (AskThePlots(28, 1, 1, "SELL_BR_GREEN_DK_GREEN") == "PLOT DECREASING BRIGHT GREEN TO DARK GREEN") 
+      (AskThePlotsStrategy(28, 1, 1, "SELL_BR_GREEN_DK_GREEN") == "PLOT DECREASING BRIGHT GREEN TO DARK GREEN") 
       && 
       //SellStrategyActive == false
       SellBrGrDkGrStrategyActive == false
@@ -567,7 +567,7 @@ void DutoWind_Strategy()
    else
    //SELL STRATEGY CHECK FOR DARK GREEN TO BRIGHT RED
    if (
-      (AskThePlots(28, 1, 1, "SELL_DK_GREEN_BR_RED") == "PLOT DECREASING DARK GREEN TO BRIGHT RED") 
+      (AskThePlotsStrategy(28, 1, 1, "SELL_DK_GREEN_BR_RED") == "PLOT DECREASING DARK GREEN TO BRIGHT RED") 
       && 
       //SellStrategyActive == false
       SellDkGrBrRdStrategyActive == false
@@ -591,7 +591,7 @@ void DutoWind_Strategy()
    else
    //BUY STRATEGY CHECK FOR BRIGHT RED TO DARK RED
    if (
-      (AskThePlots(28, 1, 1, "BUY_BR_RED_DK_RED") == "PLOT INCREASING BRIGHT RED TO DARK RED") 
+      (AskThePlotsStrategy(28, 1, 1, "BUY_BR_RED_DK_RED") == "PLOT INCREASING BRIGHT RED TO DARK RED") 
       && BuyBrRdDkRdStrategyActive == false
       //SellStrategyActive == false
       )
@@ -614,7 +614,7 @@ void DutoWind_Strategy()
    else
    //SELL STRATEGY CHECK FOR DARK RED TO BRIGHT RED
    if (
-      (AskThePlots(28, 1, 1, "SELL_DK_RED_BR_RED") == "PLOT DECREASING DARK RED TO BRIGHT RED") 
+      (AskThePlotsStrategy(28, 1, 1, "SELL_DK_RED_BR_RED") == "PLOT DECREASING DARK RED TO BRIGHT RED") 
       && 
       //SellStrategyActive == false
       SellDkRdBrRdStrategyActive == false
@@ -637,7 +637,7 @@ void DutoWind_Strategy()
    }
    //BUY STRATEGY CHECK FOR DARK RED TO BRIGHT GREEN
    if (
-      (AskThePlots(28, 1, 1, "BUY_DK_RED_BR_GREEN") == "PLOT INCREASING DARK RED TO BRIGHT GREEN") 
+      (AskThePlotsStrategy(28, 1, 1, "BUY_DK_RED_BR_GREEN") == "PLOT INCREASING DARK RED TO BRIGHT GREEN") 
       && 
       //BuyStrategyActive == false //this line is troublesome. it likely needs to die.
       BuyDkRdBrGrStrategyActive == false
@@ -672,7 +672,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
    //INACTIVE
    if (
          //MACD INCREASING FROM NEGATIVE TO POSITIVE
-         //(AskThePlots(36, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
+         //(AskThePlotsEntry(36, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
          //PLOT 3 INCREASING POSITIVE
          (AskThePlots(38, 1, 1, "BUY_DK_GREEN_BR_GREEN_ENTRY") == "ENTER A BUY DARK GREEN BRIGHT GREEN") 
 
@@ -699,7 +699,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
          //MACD DECREASING FROM POSITIVE TO NEGATIVE
          //(AskThePlots(36, 1, 1, "SELL_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A SELL BRIGHT GREEN DARK GREEN")
          //SAFETY TRADE
-         (AskThePlots(36, 1, 1, "SELL_ST_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A ST SELL BRIGHT GREEN DARK GREEN")
+         (AskThePlotsEntry(36, 1, 1, "SELL_ST_BR_GREEN_DK_GREEN_ENTRY") == "ENTER A ST SELL BRIGHT GREEN DARK GREEN")
       && SellStrategyActive == true 
       && SellTradeActive == false
 
@@ -721,7 +721,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
    /* //SELL ENTRY, DARK GREEN TO BRIGHT RED
    //INACTIVE
    if (
-         (AskThePlots(38, 1, 1, "SELL_DK_GREEN_BR_RED_ENTRY") == "ENTER A SELL DARK GREEN BRIGHT RED") 
+         (AskThePlotsEntry(38, 1, 1, "SELL_DK_GREEN_BR_RED_ENTRY") == "ENTER A SELL DARK GREEN BRIGHT RED") 
       && SellStrategyActive == true 
       && SellTradeActive == false
 
@@ -743,7 +743,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
    if (
          //(AskThePlots(38, 1, 1, "BUY_BR_RED_DK_RED_ENTRY") == "ENTER A BUY BRIGHT RED DARK RED") 
          //SAFETY TRADE
-         (AskThePlots(36, 1, 1, "BUY_ST_BR_RED_DK_RED_ENTRY") == "ENTER A ST BUY BRIGHT RED DARK RED")
+         (AskThePlotsEntry(36, 1, 1, "BUY_ST_BR_RED_DK_RED_ENTRY") == "ENTER A ST BUY BRIGHT RED DARK RED")
       && BuyStrategyActive == true 
       && BuyTradeActive == false
 
@@ -765,7 +765,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
    /* //SELL ENTRY, DARK RED TO BRIGHT RED
    //INACTIVE
    if (
-         (AskThePlots(38, 1, 1, "SELL_DK_RED_BR_RED_ENTRY") == "ENTER A SELL DARK RED BRIGHT RED") 
+         (AskThePlotsEntry(38, 1, 1, "SELL_DK_RED_BR_RED_ENTRY") == "ENTER A SELL DARK RED BRIGHT RED") 
       && SellStrategyActive == true 
       && SellTradeActive == false
 
@@ -785,7 +785,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
    /* //BUY ENTRY, DARK RED TO BRIGHT GREEN
    //INACTIVE
    if (
-         (AskThePlots(38, 1, 1, "BUY_DK_RED_BR_GREEN_ENTRY") == "ENTER A BUY DARK RED BRIGHT GREEN") 
+         (AskThePlotsEntry(38, 1, 1, "BUY_DK_RED_BR_GREEN_ENTRY") == "ENTER A BUY DARK RED BRIGHT GREEN") 
       && BuyStrategyActive == true 
       && BuyTradeActive == false
 
@@ -812,7 +812,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
 
    //BUY EXIT, DARK GREEN TO BRIGHT GREEN
    if (
-      AskThePlots(36, 1, 1, "BUY_DK_GREEN_BR_GREEN_EXIT") == "EXIT A BUY DARK GREEN BRIGHT GREEN"
+      AskThePlotsExit(36, 1, 1, "BUY_DK_GREEN_BR_GREEN_EXIT") == "EXIT A BUY DARK GREEN BRIGHT GREEN"
       && BuyStrategyActive == true 
       && BuyTradeActive == true
 
@@ -828,7 +828,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
 
    //SELL EXIT, BRIGHT GREEN TO DARK GREEN
    if (
-      AskThePlots(36, 1, 1, "SELL_BR_GREEN_DK_GREEN_EXIT") == "EXIT A SELL BRIGHT GREEN DARK GREEN"
+      AskThePlotsExit(36, 1, 1, "SELL_BR_GREEN_DK_GREEN_EXIT") == "EXIT A SELL BRIGHT GREEN DARK GREEN"
       && SellStrategyActive == true 
       && SellTradeActive == true
 
@@ -847,7 +847,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
 
    //SELL EXIT, DARK GREEN TO BRIGHT RED
    if (
-      AskThePlots(36, 1, 1, "SELL_DK_GREEN_BR_RED_EXIT") == "EXIT A SELL DARK GREEN BRIGHT RED"
+      AskThePlotsExit(36, 1, 1, "SELL_DK_GREEN_BR_RED_EXIT") == "EXIT A SELL DARK GREEN BRIGHT RED"
       && SellStrategyActive == true 
       && SellTradeActive == true
 
@@ -864,7 +864,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
    //BUY EXIT, BRIGHT RED TO DARK RED
    if (
       //AskThePlots(36, 1, 1, "BUY_BR_RED_DK_RED_EXIT") == "EXIT A BUY BRIGHT RED DARK RED"
-      AskThePlots(36, 1, 1, "BUY_ST_BR_RED_DK_RED_EXIT") == "EXIT A ST BUY BRIGHT RED DARK RED"
+      AskThePlotsExit(36, 1, 1, "BUY_ST_BR_RED_DK_RED_EXIT") == "EXIT A ST BUY BRIGHT RED DARK RED"
       && BuyStrategyActive == true 
       && BuyTradeActive == true
 
@@ -882,7 +882,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
 
    //SELL EXIT, DARK RED TO BRIGHT RED
    if (
-      AskThePlots(36, 1, 1, "SELL_DK_RED_BR_RED_EXIT") == "EXIT A SELL DARK RED BRIGHT RED"
+      AskThePlotsExit(36, 1, 1, "SELL_DK_RED_BR_RED_EXIT") == "EXIT A SELL DARK RED BRIGHT RED"
       && SellStrategyActive == true 
       && SellTradeActive == true
 
@@ -898,7 +898,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
 
    //BUY EXIT, DARK RED TO BRIGHT GREEN
    if (
-      AskThePlots(36, 1, 1, "BUY_DK_RED_BR_GREEN_EXIT") == "EXIT A BUY DARK RED BRIGHT GREEN"
+      AskThePlotsExit(36, 1, 1, "BUY_DK_RED_BR_GREEN_EXIT") == "EXIT A BUY DARK RED BRIGHT GREEN"
       && BuyStrategyActive == true 
       && BuyTradeActive == true
 
@@ -1614,7 +1614,3 @@ double BarColorCount (int Idx, string PosNeg){
 //DutoWind
 
 //////STRATEGIES END
-   
-
-
-
