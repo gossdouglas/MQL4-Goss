@@ -920,6 +920,7 @@ bool ScanOrders()
    return true;
 }
 
+//===================================================
 //BEGIN DUTO STRATEGY, ENTRY AND EXIT
 
 //chart indicator history arrays
@@ -1237,11 +1238,9 @@ void LogIndicatorData()
 
 ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
 {  
-   // Declaring the variables for the entry and exit check
+   // Declaring the variables for the entry check
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
-   //strategy to be used for entry
-   //DutoWind_Strategy();
    //check for an entry
    SignalEntry = DutoWind_Entry();
 
@@ -1251,29 +1250,15 @@ ENUM_SIGNAL_ENTRY ReturnSignalEntryToEvaluateEntry()
 ENUM_SIGNAL_EXIT ReturnSignalExitToEvaluateExit()
 
 {
-   // Declaring the variables for the entry and exit check
+   // Declaring the variables for the exit check
    SignalExit = SIGNAL_EXIT_NEUTRAL;
 
-   //strategy to be used for exit
-   //SignalExit = DutoSun3_2Exit();
+   //check for an exit
    SignalExit = DutoWind_Exit();
 
    return SignalExit;
 }
 
-/* //Check if it is a new bar
-datetime NewBarTime_Include=TimeCurrent();
-void CheckNewBar_Include(){
-   //NewBarTime contains the open time of the last bar known
-   //if that open time is the same as the current bar then we are still in the current bar, otherwise we are in a new bar
-   if(NewBarTime_Include==Time[0]) IsNewCandle_Include=false;
-   else{
-      NewBarTime_Include=Time[0];
-      IsNewCandle_Include=true;
-   }
-} */
-
-//
 double FastMAIndicatorHistory[100];
 double SlowMAIndicatorHistory[100];
 double DeltaCIndicatorHistory[100];
@@ -1316,10 +1301,6 @@ void GetIndicatorHistory(int indicatorIndex, int numCandles)
    }
 }
 
-//////STRATEGIES BEGIN
-
-double EntryData[2][11];
-
 //DutoWind
 
 /* OVERALL SELL STRATEGY
@@ -1343,6 +1324,7 @@ Bright red entries will be exited when a dark red candle appears.
 
 Sell trades will be entered and exited again and again until conditions on the M5 plot 2 set the boolean variable SellStrategyActive to false.  */
 
+double EntryData[2][11];
 string CurrentStrategy;
 bool SellStrategyActive, BuyStrategyActive, NeutralStrategyActive;
 
@@ -2116,6 +2098,327 @@ string AskThePlotsExit(int Idx, int CndleStart, int CmbndHstryCandleLength, stri
    return result;
 }
 
+string AskThePlots(int Idx, int CndleStart, int CmbndHstryCandleLength, string OverallStrategy)
+{
+   string result = "";
+
+   //STRATEGY LOGIC
+ 
+   //BUY STRATEGY, DARK GREEN TO BRIGHT GREEN
+   if (
+      OverallStrategy == "BUY_DK_GREEN_BR_GREEN"
+
+      //candle 1 greater than or equal to candle 2
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,7) >= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) 
+      //candle 2 less than or equal to candle 3
+      && NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) <= NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,7) 
+      //candle 1 is positive
+      && CombinedHistory[CndleStart][Idx] > 0
+      )
+   {
+      CurrentStrategy = OverallStrategy; 
+      //Print("ask the plots PLOT INCREASING DARK GREEN TO BRIGHT GREEN");
+      result = "PLOT INCREASING DARK GREEN TO BRIGHT GREEN"; 
+   }
+   else
+   //SELL STRATEGY, BRIGHT GREEN TO DARK GREEN
+   if (
+      OverallStrategy == "SELL_BR_GREEN_DK_GREEN"
+
+      //candle 1 less than or equal to candle 2
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,7) <= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) 
+      //candle 2 greater than or equal to candle 3
+      && NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) >= NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,7) 
+      //candle 1 is positive
+      && CombinedHistory[CndleStart][Idx] > 0
+      )
+   {
+      CurrentStrategy = OverallStrategy; 
+      //Print("ask the plots PLOT DECREASING BRIGHT GREEN TO DARK GREEN");
+      result = "PLOT DECREASING BRIGHT GREEN TO DARK GREEN";
+   }
+   else
+   //SELL STRATEGY, DARK GREEN TO BRIGHT RED
+   if (
+      OverallStrategy == "SELL_DK_GREEN_BR_RED"
+
+      //candle 1 less than or equal to candle 2
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,7) <= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) 
+      //candle 2 less than or equal to candle 3
+      && NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) <= NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,7) 
+      //candle 1 is negative, candle 2 is positive, candle 3 is positive
+      && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0 && CombinedHistory[CndleStart + 2][Idx] > 0
+      )
+   {
+      CurrentStrategy = OverallStrategy; 
+      //Print("TEST TEST PLOT DECREASING DARK GREEN TO BRIGHT RED");
+      result = "PLOT DECREASING DARK GREEN TO BRIGHT RED";
+   }
+   //BUY STRATEGY, BRIGHT RED TO DARK RED
+   if (
+      OverallStrategy == "BUY_BR_RED_DK_RED"
+
+      //candle 1 greater than or equal to candle 2
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,7) >= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) 
+      //candle 2 less than or equal to candle 3
+      && NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) <= NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,7) 
+      //candle 1 is negative, candle 2 is negative, candle 3 is negative
+      && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] < 0 && CombinedHistory[CndleStart + 2][Idx] < 0
+      )
+   {
+      CurrentStrategy = OverallStrategy; 
+      //Print("TEST TEST PLOT INCREASING BRIGHT RED TO DARK RED");
+      result = "PLOT INCREASING BRIGHT RED TO DARK RED";
+   }
+   //SELL STRATEGY, DARK RED TO BRIGHT RED
+   if (
+      OverallStrategy == "SELL_DK_RED_BR_RED"
+
+      //candle 1 less than or equal to candle 2
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,7) <= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) 
+      //candle 2 greater than or equal to candle 3
+      && NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) >= NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,7) 
+      //candle 1 is negative, candle 2 is negative, candle 3 is negative
+      && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] < 0 && CombinedHistory[CndleStart + 2][Idx] < 0
+      )
+   {
+      CurrentStrategy = OverallStrategy; 
+      //Print("TEST TEST PLOT DECREASING DARK RED TO BRIGHT RED");
+      result = "PLOT DECREASING DARK RED TO BRIGHT RED";
+   }
+   //BUY STRATEGY, DARK RED TO BRIGHT GREEN
+   if (
+      OverallStrategy == "BUY_DK_RED_BR_GREEN"
+
+      //candle 1 greater than or equal to candle 2
+      && NormalizeDouble(CombinedHistory[CndleStart][Idx] ,7) >= NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) 
+      //candle 2 greater than or equal to candle 3
+      && NormalizeDouble(CombinedHistory[CndleStart + 1][Idx] ,7) >= NormalizeDouble(CombinedHistory[CndleStart + 2][Idx] ,7) 
+      //candle 1 is positive, candle 2 is negative, candle 3 is negative
+      && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0 && CombinedHistory[CndleStart + 2][Idx] < 0
+      )
+   {
+      CurrentStrategy = OverallStrategy; 
+      //Print("TEST TEST PLOT INCREASING DARK RED TO BRIGHT GREEN");
+      result = "PLOT INCREASING DARK RED TO BRIGHT GREEN";
+   }
+
+
+   //ENTRY LOGIC
+
+  /* //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
+   if (
+      BuyStrategyActive == true 
+      && OverallStrategy == "BUY_DK_GREEN_BR_GREEN_ENTRY"
+
+      && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
+      //&& CombinedHistory[CndleStart + 1][Idx] > 0 
+      && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
+      )
+   {
+      Print("ENTRY LOGIC-- ENTER A BUY DARK GREEN BRIGHT GREEN");
+      result = "ENTER A BUY DARK GREEN BRIGHT GREEN";
+   } */
+
+   //SELL ENTRY, BRIGHT GREEN TO DARK GREEN
+   if (
+      SellStrategyActive == true 
+      && OverallStrategy == "SELL_BR_GREEN_DK_GREEN_ENTRY"
+
+      && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
+      //&& CombinedHistory[CndleStart + 1][Idx] > 0 //don't care if plot 2 is decreasing positive or decreasing negative?
+      && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
+      )
+   {
+      Print("ENTRY LOGIC-- ENTER A SELL BRIGHT GREEN DARK GREEN");
+      result = "ENTER A SELL BRIGHT GREEN DARK GREEN";
+   }
+
+   //WHICH SELL FOR BRIGHT GREEN TO DARK GREEN TO USE??????
+
+   /* //SELL ENTRY, BRIGHT GREEN TO DARK GREEN
+   if (
+      SellStrategyActive == true 
+      && OverallStrategy == "SELL_BR_GREEN_DK_GREEN_ENTRY"
+
+      && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart + 1][Idx] < 0 //don't care if plot 2 is decreasing positive or decreasing negative?
+      )
+   {
+      //Print("xxxxxxxxxxxxxxxxSELL_BR_GREEN_DK_GREEN_ENTRY");
+      result = "ENTER A SELL BRIGHT GREEN DARK GREEN";
+   } */
+
+   //SELL ENTRY SAFETY TRADE, BRIGHT GREEN TO DARK GREEN
+   if (
+      SellStrategyActive == true 
+      && OverallStrategy == "SELL_ST_BR_GREEN_DK_GREEN_ENTRY"
+      && SellBrGrDkGrStrategyActive == true
+
+      //timeframe above
+      && CombinedHistory[CndleStart][Idx-10] < CombinedHistory[CndleStart + 1][Idx-10]
+
+      && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
+
+      //this version counts the bars
+      //&& BarColorCount(Idx, "POSITIVE") <= 15
+      //this version calculates the ratio between the sum of the bars and the number of the bars
+      && BarColorCount(Idx, "POSITIVE") <= 0.00002
+      )
+   {   
+      Print(BarColorCount(Idx, "POSITIVE"));  
+      //Print("ENTRY LOGIC-- ENTER A SELL BRIGHT GREEN DARK GREEN");
+      result = "ENTER A ST SELL BRIGHT GREEN DARK GREEN";
+   }
+
+   //SELL ENTRY, DARK GREEN TO BRIGHT RED
+   if (
+      SellStrategyActive == true 
+      && OverallStrategy == "SELL_DK_GREEN_BR_RED_ENTRY"
+
+      && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart + 1][Idx] < 0 //don't care if plot 2 is decreasing positive or decreasing negative?
+      )
+   {
+      result = "ENTER A SELL DARK GREEN BRIGHT RED";
+   }
+
+   //BUY ENTRY, BRIGHT RED TO DARK RED
+   if (
+      BuyStrategyActive == true 
+      && OverallStrategy == "BUY_BR_RED_DK_RED_ENTRY"
+
+      && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart + 1][Idx] < 0 //don't care if plot 2 is decreasing positive or decreasing negative?
+      )
+   {
+      result = "ENTER A BUY BRIGHT RED DARK RED";
+   }
+
+   //BUY ENTRY SAFETY TRADE, BRIGHT RED TO DARK RED
+   if (
+      BuyStrategyActive == true 
+      && OverallStrategy == "BUY_ST_BR_RED_DK_RED_ENTRY"
+      && BuyBrRdDkRdStrategyActive == true
+
+      //timeframe above
+      && CombinedHistory[CndleStart][Idx-10] > CombinedHistory[CndleStart + 1][Idx-10]
+
+      && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
+
+      //this version counts the bars
+      //&& BarColorCount(Idx, "NEGATIVE") <= 25
+      //this version calculates the ratio between the sum of the bars and the number of the bars
+      && BarColorCount(Idx, "NEGATIVE") <= 0.00002
+      )
+   {   
+      Print(BarColorCount(Idx, "NEGATIVE"));  
+      //Print("ENTRY LOGIC-- ENTER A SELL BRIGHT GREEN DARK GREEN");
+      result = "ENTER A ST BUY BRIGHT RED DARK RED";
+   }
+
+   //SELL ENTRY, DARK RED TO BRIGHT RED
+   if (
+      SellStrategyActive == true 
+      && OverallStrategy == "SELL_DK_RED_BR_RED_ENTRY"
+
+      && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart + 1][Idx] < 0 //don't care if plot 2 is decreasing positive or decreasing negative?
+      )
+   {
+      //Print("TEST TEST ENTER A SELL DARK RED BRIGHT RED");
+      result = "ENTER A SELL DARK RED BRIGHT RED";
+   }
+
+   //BUY ENTRY, DARK RED TO BRIGHT GREEN
+   if (
+      BuyStrategyActive == true 
+      && OverallStrategy == "BUY_DK_RED_BR_GREEN_ENTRY"
+
+      && CombinedHistory[CndleStart][Idx] <  CombinedHistory[CndleStart + 1][Idx]
+      && CombinedHistory[CndleStart + 1][Idx] > 0 //don't care if plot 2 is decreasing positive or decreasing negative?
+      )
+   {
+      result = "ENTER A BUY DARK RED BRIGHT GREEN";
+   }
+
+   //EXIT LOGIC
+
+   //BUY EXIT, DARK GREEN TO BRIGHT GREEN
+   if (
+      OverallStrategy == "BUY_DK_GREEN_BR_GREEN_EXIT" &&
+      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] > 0 
+      )
+   {
+      result = "EXIT A BUY DARK GREEN BRIGHT GREEN";
+   }
+
+   //SELL EXIT, BRIGHT GREEN TO DARK GREEN
+   if (
+      OverallStrategy == "SELL_BR_GREEN_DK_GREEN_EXIT" &&
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] < 0 
+      )
+   {
+      result = "EXIT A SELL BRIGHT GREEN DARK GREEN";
+   }
+
+   //SELL EXIT, DARK GREEN TO BRIGHT RED
+   if (
+      OverallStrategy == "SELL_DK_GREEN_BR_RED_EXIT" &&
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] < 0 
+      )
+   {
+      result = "EXIT A SELL DARK GREEN BRIGHT RED";
+   }
+
+   //BUY EXIT, BRIGHT RED TO DARK RED
+   if (
+      OverallStrategy == "BUY_BR_RED_DK_RED_EXIT" &&
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] > 0 
+      )
+   {
+      result = "EXIT A BUY BRIGHT RED DARK RED";
+   }
+
+   //BUY EXIT SAFETY TRADE, BRIGHT RED TO DARK RED
+   if (
+      OverallStrategy == "BUY_ST_BR_RED_DK_RED_EXIT" &&
+      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart][Idx] > 0 
+      )
+   {
+      result = "EXIT A ST BUY BRIGHT RED DARK RED";
+   }
+
+   //SELL EXIT, DARK RED TO BRIGHT RED
+   if (
+      OverallStrategy == "SELL_DK_RED_BR_RED_EXIT" &&
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] < 0 
+      )
+   {
+      result = "EXIT A SELL DARK RED BRIGHT RED";
+   }
+
+   //BUY EXIT, DARK RED TO BRIGHT GREEN
+   if (
+      OverallStrategy == "BUY_DK_RED_BR_GREEN_EXIT" &&
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      && CombinedHistory[CndleStart + 1][Idx] > 0 
+      )
+   {
+      result = "EXIT A BUY DARK RED BRIGHT GREEN";
+   }
+
+   return result;
+}
+
 //int BarColorCount (int Idx, string PosNeg){
 double BarColorCount (int Idx, string PosNeg){
 
@@ -2153,6 +2456,5 @@ double BarColorCount (int Idx, string PosNeg){
 
 //DutoWind
 
-//////STRATEGIES END
-
 //END DUTO STRATEGY, ENTRY AND EXIT
+//===================================================
