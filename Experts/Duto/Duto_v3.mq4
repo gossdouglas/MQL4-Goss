@@ -1749,6 +1749,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
       SignalExit = SIGNAL_EXIT_BUY;
    }
 
+   SignalExit = SIGNAL_EXIT_NEUTRAL;
    return SignalExit;
 }
 
@@ -1923,7 +1924,7 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
 
       //timeframe above
       //&& CombinedHistory[CndleStart][Idx-10] < CombinedHistory[CndleStart + 1][Idx-10]
-      && CombinedHistory[CndleStart - 1][Idx-10] < CombinedHistory[CndleStart][Idx-10]
+      //&& CombinedHistory[CndleStart - 1][Idx-10] < CombinedHistory[CndleStart][Idx-10]
 
       && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
@@ -1973,7 +1974,7 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
 
       //timeframe above
       //&& CombinedHistory[CndleStart][Idx-10] > CombinedHistory[CndleStart + 1][Idx-10]
-      && CombinedHistory[CndleStart - 1][Idx-10] > CombinedHistory[CndleStart][Idx-10]
+      //&& CombinedHistory[CndleStart - 1][Idx-10] > CombinedHistory[CndleStart][Idx-10]
 
       && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
