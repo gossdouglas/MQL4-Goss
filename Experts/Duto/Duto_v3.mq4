@@ -1923,6 +1923,7 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && SellBrGrDkGrStrategyActive == true
 
       //timeframe above
+      && CombinedHistory[CndleStart][26] < CombinedHistory[CndleStart + 1][26]
       //&& CombinedHistory[CndleStart][Idx-10] < CombinedHistory[CndleStart + 1][Idx-10]
       //&& CombinedHistory[CndleStart - 1][Idx-10] < CombinedHistory[CndleStart][Idx-10]
 
@@ -1935,8 +1936,12 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && BarColorCount(Idx, "POSITIVE") <= 0.00002
       )
    {   
-      Print("[Idx-10]: " + (Idx-10));
-      Print("CombinedHistory[CndleStart-1][Idx-10]: " + NormalizeDouble(CombinedHistory[CndleStart-1][Idx-10] ,8));
+      /* Print("[Idx-10]: " + (Idx-10));
+      Print("CombinedHistory[CndleStart-1][Idx-10]: " + NormalizeDouble(CombinedHistory[CndleStart-1][Idx-10] ,8)); */
+
+      Print("[Idx-10]: " + (26));
+      Print("CombinedHistory[CndleStart][26]: " + NormalizeDouble(CombinedHistory[CndleStart][26] ,8));
+
       Print(BarColorCount(Idx, "POSITIVE"));  
       //Print("ENTRY LOGIC-- ENTER A SELL BRIGHT GREEN DARK GREEN");
       result = "ENTER A ST SELL BRIGHT GREEN DARK GREEN";
@@ -1973,6 +1978,7 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && BuyBrRdDkRdStrategyActive == true
 
       //timeframe above
+      && CombinedHistory[CndleStart][26] > CombinedHistory[CndleStart + 1][26]
       //&& CombinedHistory[CndleStart][Idx-10] > CombinedHistory[CndleStart + 1][Idx-10]
       //&& CombinedHistory[CndleStart - 1][Idx-10] > CombinedHistory[CndleStart][Idx-10]
 
@@ -1985,8 +1991,12 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && BarColorCount(Idx, "NEGATIVE") <= 0.00002
       )
    {  
-      Print("[Idx-10]: " + (Idx-10));
-      Print("CombinedHistory[CndleStart-1][Idx-10]: " + NormalizeDouble(CombinedHistory[CndleStart-1][Idx-10] ,8));
+      /* Print("[Idx-10]: " + (Idx-10));
+      Print("CombinedHistory[CndleStart-1][Idx-10]: " + NormalizeDouble(CombinedHistory[CndleStart-1][Idx-10] ,8)); */
+
+      Print("[Idx-10]: " + (26));
+      Print("CombinedHistory[CndleStart][26]: " + NormalizeDouble(CombinedHistory[CndleStart][26] ,8));
+
       Print(BarColorCount(Idx, "NEGATIVE"));  
       //Print("ENTRY LOGIC-- ENTER A SELL BRIGHT GREEN DARK GREEN");
       result = "ENTER A ST BUY BRIGHT RED DARK RED";
