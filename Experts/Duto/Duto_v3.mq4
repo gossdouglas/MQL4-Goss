@@ -935,7 +935,7 @@ void LogIndicatorData()
 {
    //indicator testing
    string indicatorName = "_Custom\\Duto\\macd_color_indicator_plot1_v0.9";
-   string duto_chart_indicators = "_Custom\\Duto\\duto_chart_indicators_v0.5";
+   string duto_chart_indicators = "_Custom\\Duto\\duto_chart_indicators_v0.6";
    string duto_chart_moving_averages = "_Custom\\Duto\\duto_mas";
    string duto_chart_deltas = "_Custom\\Duto\\delta_v0.1";
    string duto_sniper = "_Custom\\Duto\\SchaffTrendCycle";
