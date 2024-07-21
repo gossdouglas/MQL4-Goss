@@ -397,7 +397,9 @@ void ExecuteEntry()
 {
    // If there is no entry signal no point to continue
    if (SignalEntry == SIGNAL_ENTRY_NEUTRAL)
+   //if (TradePending != true)
       return;
+
    int Operation;
    double OpenPrice = 0;
    double StopLossPrice = 0;
@@ -437,10 +439,15 @@ void ExecuteEntry()
       // Submit the order
       SendOrder(Operation, Symbol(), OpenPrice, StopLossPrice, TakeProfitPrice);
    }
+   
    if (SignalEntry == SIGNAL_ENTRY_SELL)
+   //if (SellTradePending == true && Bid >= CombinedHistory[0][32])
    {
       RefreshRates();      // Get latest rates
+
       Operation = OP_SELL; // Set the operation to SELL
+      //Operation = OP_SELLSTOP; // Set the operation to SELL
+
       OpenPrice = Bid;     // Set the open price to Ask price
       // If the Stop Loss is fixed and the default stop loss is set
       if (StopLossMode == SL_FIXED && DefaultStopLoss > 0)
@@ -468,8 +475,14 @@ void ExecuteEntry()
       OpenPrice = NormalizeDouble(OpenPrice, Digits);
       StopLossPrice = NormalizeDouble(StopLossPrice, Digits);
       TakeProfitPrice = NormalizeDouble(TakeProfitPrice, Digits);
+
+      Print("Bid: " + Bid + ", CombinedHistory[1][32]: " + CombinedHistory[1][32]);
       // Submit the order
       SendOrder(Operation, Symbol(), OpenPrice, StopLossPrice, TakeProfitPrice);
+
+      SellTradeActive = true;
+      TradePending = false;
+      SellTradePending = false;
    }
 }
 
@@ -1333,6 +1346,7 @@ bool SellDkGrBrRdStrategyActive, BuyBrRdDkRdStrategyActive;
 bool SellDkRdBrRdStrategyActive, BuyDkRdBrGrStrategyActive;
 
 bool SellTradeActive, BuyTradeActive, TradeActive;
+bool SellTradePending, BuyTradePending, TradePending;
 
 void DutoWind_Strategy()
 {
@@ -1543,9 +1557,17 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       && SellBrGrDkGrStrategyActive == true
       )
    {
+      /* TradePending = true;
+      SellTradePending = true;
+
+      Print("PENDING A SAFETY TRADE SELL, BRIGHT GREEN TO DARK GREEN. " +
+      "TradePending: " + TradePending + 
+      "SellTradePending: " + SellTradePending + 
+      "Bid >= CombinedHistory[0][32]: " + Bid >= CombinedHistory[0][32] + 
+      " SellBrGrDkGrStrategyActive: " + SellBrGrDkGrStrategyActive); */
+      
       SellTradeActive = true;
 
-      //Print("ENTER A SELL, BRIGHT GREEN TO DARK GREEN. " +
       Print("ENTER A SAFETY TRADE SELL, BRIGHT GREEN TO DARK GREEN. " +
       "SellStrategyActive: " + SellStrategyActive + 
       " BuyTradeActive: " + BuyTradeActive + 
@@ -1638,7 +1660,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       //SignalEntry = SIGNAL_ENTRY_BUY;
    } */
 
-   //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
+   SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    return SignalEntry;
 }
@@ -1936,14 +1958,10 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && BarColorCount(Idx, "POSITIVE") <= 0.00002
       )
    {   
-      /* Print("[Idx-10]: " + (Idx-10));
-      Print("CombinedHistory[CndleStart-1][Idx-10]: " + NormalizeDouble(CombinedHistory[CndleStart-1][Idx-10] ,8)); */
-
-      Print("[Idx-10]: " + (26));
+      /* Print("[Idx-10]: " + (26));
       Print("CombinedHistory[CndleStart][26]: " + NormalizeDouble(CombinedHistory[CndleStart][26] ,8));
+      Print(BarColorCount(Idx, "POSITIVE"));  */ 
 
-      Print(BarColorCount(Idx, "POSITIVE"));  
-      //Print("ENTRY LOGIC-- ENTER A SELL BRIGHT GREEN DARK GREEN");
       result = "ENTER A ST SELL BRIGHT GREEN DARK GREEN";
    }
 
@@ -1991,14 +2009,10 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && BarColorCount(Idx, "NEGATIVE") <= 0.00002
       )
    {  
-      /* Print("[Idx-10]: " + (Idx-10));
-      Print("CombinedHistory[CndleStart-1][Idx-10]: " + NormalizeDouble(CombinedHistory[CndleStart-1][Idx-10] ,8)); */
-
-      Print("[Idx-10]: " + (26));
+      /* Print("[Idx-10]: " + (26));
       Print("CombinedHistory[CndleStart][26]: " + NormalizeDouble(CombinedHistory[CndleStart][26] ,8));
+      Print(BarColorCount(Idx, "NEGATIVE"));   */
 
-      Print(BarColorCount(Idx, "NEGATIVE"));  
-      //Print("ENTRY LOGIC-- ENTER A SELL BRIGHT GREEN DARK GREEN");
       result = "ENTER A ST BUY BRIGHT RED DARK RED";
    }
 
@@ -2456,10 +2470,9 @@ double BarColorCount (int Idx, string PosNeg){
       while(CombinedHistory[count + 1][Idx] > 0);
    }
 
-   Print("Bar sum absolute value: " + MathAbs(barSum));
+   /* Print("Bar sum absolute value: " + MathAbs(barSum));
    Print("Returned BarColorCount: " + count);
-   Print("Bar sum/BarColorCount: " + NormalizeDouble((MathAbs(barSum)/count) ,6));
-   //Print("Bar sum/BarColorCount: " + MathAbs(barSum)/count);
+   Print("Bar sum/BarColorCount: " + NormalizeDouble((MathAbs(barSum)/count) ,6)); */
 
    //return count;
    return MathAbs(barSum)/count;
