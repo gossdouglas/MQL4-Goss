@@ -2064,10 +2064,14 @@ string AskThePlotsExit(int Idx, int CndleStart, int CmbndHstryCandleLength, stri
    //SELL EXIT, BRIGHT GREEN TO DARK GREEN
    if (
       OverallStrategy == "SELL_BR_GREEN_DK_GREEN_EXIT" &&
-      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
+      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx]
+
+      //&& Bid < EntryData[0][10]
       && CombinedHistory[CndleStart + 1][Idx] < 0 
       )
    {
+      //Print("Bid: " + Bid);
+      //Print("EntryData[0][10]: " + EntryData[0][10]);
       result = "EXIT A SELL BRIGHT GREEN DARK GREEN";
    }
 
