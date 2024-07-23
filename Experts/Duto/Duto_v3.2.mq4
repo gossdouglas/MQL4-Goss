@@ -2060,6 +2060,7 @@ string AskThePlotsExit(int Idx, int CndleStart, int CmbndHstryCandleLength, stri
       result = "EXIT A BUY DARK GREEN BRIGHT GREEN";
    }
 
+   //ACTIVE
    //SELL EXIT, BRIGHT GREEN TO DARK GREEN
    if (
       OverallStrategy == "SELL_BR_GREEN_DK_GREEN_EXIT" &&
@@ -2080,6 +2081,7 @@ string AskThePlotsExit(int Idx, int CndleStart, int CmbndHstryCandleLength, stri
       result = "EXIT A SELL DARK GREEN BRIGHT RED";
    }
 
+   //ACTIVE
    //BUY EXIT, BRIGHT RED TO DARK RED
    if (
       OverallStrategy == "BUY_BR_RED_DK_RED_EXIT" &&
