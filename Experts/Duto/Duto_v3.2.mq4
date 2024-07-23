@@ -1660,7 +1660,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       //SignalEntry = SIGNAL_ENTRY_BUY;
    } */
 
-   SignalEntry = SIGNAL_ENTRY_NEUTRAL;
+   //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    return SignalEntry;
 }
@@ -1771,7 +1771,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
       SignalExit = SIGNAL_EXIT_BUY;
    }
 
-   SignalExit = SIGNAL_EXIT_NEUTRAL;
+   //SignalExit = SIGNAL_EXIT_NEUTRAL;
    return SignalExit;
 }
 
