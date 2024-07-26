@@ -2072,10 +2072,7 @@ string AskThePlotsExit(int Idx, int CndleStart, int CmbndHstryCandleLength, stri
       && CombinedHistory[CndleStart + 1][Idx] < 0 
       )
    {
-      //Print("Bid: " + Bid);
-      //Print("Ask: " + Ask);
-      //Print("EntryData[0][10]: " + EntryData[0][10]);
-      Print("Ask: " + Ask + " < EntryData[0][10]: " + EntryData[0][10]);
+      //Print("Ask: " + Ask + " < EntryData[0][10]: " + EntryData[0][10]);
       result = "EXIT A SELL BRIGHT GREEN DARK GREEN";
    }
 
@@ -2099,10 +2096,7 @@ string AskThePlotsExit(int Idx, int CndleStart, int CmbndHstryCandleLength, stri
       && CombinedHistory[CndleStart][Idx] > 0 
       )
    {
-      //Print("Bid: " + Bid);
-      //Print("Ask: " + Ask);
-      //Print("EntryData[1][10]: " + EntryData[1][10]);
-      Print("Bid: " + Bid + " > EntryData[1][10]: " + EntryData[1][10]);
+      //Print("Bid: " + Bid + " > EntryData[1][10]: " + EntryData[1][10]);
       result = "EXIT A ST BUY BRIGHT RED DARK RED";
    }
 
