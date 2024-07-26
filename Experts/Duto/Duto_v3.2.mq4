@@ -1945,9 +1945,8 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && SellBrGrDkGrStrategyActive == true
 
       //timeframe above
-      && CombinedHistory[CndleStart][26] < CombinedHistory[CndleStart + 1][26]
-      //&& CombinedHistory[CndleStart][Idx-10] < CombinedHistory[CndleStart + 1][Idx-10]
-      //&& CombinedHistory[CndleStart - 1][Idx-10] < CombinedHistory[CndleStart][Idx-10]
+      //commented out because i was missing out on a lot of good trades
+      //&& CombinedHistory[CndleStart][26] < CombinedHistory[CndleStart + 1][26]
 
       && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
@@ -1955,12 +1954,12 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       //this version counts the bars
       //&& BarColorCount(Idx, "POSITIVE") <= 15
       //this version calculates the ratio between the sum of the bars and the number of the bars
-      && BarColorCount(Idx, "POSITIVE") <= 0.00002
+      && BarColorCount(Idx, "POSITIVE") <= 0.000025
       )
    {   
-      /* Print("[Idx-10]: " + (26));
+      Print("[Idx-10]: " + (26));
       Print("CombinedHistory[CndleStart][26]: " + NormalizeDouble(CombinedHistory[CndleStart][26] ,8));
-      Print(BarColorCount(Idx, "POSITIVE"));  */ 
+      Print(BarColorCount(Idx, "POSITIVE"));
 
       result = "ENTER A ST SELL BRIGHT GREEN DARK GREEN";
    }
@@ -1996,9 +1995,8 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && BuyBrRdDkRdStrategyActive == true
 
       //timeframe above
-      && CombinedHistory[CndleStart][26] > CombinedHistory[CndleStart + 1][26]
-      //&& CombinedHistory[CndleStart][Idx-10] > CombinedHistory[CndleStart + 1][Idx-10]
-      //&& CombinedHistory[CndleStart - 1][Idx-10] > CombinedHistory[CndleStart][Idx-10]
+      //commented out because i was missing out on a lot of good trades
+      //&& CombinedHistory[CndleStart][26] > CombinedHistory[CndleStart + 1][26]
 
       && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
@@ -2006,7 +2004,7 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       //this version counts the bars
       //&& BarColorCount(Idx, "NEGATIVE") <= 25
       //this version calculates the ratio between the sum of the bars and the number of the bars
-      && BarColorCount(Idx, "NEGATIVE") <= 0.00002
+      && BarColorCount(Idx, "NEGATIVE") <= 0.000025
       )
    {  
       /* Print("[Idx-10]: " + (26));
@@ -2476,9 +2474,9 @@ double BarColorCount (int Idx, string PosNeg){
       while(CombinedHistory[count + 1][Idx] > 0);
    }
 
-   /* Print("Bar sum absolute value: " + MathAbs(barSum));
+   Print("Bar sum absolute value: " + MathAbs(barSum));
    Print("Returned BarColorCount: " + count);
-   Print("Bar sum/BarColorCount: " + NormalizeDouble((MathAbs(barSum)/count) ,6)); */
+   Print("Bar sum/BarColorCount: " + NormalizeDouble((MathAbs(barSum)/count) ,6));
 
    //return count;
    return MathAbs(barSum)/count;
