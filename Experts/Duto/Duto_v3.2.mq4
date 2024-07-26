@@ -1573,7 +1573,8 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " SellBrGrDkGrStrategyActive: " + SellBrGrDkGrStrategyActive);
 
-      EntryData[0][10] = Ask;
+      //EntryData[0][10] = Ask;
+      EntryData[0][10] = Bid;
       SignalEntry = SIGNAL_ENTRY_SELL;
    }
 
@@ -1617,7 +1618,8 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       " BuyTradeActive: " + BuyTradeActive + 
       " BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
 
-      EntryData[1][10] = Bid;
+      //ntryData[1][10] = Bid;
+      EntryData[1][10] = Ask;
       SignalEntry = SIGNAL_ENTRY_BUY;
    }
 
@@ -1685,6 +1687,8 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
       SignalExit = SIGNAL_EXIT_BUY;
    }
 
+   //ACTIVE
+   //NEED TO RENAME THE STRATEGY TO ST
    //SELL EXIT, BRIGHT GREEN TO DARK GREEN
    if (
       AskThePlotsExit(36, 1, 1, "SELL_BR_GREEN_DK_GREEN_EXIT") == "EXIT A SELL BRIGHT GREEN DARK GREEN"
@@ -1720,6 +1724,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
       SignalExit = SIGNAL_EXIT_SELL;
    }
 
+   //ACTIVE
    //BUY EXIT, BRIGHT RED TO DARK RED
    if (
       //AskThePlots(36, 1, 1, "BUY_BR_RED_DK_RED_EXIT") == "EXIT A BUY BRIGHT RED DARK RED"
@@ -1938,6 +1943,7 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       result = "ENTER A SELL BRIGHT GREEN DARK GREEN";
    } */
 
+   //ACTIVE
    //SELL ENTRY SAFETY TRADE, BRIGHT GREEN TO DARK GREEN
    if (
       SellStrategyActive == true 
@@ -1951,8 +1957,6 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
 
-      //this version counts the bars
-      //&& BarColorCount(Idx, "POSITIVE") <= 15
       //this version calculates the ratio between the sum of the bars and the number of the bars
       && BarColorCount(Idx, "POSITIVE") <= 0.000025
       )
@@ -1988,6 +1992,7 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       result = "ENTER A BUY BRIGHT RED DARK RED";
    }
 
+   //ACTIVE
    //BUY ENTRY SAFETY TRADE, BRIGHT RED TO DARK RED
    if (
       BuyStrategyActive == true 
@@ -2001,8 +2006,6 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && CombinedHistory[CndleStart][Idx] >  CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
 
-      //this version counts the bars
-      //&& BarColorCount(Idx, "NEGATIVE") <= 25
       //this version calculates the ratio between the sum of the bars and the number of the bars
       && BarColorCount(Idx, "NEGATIVE") <= 0.000025
       )
@@ -2065,11 +2068,14 @@ string AskThePlotsExit(int Idx, int CndleStart, int CmbndHstryCandleLength, stri
       CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx]
 
       //&& Bid < EntryData[0][10]
+      && Ask < EntryData[0][10]
       && CombinedHistory[CndleStart + 1][Idx] < 0 
       )
    {
       //Print("Bid: " + Bid);
+      //Print("Ask: " + Ask);
       //Print("EntryData[0][10]: " + EntryData[0][10]);
+      Print("Ask: " + Ask + " < EntryData[0][10]: " + EntryData[0][10]);
       result = "EXIT A SELL BRIGHT GREEN DARK GREEN";
    }
 
@@ -2084,23 +2090,19 @@ string AskThePlotsExit(int Idx, int CndleStart, int CmbndHstryCandleLength, stri
    }
 
    //ACTIVE
-   //BUY EXIT, BRIGHT RED TO DARK RED
-   if (
-      OverallStrategy == "BUY_BR_RED_DK_RED_EXIT" &&
-      CombinedHistory[CndleStart][Idx] > CombinedHistory[CndleStart + 1][Idx] 
-      && CombinedHistory[CndleStart + 1][Idx] > 0 
-      )
-   {
-      result = "EXIT A BUY BRIGHT RED DARK RED";
-   }
-
    //BUY EXIT SAFETY TRADE, BRIGHT RED TO DARK RED
    if (
       OverallStrategy == "BUY_ST_BR_RED_DK_RED_EXIT" &&
       CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+
+      && Bid > EntryData[1][10]
       && CombinedHistory[CndleStart][Idx] > 0 
       )
    {
+      //Print("Bid: " + Bid);
+      //Print("Ask: " + Ask);
+      //Print("EntryData[1][10]: " + EntryData[1][10]);
+      Print("Bid: " + Bid + " > EntryData[1][10]: " + EntryData[1][10]);
       result = "EXIT A ST BUY BRIGHT RED DARK RED";
    }
 
