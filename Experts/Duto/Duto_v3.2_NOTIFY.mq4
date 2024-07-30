@@ -388,7 +388,7 @@ void EvaluateEntry()
    if (StartupFlag ==  true)
    {
       // evaluate for a signal entry
-      SignalEntry = ReturnSignalEntryToEvaluateEntry();
+      //SignalEntry = ReturnSignalEntryToEvaluateEntry();
    }
 }
 
@@ -504,7 +504,7 @@ void EvaluateExit()
    if (StartupFlag == true)
    {
       // evaluate for a signal entry
-      SignalExit = ReturnSignalExitToEvaluateExit();
+      //SignalExit = ReturnSignalExitToEvaluateExit();
    }
 }
 
@@ -1387,11 +1387,11 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = false;
       BuyDkRdBrGrStrategyActive = false;
 
-      Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
-      + " NeutralStrategyActive: " + NeutralStrategyActive);
+      /* Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE. BuyDkGrBrGrStrategyActive: " + BuyDkGrBrGrStrategyActive);
 
-      SendNotification("PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE");
+      SendNotification(Symbol() + " PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE");
    }
    else
    //SELL STRATEGY CHECK FOR BRIGHT GREEN TO DARK GREEN
@@ -1413,11 +1413,11 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = false;
       BuyDkRdBrGrStrategyActive = false;
 
-      Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
-      + " NeutralStrategyActive: " + NeutralStrategyActive);
+      /* Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("PLOT DECREASING BRIGHT GREEN TO DARK GREEN POSITIVE. SellBrGrDkGrStrategyActive: " + SellBrGrDkGrStrategyActive);
 
-      SendNotification("PLOT DECREASING BRIGHT GREEN TO DARK GREEN POSITIVE");
+      SendNotification(Symbol() + " PLOT DECREASING BRIGHT GREEN TO DARK GREEN POSITIVE");
    }
    else
    //SELL STRATEGY CHECK FOR DARK GREEN TO BRIGHT RED
@@ -1439,11 +1439,11 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = false;
       BuyDkRdBrGrStrategyActive = false;
 
-      Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
-      + " NeutralStrategyActive: " + NeutralStrategyActive);
+      /* Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("PLOT DECREASING DARK GREEN TO BRIGHT RED. SellDkGrBrRdStrategyActive: " + SellDkGrBrRdStrategyActive);
 
-      SendNotification("PLOT DECREASING DARK GREEN TO BRIGHT RED");
+      SendNotification(Symbol() + " PLOT DECREASING DARK GREEN TO BRIGHT RED");
    }
    else
    //BUY STRATEGY CHECK FOR BRIGHT RED TO DARK RED
@@ -1464,11 +1464,11 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = false;
       BuyDkRdBrGrStrategyActive = false;
 
-      Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
-      + " NeutralStrategyActive: " + NeutralStrategyActive);
+      /* Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("PLOT INCEASING BRIGHT RED TO DARK RED. BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
 
-      SendNotification("PLOT INCEASING BRIGHT RED TO DARK RED");
+      SendNotification(Symbol() + " PLOT INCEASING BRIGHT RED TO DARK RED");
    }
    else
    //SELL STRATEGY CHECK FOR DARK RED TO BRIGHT RED
@@ -1490,11 +1490,11 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = true;
       BuyDkRdBrGrStrategyActive = false;
 
-      Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
-      + " NeutralStrategyActive: " + NeutralStrategyActive);
+      /* Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("PLOT DECREASING DARK RED TO BRIGHT RED. SellDkRdBrRdStrategyActive: " + SellDkRdBrRdStrategyActive);
 
-      SendNotification("PLOT DECREASING DARK RED TO BRIGHT RED");
+      SendNotification(Symbol() + " PLOT DECREASING DARK RED TO BRIGHT RED");
    }
    //BUY STRATEGY CHECK FOR DARK RED TO BRIGHT GREEN
    if (
@@ -1515,11 +1515,11 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = false;
       BuyDkRdBrGrStrategyActive = true;
 
-      Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
-      + " NeutralStrategyActive: " + NeutralStrategyActive);
+      /* Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("PLOT INCREASING DARK RED TO BRIGHT GREEN POSITIVE. BuyDkRdBrGrStrategyActive: " + BuyDkRdBrGrStrategyActive);
 
-      SendNotification("PLOT INCREASING DARK RED TO BRIGHT GREEN POSITIVE");
+      SendNotification(Symbol() + " PLOT INCREASING DARK RED TO BRIGHT GREEN POSITIVE");
    }
 
    //Comment(StringFormat("Show prices\nAsk = %G\nBid = %G = %d",Ask,Bid));
@@ -2482,9 +2482,9 @@ double BarColorCount (int Idx, string PosNeg){
       while(CombinedHistory[count + 1][Idx] > 0);
    }
 
-   Print("Bar sum absolute value: " + MathAbs(barSum));
+   /* Print("Bar sum absolute value: " + MathAbs(barSum));
    Print("Returned BarColorCount: " + count);
-   Print("Bar sum/BarColorCount: " + NormalizeDouble((MathAbs(barSum)/count) ,6));
+   Print("Bar sum/BarColorCount: " + NormalizeDouble((MathAbs(barSum)/count) ,6)); */
 
    //return count;
    return MathAbs(barSum)/count;
