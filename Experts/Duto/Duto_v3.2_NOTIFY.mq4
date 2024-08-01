@@ -1351,26 +1351,10 @@ bool SellTradePending, BuyTradePending, TradePending;
 void DutoWind_Strategy()
 {
    //OVERALL STRATEGY LOGIC
-
-   /* //NEUTRAL STRATEGY CHECK
-   if (
-      (AskThePlots(1, 1, 1, "NEUTRAL") == "PLOT STEADY NEUTRAL") 
-      //&& (AskThePlots(28, 1, 1, "NEUTRAL") == "PLOT STEADY NEUTRAL") 
-      //&& (AskThePlots(29, 1, 1, "NEUTRAL") == "PLOT STEADY NEUTRAL")
-      && NeutralStrategyActive == false
-      )     
-   {
-      SellStrategyActive = false;
-      BuyStrategyActive = false;
-      NeutralStrategyActive = true;
-
-      Print("PLOT STEADY NEUTRAL. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
-      + " NeutralStrategyActive: " + NeutralStrategyActive);
-   } */
    
    //BUY STRATEGY CHECK FOR DARK GREEN TO BRIGHT GREEN
    if (
-      (AskThePlotsStrategy(28, 1, 1, "BUY_DK_GREEN_BR_GREEN") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN") 
+      (AskThePlotsStrategy(27, 1, 1, "BUY_DK_GREEN_BR_GREEN") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN") 
       && 
       //BuyStrategyActive == false
       BuyDkGrBrGrStrategyActive == false
@@ -1389,14 +1373,14 @@ void DutoWind_Strategy()
 
       /* Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
-      Print("PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE. BuyDkGrBrGrStrategyActive: " + BuyDkGrBrGrStrategyActive);
+      Print("M5 PLOT 2 INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE. BuyDkGrBrGrStrategyActive: " + BuyDkGrBrGrStrategyActive);
 
       SendNotification(Symbol() + " PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE");
    }
    else
    //SELL STRATEGY CHECK FOR BRIGHT GREEN TO DARK GREEN
    if (
-      (AskThePlotsStrategy(28, 1, 1, "SELL_BR_GREEN_DK_GREEN") == "PLOT DECREASING BRIGHT GREEN TO DARK GREEN") 
+      (AskThePlotsStrategy(27, 1, 1, "SELL_BR_GREEN_DK_GREEN") == "PLOT DECREASING BRIGHT GREEN TO DARK GREEN") 
       && 
       //SellStrategyActive == false
       SellBrGrDkGrStrategyActive == false
@@ -1415,14 +1399,14 @@ void DutoWind_Strategy()
 
       /* Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
-      Print("PLOT DECREASING BRIGHT GREEN TO DARK GREEN POSITIVE. SellBrGrDkGrStrategyActive: " + SellBrGrDkGrStrategyActive);
+      Print("M5 PLOT 2 DECREASING BRIGHT GREEN TO DARK GREEN POSITIVE. SellBrGrDkGrStrategyActive: " + SellBrGrDkGrStrategyActive);
 
       SendNotification(Symbol() + " PLOT DECREASING BRIGHT GREEN TO DARK GREEN POSITIVE");
    }
    else
    //SELL STRATEGY CHECK FOR DARK GREEN TO BRIGHT RED
    if (
-      (AskThePlotsStrategy(28, 1, 1, "SELL_DK_GREEN_BR_RED") == "PLOT DECREASING DARK GREEN TO BRIGHT RED") 
+      (AskThePlotsStrategy(27, 1, 1, "SELL_DK_GREEN_BR_RED") == "PLOT DECREASING DARK GREEN TO BRIGHT RED") 
       && 
       //SellStrategyActive == false
       SellDkGrBrRdStrategyActive == false
@@ -1441,14 +1425,14 @@ void DutoWind_Strategy()
 
       /* Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
-      Print("PLOT DECREASING DARK GREEN TO BRIGHT RED. SellDkGrBrRdStrategyActive: " + SellDkGrBrRdStrategyActive);
+      Print("M5 PLOT 2 DECREASING DARK GREEN TO BRIGHT RED. SellDkGrBrRdStrategyActive: " + SellDkGrBrRdStrategyActive);
 
       SendNotification(Symbol() + " PLOT DECREASING DARK GREEN TO BRIGHT RED");
    }
    else
    //BUY STRATEGY CHECK FOR BRIGHT RED TO DARK RED
    if (
-      (AskThePlotsStrategy(28, 1, 1, "BUY_BR_RED_DK_RED") == "PLOT INCREASING BRIGHT RED TO DARK RED") 
+      (AskThePlotsStrategy(27, 1, 1, "BUY_BR_RED_DK_RED") == "PLOT INCREASING BRIGHT RED TO DARK RED") 
       && BuyBrRdDkRdStrategyActive == false
       //SellStrategyActive == false
       )
@@ -1466,14 +1450,14 @@ void DutoWind_Strategy()
 
       /* Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
-      Print("PLOT INCEASING BRIGHT RED TO DARK RED. BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
+      Print("M5 PLOT 2 INCEASING BRIGHT RED TO DARK RED. BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
 
       SendNotification(Symbol() + " PLOT INCEASING BRIGHT RED TO DARK RED");
    }
    else
    //SELL STRATEGY CHECK FOR DARK RED TO BRIGHT RED
    if (
-      (AskThePlotsStrategy(28, 1, 1, "SELL_DK_RED_BR_RED") == "PLOT DECREASING DARK RED TO BRIGHT RED") 
+      (AskThePlotsStrategy(27, 1, 1, "SELL_DK_RED_BR_RED") == "PLOT DECREASING DARK RED TO BRIGHT RED") 
       && 
       //SellStrategyActive == false
       SellDkRdBrRdStrategyActive == false
@@ -1492,13 +1476,13 @@ void DutoWind_Strategy()
 
       /* Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
-      Print("PLOT DECREASING DARK RED TO BRIGHT RED. SellDkRdBrRdStrategyActive: " + SellDkRdBrRdStrategyActive);
+      Print("M5 PLOT 2 DECREASING DARK RED TO BRIGHT RED. SellDkRdBrRdStrategyActive: " + SellDkRdBrRdStrategyActive);
 
       SendNotification(Symbol() + " PLOT DECREASING DARK RED TO BRIGHT RED");
    }
    //BUY STRATEGY CHECK FOR DARK RED TO BRIGHT GREEN
    if (
-      (AskThePlotsStrategy(28, 1, 1, "BUY_DK_RED_BR_GREEN") == "PLOT INCREASING DARK RED TO BRIGHT GREEN") 
+      (AskThePlotsStrategy(27, 1, 1, "BUY_DK_RED_BR_GREEN") == "PLOT INCREASING DARK RED TO BRIGHT GREEN") 
       && 
       //BuyStrategyActive == false //this line is troublesome. it likely needs to die.
       BuyDkRdBrGrStrategyActive == false
@@ -1517,7 +1501,7 @@ void DutoWind_Strategy()
 
       /* Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
-      Print("PLOT INCREASING DARK RED TO BRIGHT GREEN POSITIVE. BuyDkRdBrGrStrategyActive: " + BuyDkRdBrGrStrategyActive);
+      Print("M5 PLOT 2 INCREASING DARK RED TO BRIGHT GREEN POSITIVE. BuyDkRdBrGrStrategyActive: " + BuyDkRdBrGrStrategyActive);
 
       SendNotification(Symbol() + " PLOT INCREASING DARK RED TO BRIGHT GREEN POSITIVE");
    }
