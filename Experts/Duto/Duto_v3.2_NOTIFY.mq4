@@ -206,6 +206,10 @@ input string OrderNote = "";           // Comment For The Orders Opened By This 
 input int Slippage = 5;                // Slippage in points
 input int MaxSpread = 100;             // Maximum Allowed Spread To Trade In Points
 
+input string Comment_5 = "=========="; // Plot Settings
+/* input double PlotPositionStart = -0.000200;// Where plot 2 is positioned
+input double PlotPositionOffset = -0.000050;// Distance separating the plots */
+
 //-GLOBAL VARIABLES-//
 // The viables included in this section are global, hence they can be used in any part of the code
 // It is useful to add a comment to remember what is the variable for
