@@ -1452,7 +1452,7 @@ void DutoWind_Strategy()
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("M5 PLOT 2 INCEASING BRIGHT RED TO DARK RED. BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
 
-      SendNotification(Symbol() + " PLOT INCEASING BRIGHT RED TO DARK RED");
+      SendNotification(Symbol() + " M5 PLOT 2 PLOT INCEASING BRIGHT RED TO DARK RED");
    }
    else
    //SELL STRATEGY CHECK FOR DARK RED TO BRIGHT RED
