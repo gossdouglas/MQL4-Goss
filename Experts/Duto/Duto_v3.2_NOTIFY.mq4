@@ -1375,7 +1375,7 @@ void DutoWind_Strategy()
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("M5 PLOT 2 INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE. BuyDkGrBrGrStrategyActive: " + BuyDkGrBrGrStrategyActive);
 
-      SendNotification(Symbol() + " PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE");
+      SendNotification(Symbol() + " M5 PLOT 2 PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE");
    }
    else
    //SELL STRATEGY CHECK FOR BRIGHT GREEN TO DARK GREEN
@@ -1401,7 +1401,7 @@ void DutoWind_Strategy()
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("M5 PLOT 2 DECREASING BRIGHT GREEN TO DARK GREEN POSITIVE. SellBrGrDkGrStrategyActive: " + SellBrGrDkGrStrategyActive);
 
-      SendNotification(Symbol() + " PLOT DECREASING BRIGHT GREEN TO DARK GREEN POSITIVE");
+      SendNotification(Symbol() + " M5 PLOT 2 PLOT DECREASING BRIGHT GREEN TO DARK GREEN POSITIVE");
    }
    else
    //SELL STRATEGY CHECK FOR DARK GREEN TO BRIGHT RED
@@ -1427,7 +1427,7 @@ void DutoWind_Strategy()
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("M5 PLOT 2 DECREASING DARK GREEN TO BRIGHT RED. SellDkGrBrRdStrategyActive: " + SellDkGrBrRdStrategyActive);
 
-      SendNotification(Symbol() + " PLOT DECREASING DARK GREEN TO BRIGHT RED");
+      SendNotification(Symbol() + " M5 PLOT 2 PLOT DECREASING DARK GREEN TO BRIGHT RED");
    }
    else
    //BUY STRATEGY CHECK FOR BRIGHT RED TO DARK RED
@@ -1478,7 +1478,7 @@ void DutoWind_Strategy()
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("M5 PLOT 2 DECREASING DARK RED TO BRIGHT RED. SellDkRdBrRdStrategyActive: " + SellDkRdBrRdStrategyActive);
 
-      SendNotification(Symbol() + " PLOT DECREASING DARK RED TO BRIGHT RED");
+      SendNotification(Symbol() + " M5 PLOT 2 PLOT DECREASING DARK RED TO BRIGHT RED");
    }
    //BUY STRATEGY CHECK FOR DARK RED TO BRIGHT GREEN
    if (
@@ -1503,7 +1503,7 @@ void DutoWind_Strategy()
       + " NeutralStrategyActive: " + NeutralStrategyActive); */
       Print("M5 PLOT 2 INCREASING DARK RED TO BRIGHT GREEN POSITIVE. BuyDkRdBrGrStrategyActive: " + BuyDkRdBrGrStrategyActive);
 
-      SendNotification(Symbol() + " PLOT INCREASING DARK RED TO BRIGHT GREEN POSITIVE");
+      SendNotification(Symbol() + " M5 PLOT 2 PLOT INCREASING DARK RED TO BRIGHT GREEN POSITIVE");
    }
 
    //Comment(StringFormat("Show prices\nAsk = %G\nBid = %G = %d",Ask,Bid));
