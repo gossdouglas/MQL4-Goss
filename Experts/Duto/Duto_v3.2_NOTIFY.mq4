@@ -365,9 +365,12 @@ void EvaluateEntry()
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
    if (!IsSpreadOK)
       return; // If the spread is too high don't give an entry signal
+
    if (UseTradingHours && !IsOperatingHours)
       return; // If you are using trading hours and it's not a trading hour don't give an entry signal
+
    // if(!IsNewCandle) return;      //If you want to provide a signal only if it's a new candle opening
+
    if (IsTradedThisBar)
       return; // If you don't want to execute multiple trades in the same bar
 
@@ -1361,9 +1364,9 @@ ENUM_SIGNAL_ENTRY DutoWind_Notify()
       //BuyDkRdBrGrStrategyActive == true
    && 
    (
-      AskThePlotsNotify(37, 1, 1, "BUY_DK_GREEN_BR_GREEN") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN"
-   || AskThePlotsNotify(37, 1, 1, "BUY_BR_RED_DK_RED") == "PLOT INCREASING BRIGHT RED TO DARK RED"
-   || AskThePlotsNotify(37, 1, 1, "BUY_DK_RED_BR_GREEN") == "PLOT INCREASING DARK RED TO BRIGHT GREEN"
+      AskThePlotsNotify(37, 1, 1, "BUY_BR_RED_DK_RED") == "PLOT INCREASING BRIGHT RED TO DARK RED"  //plenty of room
+   //|| AskThePlotsNotify(37, 1, 1, "BUY_DK_GREEN_BR_GREEN") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN"  //some room
+   //|| AskThePlotsNotify(36, 1, 1, "BUY_DK_RED_BR_GREEN") == "PLOT INCREASING DARK RED TO BRIGHT GREEN"
    )
     )
    {
@@ -1375,9 +1378,10 @@ ENUM_SIGNAL_ENTRY DutoWind_Notify()
    if (
       SellBrGrDkGrStrategyActive == true 
    && 
-   (  AskThePlotsNotify(37, 1, 1, "SELL_ST_BR_GREEN_DK_GREEN") == "PLOT DECREASING BRIGHT GREEN TO DARK GREEN"
-   || AskThePlotsNotify(37, 1, 1, "SELL_DK_GREEN_BR_RED") == "PLOT DECREASING DARK GREEN TO BRIGHT RED"
-   || AskThePlotsNotify(37, 1, 1, "SELL_DK_RED_BR_RED") == "PLOT DECREASING DARK RED TO BRIGHT RED"
+   (  
+      AskThePlotsNotify(37, 1, 1, "SELL_BR_GREEN_DK_GREEN") == "PLOT DECREASING BRIGHT GREEN TO DARK GREEN" //plenty of room
+   //|| AskThePlotsNotify(36, 1, 1, "SELL_DK_GREEN_BR_RED") == "PLOT DECREASING DARK GREEN TO BRIGHT RED" //seems like some room
+   //|| AskThePlotsNotify(36, 1, 1, "SELL_DK_RED_BR_RED") == "PLOT DECREASING DARK RED TO BRIGHT RED" //seems like less room
     )
    )
    {
