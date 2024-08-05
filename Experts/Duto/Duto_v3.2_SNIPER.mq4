@@ -940,9 +940,12 @@ bool ScanOrders()
 double FastMAHistoryBuffer[], SlowMAHistoryBuffer[], FiveFiftyMAHistoryBuffer[], DeltaCollapsedPosHistoryBuffer[], DeltaCollapsedNegHistoryBuffer[];
 //MACD indicator history arrays
 double MacdHistoryBuffer[],  MacdPlot2HistoryBuffer[], MacdPlot3HistoryBuffer[], MacdPlot4HistoryBuffer[];
+//sniper indicator history array
+int SniperHistoryBuffer[];
 //history array. a two dimensional array that stored indicator data from all time frames
 //each time frame has 10 measurements
-double CombinedHistory[1][40];
+//double CombinedHistory[1][40];
+double CombinedHistory[1][52];
 
 void LogIndicatorData()
 {
@@ -985,6 +988,8 @@ void LogIndicatorData()
    ArrayResize(MacdPlot2HistoryBuffer, Bars + 1);
    ArrayResize(MacdPlot3HistoryBuffer, Bars + 1);
    ArrayResize(MacdPlot4HistoryBuffer, Bars + 1);
+
+   ArrayResize(SniperHistoryBuffer, Bars + 1);
 
    ArrayResize(CombinedHistory, Bars + 1);
 
@@ -1031,6 +1036,9 @@ void LogIndicatorData()
          else {
             strWriteLine2 = ",Positive";
          }
+
+         SniperHistoryBuffer[i] = iCustom(Symbol(),60, duto_sniper, 0, i);
+         CombinedHistory[i][40] = SniperHistoryBuffer[i];//sniper
 
          //build a line of strings based on a line of data
          strWriteLine = 
@@ -1091,6 +1099,9 @@ void LogIndicatorData()
             strWriteLine2 = ",Positive";
          }
 
+         SniperHistoryBuffer[i] = iCustom(Symbol(),15, duto_sniper, 0, i);
+         CombinedHistory[i][41] = SniperHistoryBuffer[i];//sniper
+
          //build a line of strings based on a line of data
          strWriteLine = strWriteLine +
          //",Candle " + i
@@ -1150,6 +1161,9 @@ void LogIndicatorData()
          else {
             strWriteLine2 = ",Positive";
          }
+
+         SniperHistoryBuffer[i] = iCustom(Symbol(),5, duto_sniper, 0, i);
+         CombinedHistory[i][42] = SniperHistoryBuffer[i];//sniper
 
          //build a line of strings based on a line of data
          strWriteLine = strWriteLine +
@@ -1212,6 +1226,23 @@ void LogIndicatorData()
             strWriteLine2 = ",Positive";
          }
 
+         SniperHistoryBuffer[i] = iCustom(Symbol(),1, duto_sniper, 0, i);
+         CombinedHistory[i][43] = SniperHistoryBuffer[i];//sniper
+
+         /* //recent highest and lowest data
+         if (iHigh(Symbol(), 1, 1) > iHigh(Symbol(), 1, 2) ) {
+            CombinedHistory[i][50] = iHigh(Symbol(), 1, 1);
+         }
+         else {
+            CombinedHistory[i][50] = iHigh(Symbol(), 1, 2);
+         } */
+
+         Print("Candle " + iHighest(Symbol(), 5, MODE_HIGH, 20, 0) + " is the highest within the last 10 candles.");
+         Print(iHigh(Symbol(), 5, iHighest(Symbol(), 1, MODE_HIGH, 20, 0)));
+         
+
+         //Print("Recent high: " + CombinedHistory[i][50]);
+
          //build a line of strings based on a line of data
          strWriteLine = strWriteLine +
          "," + i
@@ -1227,6 +1258,22 @@ void LogIndicatorData()
          + "," + DoubleToString(MacdPlot2HistoryBuffer[i], 7)
          + "," + DoubleToString(MacdPlot3HistoryBuffer[i], 7)
          + "," + DoubleToString(MacdPlot4HistoryBuffer[i], 7)
+
+         //sniper data
+         + "," + CombinedHistory[i][40]
+         + "," + CombinedHistory[i][41]
+         + "," + CombinedHistory[i][42]
+         + "," + CombinedHistory[i][43]
+
+         //recent highest and recent lowest data
+         + "," + CombinedHistory[i][44]
+         + "," + CombinedHistory[i][45]
+         + "," + CombinedHistory[i][46]
+         + "," + CombinedHistory[i][47]
+         + "," + CombinedHistory[i][48]
+         + "," + CombinedHistory[i][49]
+         + "," + CombinedHistory[i][50]
+         + "," + CombinedHistory[i][51]
 
          + "\r\n";
 
@@ -1662,7 +1709,7 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
       //SignalEntry = SIGNAL_ENTRY_BUY;
    } */
 
-   //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
+   SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    return SignalEntry;
 }
