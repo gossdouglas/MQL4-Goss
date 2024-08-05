@@ -388,8 +388,6 @@ void EvaluateEntry()
    if (TotalOpenOrders > 0)
       return; // If there are already open orders and you don't want to open more
 
-   
-
    //this logic only allows an evaluation to be made if LogIndicatorData has been executed at least once
    if (StartupFlag ==  true)
    {
@@ -1238,7 +1236,8 @@ void LogIndicatorData()
          + "\r\n";
 
          //write a line of strings to a file
-         FileWriteString(fileHandleIndicatorData, strWriteLine, StringLen(strWriteLine));
+         //comment out to avoid long back test sessions
+         //FileWriteString(fileHandleIndicatorData, strWriteLine, StringLen(strWriteLine));
 
          /* //check combined history data with output
          Print("check combined history data with output");
