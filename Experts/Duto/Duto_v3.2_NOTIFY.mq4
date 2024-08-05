@@ -393,7 +393,7 @@ void EvaluateEntry()
    {
       // evaluate for a signal entry
       //SignalEntry = ReturnSignalEntryToEvaluateEntry();
-      DutoWind_Notify();
+      SignalEntry = DutoWind_Notify();
    }
 }
 
@@ -1388,6 +1388,8 @@ ENUM_SIGNAL_ENTRY DutoWind_Notify()
       SendNotification(Symbol() + " M5 SELL, M1 SELL");
       SignalEntry = SIGNAL_ENTRY_SELL;
    }
+
+   //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    return SignalEntry;
 }

@@ -365,13 +365,11 @@ void EvaluateEntry()
    SignalEntry = SIGNAL_ENTRY_NEUTRAL;
    if (!IsSpreadOK)
       return; // If the spread is too high don't give an entry signal
-   if (UseTradingHours && !IsOperatingHours)
-      return; // If you are using trading hours and it's not a trading hour don't give an entry signal
+   /* if (UseTradingHours && !IsOperatingHours)
+      return; // If you are using trading hours and it's not a trading hour don't give an entry signal */
    // if(!IsNewCandle) return;      //If you want to provide a signal only if it's a new candle opening
    if (IsTradedThisBar)
       return; // If you don't want to execute multiple trades in the same bar
-   if (TotalOpenOrders > 0)
-      return; // If there are already open orders and you don't want to open more
 
    // whether a new candle has been started is based on the chart that is shown
    if (IsNewCandle)
@@ -383,6 +381,9 @@ void EvaluateEntry()
       StartupFlag = true;
       //Comment(StringFormat("Show prices\nAsk = %G\nBid = %G = %d",Ask,Bid)); 
    }
+
+   if (TotalOpenOrders > 0)
+      return; // If there are already open orders and you don't want to open more
 
    //this logic only allows an evaluation to be made if LogIndicatorData has been executed at least once
    if (StartupFlag ==  true)
@@ -1231,7 +1232,7 @@ void LogIndicatorData()
          + "\r\n";
 
          //write a line of strings to a file
-         FileWriteString(fileHandleIndicatorData, strWriteLine, StringLen(strWriteLine));
+         //FileWriteString(fileHandleIndicatorData, strWriteLine, StringLen(strWriteLine));
 
          /* //check combined history data with output
          Print("check combined history data with output");
@@ -1370,7 +1371,7 @@ void DutoWind_Strategy()
    
    //BUY STRATEGY CHECK FOR DARK GREEN TO BRIGHT GREEN
    if (
-      (AskThePlotsStrategy(28, 1, 1, "BUY_DK_GREEN_BR_GREEN") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN") 
+      (AskThePlotsStrategy(27, 1, 1, "BUY_DK_GREEN_BR_GREEN") == "PLOT INCREASING DARK GREEN TO BRIGHT GREEN") 
       && 
       //BuyStrategyActive == false
       BuyDkGrBrGrStrategyActive == false
@@ -1387,6 +1388,9 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = false;
       BuyDkRdBrGrStrategyActive = false;
 
+      //close all sell trades
+      CloseAll(OP_SELL);
+
       Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
       Print("PLOT INCREASING DARK GREEN TO BRIGHT GREEN POSITIVE. BuyDkGrBrGrStrategyActive: " + BuyDkGrBrGrStrategyActive);
@@ -1394,7 +1398,7 @@ void DutoWind_Strategy()
    else
    //SELL STRATEGY CHECK FOR BRIGHT GREEN TO DARK GREEN
    if (
-      (AskThePlotsStrategy(28, 1, 1, "SELL_BR_GREEN_DK_GREEN") == "PLOT DECREASING BRIGHT GREEN TO DARK GREEN") 
+      (AskThePlotsStrategy(27, 1, 1, "SELL_BR_GREEN_DK_GREEN") == "PLOT DECREASING BRIGHT GREEN TO DARK GREEN") 
       && 
       //SellStrategyActive == false
       SellBrGrDkGrStrategyActive == false
@@ -1411,6 +1415,9 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = false;
       BuyDkRdBrGrStrategyActive = false;
 
+      //close all buy trades
+      CloseAll(OP_BUY);
+
       Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
       Print("PLOT DECREASING BRIGHT GREEN TO DARK GREEN POSITIVE. SellBrGrDkGrStrategyActive: " + SellBrGrDkGrStrategyActive);
@@ -1418,7 +1425,7 @@ void DutoWind_Strategy()
    else
    //SELL STRATEGY CHECK FOR DARK GREEN TO BRIGHT RED
    if (
-      (AskThePlotsStrategy(28, 1, 1, "SELL_DK_GREEN_BR_RED") == "PLOT DECREASING DARK GREEN TO BRIGHT RED") 
+      (AskThePlotsStrategy(27, 1, 1, "SELL_DK_GREEN_BR_RED") == "PLOT DECREASING DARK GREEN TO BRIGHT RED") 
       && 
       //SellStrategyActive == false
       SellDkGrBrRdStrategyActive == false
@@ -1435,6 +1442,9 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = false;
       BuyDkRdBrGrStrategyActive = false;
 
+      //close all buy trades
+      CloseAll(OP_BUY);
+
       Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
       Print("PLOT DECREASING DARK GREEN TO BRIGHT RED. SellDkGrBrRdStrategyActive: " + SellDkGrBrRdStrategyActive);
@@ -1442,7 +1452,7 @@ void DutoWind_Strategy()
    else
    //BUY STRATEGY CHECK FOR BRIGHT RED TO DARK RED
    if (
-      (AskThePlotsStrategy(28, 1, 1, "BUY_BR_RED_DK_RED") == "PLOT INCREASING BRIGHT RED TO DARK RED") 
+      (AskThePlotsStrategy(27, 1, 1, "BUY_BR_RED_DK_RED") == "PLOT INCREASING BRIGHT RED TO DARK RED") 
       && BuyBrRdDkRdStrategyActive == false
       //SellStrategyActive == false
       )
@@ -1458,6 +1468,9 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = false;
       BuyDkRdBrGrStrategyActive = false;
 
+      //close all sell trades
+      CloseAll(OP_SELL);
+
       Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
       Print("PLOT INCEASING BRIGHT RED TO DARK RED. BuyBrRdDkRdStrategyActive: " + BuyBrRdDkRdStrategyActive);
@@ -1465,7 +1478,7 @@ void DutoWind_Strategy()
    else
    //SELL STRATEGY CHECK FOR DARK RED TO BRIGHT RED
    if (
-      (AskThePlotsStrategy(28, 1, 1, "SELL_DK_RED_BR_RED") == "PLOT DECREASING DARK RED TO BRIGHT RED") 
+      (AskThePlotsStrategy(27, 1, 1, "SELL_DK_RED_BR_RED") == "PLOT DECREASING DARK RED TO BRIGHT RED") 
       && 
       //SellStrategyActive == false
       SellDkRdBrRdStrategyActive == false
@@ -1482,13 +1495,16 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = true;
       BuyDkRdBrGrStrategyActive = false;
 
+      //close all buy trades
+      CloseAll(OP_BUY);
+
       Print("A SELL STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
       Print("PLOT DECREASING DARK RED TO BRIGHT RED. SellDkRdBrRdStrategyActive: " + SellDkRdBrRdStrategyActive);
    }
    //BUY STRATEGY CHECK FOR DARK RED TO BRIGHT GREEN
    if (
-      (AskThePlotsStrategy(28, 1, 1, "BUY_DK_RED_BR_GREEN") == "PLOT INCREASING DARK RED TO BRIGHT GREEN") 
+      (AskThePlotsStrategy(27, 1, 1, "BUY_DK_RED_BR_GREEN") == "PLOT INCREASING DARK RED TO BRIGHT GREEN") 
       && 
       //BuyStrategyActive == false //this line is troublesome. it likely needs to die.
       BuyDkRdBrGrStrategyActive == false
@@ -1505,6 +1521,9 @@ void DutoWind_Strategy()
       SellDkRdBrRdStrategyActive = false;
       BuyDkRdBrGrStrategyActive = true;
 
+      //close all sell trades
+      CloseAll(OP_SELL);
+
       Print("A BUY STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
       Print("PLOT INCREASING DARK RED TO BRIGHT GREEN POSITIVE. BuyDkRdBrGrStrategyActive: " + BuyDkRdBrGrStrategyActive);
@@ -1518,6 +1537,9 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
 {
    
    //ENTRY LOGIC
+
+   if (UseTradingHours && !IsOperatingHours)
+      return; // If you are using trading hours and it's not a trading hour don't give an entry signal
 
    /* //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
    //INACTIVE
@@ -1958,7 +1980,7 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && CombinedHistory[CndleStart][Idx] < 0 && CombinedHistory[CndleStart + 1][Idx] > 0
 
       //this version calculates the ratio between the sum of the bars and the number of the bars
-      && BarColorCount(Idx, "POSITIVE") <= 0.000025
+      && BarColorCount(Idx, "POSITIVE") <= 0.000035
       )
    {   
       Print("[Idx-10]: " + (26));
@@ -2007,7 +2029,7 @@ string AskThePlotsEntry(int Idx, int CndleStart, int CmbndHstryCandleLength, str
       && CombinedHistory[CndleStart][Idx] > 0 && CombinedHistory[CndleStart + 1][Idx] < 0
 
       //this version calculates the ratio between the sum of the bars and the number of the bars
-      && BarColorCount(Idx, "NEGATIVE") <= 0.000025
+      && BarColorCount(Idx, "NEGATIVE") <= 0.000035
       )
    {  
       /* Print("[Idx-10]: " + (26));
