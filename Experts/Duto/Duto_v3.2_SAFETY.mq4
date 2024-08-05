@@ -1538,8 +1538,12 @@ ENUM_SIGNAL_ENTRY DutoWind_Entry()
    
    //ENTRY LOGIC
 
+   //don't allow new trades to be made outside of the selected trading hours
    if (UseTradingHours && !IsOperatingHours)
-      return; // If you are using trading hours and it's not a trading hour don't give an entry signal
+   {
+      SignalEntry = SIGNAL_ENTRY_NEUTRAL;
+      return SignalEntry; // If you are using trading hours and it's not a trading hour don't give an entry signal
+   }     
 
    /* //BUY ENTRY, DARK GREEN TO BRIGHT GREEN
    //INACTIVE
