@@ -1717,7 +1717,8 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
    //NEED TO RENAME THE STRATEGY TO ST
    //SELL EXIT, BRIGHT GREEN TO DARK GREEN
    if (
-      AskThePlotsExit(36, 1, 1, "SELL_BR_GREEN_DK_GREEN_EXIT") == "EXIT A SELL BRIGHT GREEN DARK GREEN"
+      //AskThePlotsExit(36, 1, 1, "SELL_BR_GREEN_DK_GREEN_EXIT") == "EXIT A SELL BRIGHT GREEN DARK GREEN"
+      AskThePlotsExit(37, 1, 1, "SELL_BR_GREEN_DK_GREEN_EXIT") == "EXIT A SELL BRIGHT GREEN DARK GREEN"
       && SellStrategyActive == true 
       && SellTradeActive == true
 
@@ -1754,7 +1755,7 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
    //BUY EXIT, BRIGHT RED TO DARK RED
    if (
       //AskThePlots(36, 1, 1, "BUY_BR_RED_DK_RED_EXIT") == "EXIT A BUY BRIGHT RED DARK RED"
-      AskThePlotsExit(36, 1, 1, "BUY_ST_BR_RED_DK_RED_EXIT") == "EXIT A ST BUY BRIGHT RED DARK RED"
+      AskThePlotsExit(37, 1, 1, "BUY_ST_BR_RED_DK_RED_EXIT") == "EXIT A ST BUY BRIGHT RED DARK RED"
       && BuyStrategyActive == true 
       && BuyTradeActive == true
 
