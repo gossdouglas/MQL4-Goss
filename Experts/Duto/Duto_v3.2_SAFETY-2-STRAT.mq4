@@ -377,7 +377,8 @@ void EvaluateEntry()
       // Print("new candle in EvaluateEntry at: " + iTime(Symbol(), 1, 0));
       // log data and build the CombinedHistory array
       LogIndicatorData();
-      DutoWind_Strategy();
+      //DutoWind_Strategy();
+      DutoWind_SelectedStrategy();
       StartupFlag = true;
       //Comment(StringFormat("Show prices\nAsk = %G\nBid = %G = %d",Ask,Bid)); 
    }
@@ -389,7 +390,7 @@ void EvaluateEntry()
    if (StartupFlag ==  true)
    {
       // evaluate for a signal entry
-      SignalEntry = ReturnSignalEntryToEvaluateEntry();
+      //SignalEntry = ReturnSignalEntryToEvaluateEntry();
    }
 }
 
@@ -505,7 +506,7 @@ void EvaluateExit()
    if (StartupFlag == true)
    {
       // evaluate for a signal entry
-      SignalExit = ReturnSignalExitToEvaluateExit();
+      //SignalExit = ReturnSignalExitToEvaluateExit();
    }
 }
 
@@ -1349,6 +1350,79 @@ bool SellDkRdBrRdStrategyActive, BuyDkRdBrGrStrategyActive;
 bool SellTradeActive, BuyTradeActive, TradeActive;
 bool SellTradePending, BuyTradePending, TradePending;
 
+bool BuySafetyTrade2Strategy, SellSafetyTrade2Strategy, NeutralSafetyTrade2Strategy;
+
+void DutoWind_SelectedStrategy()
+{
+   DutoWind_2Strategy();
+}
+
+void DutoWind_2Strategy()
+{
+   BuySafetyTrade2Strategy == false;
+   SellSafetyTrade2Strategy = false;
+   NeutralSafetyTrade2Strategy = false;
+
+   //BUY 2 STRATEGY SAFETY TRADE
+   if (
+      (AskThePlots2Strategy(26, 1, 1, "ST_BUY_2_STRATEGY") == "SAFETY TRADE BUY 2 STRATEGY") 
+      )
+   {
+      SellStrategyActive = false;
+      BuyStrategyActive = true;
+      NeutralStrategyActive = false;
+
+      BuySafetyTrade2Strategy = true;
+
+      //close all sell trades
+      CloseAll(OP_SELL);
+
+      Print("SAFETY TRADE BUY 2 STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive);
+      Print("BuySafetyTrade2Strategy: " + BuySafetyTrade2Strategy);     
+   }
+
+   //SELL 2 STRATEGY SAFETY TRADE
+   if (
+      (AskThePlots2Strategy(26, 1, 1, "ST_SELL_2_STRATEGY") == "SAFETY TRADE SELL 2 STRATEGY") 
+      )
+   {
+      SellStrategyActive = true;
+      BuyStrategyActive = false;
+      NeutralStrategyActive = false;
+
+      SellSafetyTrade2Strategy = true;
+
+      //close all sell trades
+      CloseAll(OP_BUY);
+
+      Print("SAFETY TRADE SELL 2 STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive);
+      Print("SellSafetyTrade2Strategy: " + SellSafetyTrade2Strategy);     
+   }
+
+   //NEUTRAL 2 STRATEGY SAFETY TRADE
+   if (
+      BuySafetyTrade2Strategy == false
+      && 
+      SellSafetyTrade2Strategy == false
+      )
+   {
+      SellStrategyActive = false;
+      BuyStrategyActive = false;
+      NeutralStrategyActive = true;
+
+      NeutralSafetyTrade2Strategy = true;
+
+      //close all trades
+      CloseAll(OP_ALL);
+
+      Print("SAFETY TRADE NEUTRAL 2 STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive);
+      Print("NeutralSafetyTrade2Strategy: " + NeutralSafetyTrade2Strategy);     
+   }
+}
+
 void DutoWind_Strategy()
 {
    //OVERALL STRATEGY LOGIC
@@ -1812,6 +1886,74 @@ ENUM_SIGNAL_EXIT DutoWind_Exit()
 /* //hump logic
       CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx]
       && CombinedHistory[CndleStart + 1][Idx] > CombinedHistory[CndleStart + 2][Idx]  */ 
+
+string AskThePlots2Strategy(int Idx, int CndleStart, int CmbndHstryCandleLength, string OverallStrategy)
+{
+   string result = "";
+
+   /* Print("CombinedHistory[CndleStart][26]: " + CombinedHistory[CndleStart][26]);
+   Print("CombinedHistory[CndleStart][27]: " + CombinedHistory[CndleStart][27]);
+   Print("CombinedHistory[CndleStart][28]: " + CombinedHistory[CndleStart][28]);
+   Print("CombinedHistory[CndleStart][29]: " + CombinedHistory[CndleStart][29]); */
+
+   //SAFETY TRADE BUY 2 STRATEGY, ALL DARK GREEN OR BRIGHT GREEN
+   if (
+      OverallStrategy == "ST_BUY_2_STRATEGY"
+
+      //HIGHER TIME FRAME
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][26] > 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][27] > 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][28] > 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][29] > 0
+
+      //LOWER TIME FRAME
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][37] > 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][38] > 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][39] > 0
+      )
+   {
+      CurrentStrategy = OverallStrategy; 
+      //Print("ask the plots PLOT INCREASING DARK GREEN TO BRIGHT GREEN");
+      result = "SAFETY TRADE BUY 2 STRATEGY"; 
+   }
+
+   //SAFETY TRADE SELL 2 STRATEGY, ALL DARK RED OR BRIGHT RED
+   if (
+      OverallStrategy == "ST_SELL_2_STRATEGY"
+
+      //HIGHER TIME FRAME
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][26] < 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][27] < 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][28] < 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][29] < 0
+
+      //LOWER TIME FRAME
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][37] < 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][38] < 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][39] < 0
+      )
+   {
+      CurrentStrategy = OverallStrategy; 
+      //Print("ask the plots PLOT INCREASING DARK GREEN TO BRIGHT GREEN");
+      result = "SAFETY TRADE SELL 2 STRATEGY"; 
+   }
+
+   return result;
+}
 
 string AskThePlotsStrategy(int Idx, int CndleStart, int CmbndHstryCandleLength, string OverallStrategy)
 {
