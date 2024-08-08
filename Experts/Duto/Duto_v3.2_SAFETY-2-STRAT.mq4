@@ -506,7 +506,7 @@ void EvaluateExit()
    if (StartupFlag == true)
    {
       // evaluate for a signal entry
-      //SignalExit = ReturnSignalExitToEvaluateExit();
+      SignalExit = ReturnSignalExitToEvaluateExit();
    }
 }
 
@@ -1270,7 +1270,8 @@ ENUM_SIGNAL_EXIT ReturnSignalExitToEvaluateExit()
    SignalExit = SIGNAL_EXIT_NEUTRAL;
 
    //check for an exit
-   SignalExit = DutoWind_Exit();
+   //SignalExit = DutoWind_Exit();
+   SignalExit = DutoWind_2StrategyExit();
 
    return SignalExit;
 }
@@ -1466,6 +1467,38 @@ ENUM_SIGNAL_ENTRY DutoWind_2StrategyEntry()
    //SignalEntry = SIGNAL_ENTRY_NEUTRAL;
 
    return SignalEntry;
+}
+
+ENUM_SIGNAL_EXIT DutoWind_2StrategyExit()
+{ 
+   //EXIT LOGIC
+
+   //Print("DutoWind_2StrategyExit");
+
+   //ACTIVE
+   //BUY EXIT
+   if (
+      AskThePlots2StrategyExit(37, 1, 1, "BUY_ST_EXIT") == "EXIT A SAFETY TRADE BUY"
+      && BuyStrategyActive == true 
+      && BuyTradeActive == true
+
+      && BuySafetyTrade2Strategy == true
+      //&& Bid > EntryData[1][10] //current price is greater than the price it was entered at
+      )
+   {
+      BuyTradeActive = false;
+      //BuyBrRdDkRdStrategyActive = false;
+
+      Print("Ask/EntryData[0][10] in BUY_ST_EXIT: " + Ask + "/" + EntryData[0][10]);
+      Print("EXIT A SAFETY TRADE BUY. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive);
+      SignalExit = SIGNAL_EXIT_BUY;
+   }
+
+
+
+
+   //SignalExit = SIGNAL_EXIT_NEUTRAL;
+   return SignalExit;
 }
 
 void DutoWind_Strategy()
@@ -2072,6 +2105,32 @@ string AskThePlots2StrategyEntry(int Idx, int CndleStart, int CmbndHstryCandleLe
 
    return result;
 }
+
+string AskThePlots2StrategyExit(int Idx, int CndleStart, int CmbndHstryCandleLength, string OverallStrategy)
+{
+   string result = "";
+
+   //EXIT LOGIC
+
+   //Print("AskThePlots2StrategyExit");
+
+   //ACTIVE
+   //BUY EXIT SAFETY TRADE
+   if (
+      OverallStrategy == "BUY_ST_EXIT" &&
+      CombinedHistory[CndleStart][Idx] < CombinedHistory[CndleStart + 1][Idx] 
+
+      && Bid > EntryData[1][10]
+      && CombinedHistory[CndleStart][Idx] > 0 
+      )
+   {
+      //Print("Bid: " + Bid + " > EntryData[1][10]: " + EntryData[1][10]);
+      result = "EXIT A SAFETY TRADE BUY";
+   }
+
+   return result;
+}
+
 string AskThePlotsStrategy(int Idx, int CndleStart, int CmbndHstryCandleLength, string OverallStrategy)
 {
    string result = "";
