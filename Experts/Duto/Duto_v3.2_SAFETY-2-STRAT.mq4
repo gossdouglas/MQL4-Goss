@@ -1355,13 +1355,15 @@ bool BuySafetyTrade2Strategy, SellSafetyTrade2Strategy, NeutralSafetyTrade2Strat
 void DutoWind_SelectedStrategy()
 {
    DutoWind_2Strategy();
+   Comment("Current Strategy : " + CurrentStrategy);
 }
 
 void DutoWind_2Strategy()
 {
-   BuySafetyTrade2Strategy == false;
+   BuySafetyTrade2Strategy = false;
    SellSafetyTrade2Strategy = false;
    NeutralSafetyTrade2Strategy = false;
+   CurrentStrategy = "";
 
    //BUY 2 STRATEGY SAFETY TRADE
    if (
@@ -1403,6 +1405,25 @@ void DutoWind_2Strategy()
 
    //NEUTRAL 2 STRATEGY SAFETY TRADE
    if (
+      (AskThePlots2Strategy(26, 1, 1, "ST_NEUTRAL_2_STRATEGY") == "SAFETY TRADE NEUTRAL 2 STRATEGY") 
+      )
+   {
+      SellStrategyActive = false;
+      BuyStrategyActive = false;
+      NeutralStrategyActive = true;
+
+      NeutralSafetyTrade2Strategy = true;
+
+      //close all sell trades
+      CloseAll(OP_ALL);
+
+      Print("SAFETY TRADE NEUTRAL 2 STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
+      + " NeutralStrategyActive: " + NeutralStrategyActive);
+      Print("NeutralSafetyTrade2Strategy: " + NeutralSafetyTrade2Strategy);     
+   }
+
+   /* //NEUTRAL 2 STRATEGY SAFETY TRADE
+   if (
       BuySafetyTrade2Strategy == false
       && 
       SellSafetyTrade2Strategy == false
@@ -1413,6 +1434,7 @@ void DutoWind_2Strategy()
       NeutralStrategyActive = true;
 
       NeutralSafetyTrade2Strategy = true;
+      //CurrentStrategy == "ST_NEUTRAL_2_STRATEGY";
 
       //close all trades
       CloseAll(OP_ALL);
@@ -1420,7 +1442,7 @@ void DutoWind_2Strategy()
       Print("SAFETY TRADE NEUTRAL 2 STRATEGY IN EFFECT. SellStrategyActive: " + SellStrategyActive + " BuyStrategyActive: " + BuyStrategyActive 
       + " NeutralStrategyActive: " + NeutralStrategyActive);
       Print("NeutralSafetyTrade2Strategy: " + NeutralSafetyTrade2Strategy);     
-   }
+   } */
 }
 
 void DutoWind_Strategy()
@@ -1604,7 +1626,7 @@ void DutoWind_Strategy()
    }
 
    //Comment(StringFormat("Show prices\nAsk = %G\nBid = %G = %d",Ask,Bid));
-   Comment("Current Strategy : " + CurrentStrategy);
+   //Comment("Current Strategy : " + CurrentStrategy);
 }
 
 ENUM_SIGNAL_ENTRY DutoWind_Entry()
@@ -1896,6 +1918,11 @@ string AskThePlots2Strategy(int Idx, int CndleStart, int CmbndHstryCandleLength,
    Print("CombinedHistory[CndleStart][28]: " + CombinedHistory[CndleStart][28]);
    Print("CombinedHistory[CndleStart][29]: " + CombinedHistory[CndleStart][29]); */
 
+   //Print("CombinedHistory[CndleStart][36]: " + CombinedHistory[CndleStart][36]);
+   Print("CombinedHistory[CndleStart][37]: " + CombinedHistory[CndleStart][37]);
+   Print("CombinedHistory[CndleStart][38]: " + CombinedHistory[CndleStart][38]);
+   Print("CombinedHistory[CndleStart][39]: " + CombinedHistory[CndleStart][39]);
+
    //SAFETY TRADE BUY 2 STRATEGY, ALL DARK GREEN OR BRIGHT GREEN
    if (
       OverallStrategy == "ST_BUY_2_STRATEGY"
@@ -1951,6 +1978,47 @@ string AskThePlots2Strategy(int Idx, int CndleStart, int CmbndHstryCandleLength,
       //Print("ask the plots PLOT INCREASING DARK GREEN TO BRIGHT GREEN");
       result = "SAFETY TRADE SELL 2 STRATEGY"; 
    }
+
+   //SAFETY TRADE NEUTRAL 2 STRATEGY, ALL DARK RED OR BRIGHT RED
+   if (
+      OverallStrategy == "ST_NEUTRAL_2_STRATEGY"
+
+      && CurrentStrategy != "ST_BUY_2_STRATEGY"
+      && CurrentStrategy != "ST_SELL_2_STRATEGY"
+      )
+   {
+      CurrentStrategy = OverallStrategy; 
+      //Print("ask the plots PLOT INCREASING DARK GREEN TO BRIGHT GREEN");
+      result = "SAFETY TRADE NEUTRAL 2 STRATEGY"; 
+   }
+
+   /* //SAFETY TRADE NEUTRAL 2 STRATEGY, ALL DARK RED OR BRIGHT RED
+   if (
+      OverallStrategy == "ST_NEUTRAL_2_STRATEGY"
+
+      //HIGHER TIME FRAME
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][26] < 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][27] < 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][28] < 0
+      //plot 1 candle 1 is positive
+      && CombinedHistory[CndleStart][29] < 0
+
+      //LOWER TIME FRAME
+      //plot 1 candle 1 is positive
+      && (CombinedHistory[CndleStart][37] > 0
+      //plot 1 candle 1 is positive
+      || CombinedHistory[CndleStart][38] > 0
+      //plot 1 candle 1 is positive
+      || CombinedHistory[CndleStart][39] > 0)
+      )
+   {
+      CurrentStrategy = OverallStrategy; 
+      //Print("ask the plots PLOT INCREASING DARK GREEN TO BRIGHT GREEN");
+      result = "SAFETY TRADE NEUTRAL 2 STRATEGY"; 
+   } */
 
    return result;
 }
